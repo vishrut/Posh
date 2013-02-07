@@ -20,7 +20,7 @@
 	mysql_select_db("posh", $con);
 	
 	// Create table
-	
+	/*
 	$sql = "CREATE TABLE users ( 
 		id int(4) NOT NULL auto_increment,
 		username varchar(65) NOT NULL default '',
@@ -36,5 +36,6 @@
 
 	// Execute query
 	mysql_query($sql);
+	*/
 	
 ?>	
