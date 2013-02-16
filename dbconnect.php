@@ -1,6 +1,6 @@
 ﻿<?php
-	$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
-	//$con = mysql_connect("localhost","root","root");
+	//$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
+	$con = mysql_connect("localhost","root","root");
 
 	if (!$con){
 		die('Could not connect: ' . mysql_error());
