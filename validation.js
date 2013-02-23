@@ -118,7 +118,7 @@ function showPasswordHint(str)
 
 function showEmailHint(str)
 {
-	var emailexp=new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$");
+	var emailexp=new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
 	if(emailexp.test(str))
 	{
 		$("#emailgroup").attr("class","control-group success");
