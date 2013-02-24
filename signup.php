@@ -9,30 +9,20 @@
 	// To protect MySQL injection
 	$myusername = stripslashes($myusername);
 	$mypassword = stripslashes($mypassword);	
-	//$myusername = mysql_real_escape_string($myusername);
-	//$mypassword = mysql_real_escape_string($mypassword);
 
 	$tbl_name="users";
-
-	//$sql="INSERT INTO $tbl_name (username,password) VALUES('$myusername','$mypassword')";
-	//mysql_query($sql);
 	
 	DB::insert($tbl_name, array(
 			'username' => $myusername,
 			'password' => $mypassword
 	));
 	
-	//$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
-	//$result=mysql_query($sql);
 	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
 
-	// Mysql_num_row is counting table row
-	//$count=mysql_num_rows($result);
 	$count = 0;
 	foreach ($result as $row) {
 		$count = $count + 1;
 	}
-
 	
 	// Session variables
 	// username | loginfailed 	|	action
@@ -44,21 +34,25 @@
 	
 	// If result matched $myusername and $mypassword, table row must be 1 row
 	if($count==1){
+	
 		// Register $username and redirect to file "login_success.php"
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
+		
+		/*
+		//Comment out if response time exceeds 30s
 		$ch = curl_init();
-		$to = $_POST['email'];
-		$url="http://sendgrid.com/api/mail.send.json?to=".$to."&from=no-reply@posh.com&subject=PoshWelcomesYou!&text=HellosAndWelcomeToPosh!&api_user=vrp101&api_key=rbhalchandrap";
+		$to = $_POST['email'];	$url="http://sendgrid.com/api/mail.send.json?to=".$to."&from=no-reply@posh.com&subject=PoshWelcomesYou!&text=HellosAndWelcomeToPosh!&api_user=vrp101&api_key=rbhalchandrap";
 		curl_setopt($ch, CURLOPT_URL, $url);
-        //$output = curl_exec($ch);      
+        $output = curl_exec($ch);    
         curl_close($ch);
+		*/
+		
 		header("location:login_success.php");
 	}
+	
 	else {
 		$_SESSION['loginfailed'] = 1;
 		header("location:index.php");
 	}
-
-	mysql_close($con);
 ?> 

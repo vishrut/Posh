@@ -4,14 +4,10 @@
 	
 	$tbl_name="users";
 
-	//$sql="SELECT * FROM $tbl_name WHERE username='$username'";
-	//$result=mysql_query($sql);
-
 	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s", $username);
 	
-	// Mysql_num_row is counting table row
+	// Counting table rows
 	$count=0;
-	
 	foreach ($result as $row) {
 		$count = $count + 1;
 	}

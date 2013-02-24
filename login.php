@@ -9,19 +9,10 @@
 	// To protect MySQL injection
 	$myusername = stripslashes($myusername);
 	$mypassword = stripslashes($mypassword);	
-	//$myusername = mysql_real_escape_string($myusername);
-	//$mypassword = mysql_real_escape_string($mypassword);
 
-	$tbl_name="users";
-
-	//$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
-	//$result=mysql_query($sql);
-	
+	$tbl_name="users";	
 	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
 
-
-	// Mysql_num_row is counting table row
-	//$count=mysql_num_rows($result);
 	$count = 0;
 	foreach ($result as $row) {
 		$count = $count + 1;
@@ -48,6 +39,4 @@
 		$_SESSION['loginfailed'] = 1;
 		header("location:index.php");
 	}
-
-	//mysql_close($con);
 ?> 
