@@ -1,6 +1,6 @@
 ﻿<?php
 	session_start();
-	include 'dbconnect.php';
+	require_once 'dbconnect.php';
 
 	// username and password sent from form
 	$myusername=$_POST['username'];
@@ -9,16 +9,23 @@
 	// To protect MySQL injection
 	$myusername = stripslashes($myusername);
 	$mypassword = stripslashes($mypassword);	
-	$myusername = mysql_real_escape_string($myusername);
-	$mypassword = mysql_real_escape_string($mypassword);
+	//$myusername = mysql_real_escape_string($myusername);
+	//$mypassword = mysql_real_escape_string($mypassword);
 
 	$tbl_name="users";
 
-	$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
-	$result=mysql_query($sql);
+	//$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
+	//$result=mysql_query($sql);
+	
+	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
+
 
 	// Mysql_num_row is counting table row
-	$count=mysql_num_rows($result);
+	//$count=mysql_num_rows($result);
+	$count = 0;
+	foreach ($result as $row) {
+		$count = $count + 1;
+	}
 
 	
 	// Session variables
@@ -42,5 +49,5 @@
 		header("location:index.php");
 	}
 
-	mysql_close($con);
+	//mysql_close($con);
 ?> 

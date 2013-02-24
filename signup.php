@@ -1,6 +1,6 @@
 ﻿<?php
 	session_start();
-	include 'dbconnect.php';
+	require_once 'dbconnect.php';
 	
 	// username and password sent from form
 	$myusername=$_POST['username'];
@@ -9,19 +9,29 @@
 	// To protect MySQL injection
 	$myusername = stripslashes($myusername);
 	$mypassword = stripslashes($mypassword);	
-	$myusername = mysql_real_escape_string($myusername);
-	$mypassword = mysql_real_escape_string($mypassword);
+	//$myusername = mysql_real_escape_string($myusername);
+	//$mypassword = mysql_real_escape_string($mypassword);
 
 	$tbl_name="users";
 
-	$sql="INSERT INTO $tbl_name (username,password) VALUES('$myusername','$mypassword')";
-	mysql_query($sql);
+	//$sql="INSERT INTO $tbl_name (username,password) VALUES('$myusername','$mypassword')";
+	//mysql_query($sql);
 	
-	$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
-	$result=mysql_query($sql);
+	DB::insert($tbl_name, array(
+			'username' => $myusername,
+			'password' => $mypassword
+	));
+	
+	//$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
+	//$result=mysql_query($sql);
+	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
 
 	// Mysql_num_row is counting table row
-	$count=mysql_num_rows($result);
+	//$count=mysql_num_rows($result);
+	$count = 0;
+	foreach ($result as $row) {
+		$count = $count + 1;
+	}
 
 	
 	// Session variables
@@ -41,7 +51,7 @@
 		$to = $_POST['email'];
 		$url="http://sendgrid.com/api/mail.send.json?to=".$to."&from=no-reply@posh.com&subject=PoshWelcomesYou!&text=HellosAndWelcomeToPosh!&api_user=vrp101&api_key=rbhalchandrap";
 		curl_setopt($ch, CURLOPT_URL, $url);
-        $output = curl_exec($ch);      
+        //$output = curl_exec($ch);      
         curl_close($ch);
 		header("location:login_success.php");
 	}

@@ -1,11 +1,17 @@
 ﻿<?php
-	$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
+	require_once 'meekrodb.2.1.class.php';
+	DB::$host = 'ap-cdbr-azure-east-a.cloudapp.net';
+	DB::$user = 'b8357f36e71242';
+	DB::$password = 'ce7c4d24';
+	DB::$dbName = 'posh';
+
+//	$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
 	//$con = mysql_connect("localhost","root","root");
 
-	if (!$con){
+/*	if (!$con){
 		die('Could not connect: ' . mysql_error());
 	};
-
+*/
 	// Create database
 	/*
 	if (mysql_query("CREATE DATABASE posh",$con)){
@@ -17,7 +23,7 @@
 	*/
 
 	//Select database
-	mysql_select_db("posh", $con);
+//	mysql_select_db("posh", $con);
 	
 	// Create table
 	/*
