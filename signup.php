@@ -5,16 +5,26 @@
 	// username and password sent from form
 	$myusername=$_POST['username'];
 	$mypassword=$_POST['password'];
-	
-	// To protect MySQL injection
-	$myusername = stripslashes($myusername);
-	$mypassword = stripslashes($mypassword);	
+	$myemail=$_POST['email'];
+	$mystudentid=$_POST['studentid'];
+	$myfirstname=$_POST['firstname'];
+	$mylastname=$_POST['lastname'];
+	$mywing=$_POST['wing'];
+	$myroomno=$_POST['roomno'];
+	$myrating = 5;
 
 	$tbl_name="users";
 	
 	DB::insert($tbl_name, array(
 			'username' => $myusername,
-			'password' => $mypassword
+			'password' => $mypassword,
+			'studentid' => $mystudentid,
+			'email' => $myemail,
+			'firstname' => $myfirstname,
+			'lastname' => $mylastname,
+			'wing' => $mywing,
+			'roomno' => $myroomno,
+			'rating' => $myrating
 	));
 	
 	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
@@ -39,7 +49,7 @@
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		
-		
+		/*
 		//Comment out if response time exceeds 30s
 		//Sendgrid for e-mail authentication
 		$ch = curl_init();
@@ -48,7 +58,7 @@
         $output = curl_exec($ch);    
         curl_close($ch);
 		//end of sendgrid script
-		
+		*/
 		
 		header("location:login_success.php");
 	}
@@ -57,4 +67,5 @@
 		$_SESSION['loginfailed'] = 1;
 		header("location:index.php");
 	}
+	
 ?> 

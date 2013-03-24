@@ -1,9 +1,16 @@
 ﻿<?php
 	require_once 'meekrodb.2.1.class.php';
+	/*
 	DB::$host = 'ap-cdbr-azure-east-a.cloudapp.net';
 	DB::$user = 'b8357f36e71242';
 	DB::$password = 'ce7c4d24';
 	DB::$dbName = 'posh';
+	*/
+	
+	DB::$host = 'localhost';
+	DB::$user = 'root';
+	DB::$password = 'root';
+	DB::$dbName = 'poshdb';
 
 	/* 
 	//For first-time setup, please uncomment the block and execute the file. Once completed, re-comment the block.

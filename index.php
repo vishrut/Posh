@@ -130,33 +130,33 @@
 						<div class="control-group" id="studentidgroup">
 							<label class="control-label" for="inputStudentid">Student ID</label>
 							<div class="controls">
-							<input type="text" name="studentid" required id="inputStudentid" placeholder="Your Student ID" onkeyup="">
+							<input type="text" name="studentid" required id="inputStudentid" placeholder="Your Student ID" onkeyup="validatestudentid(this.value);">
 							<span class="help-inline" id="studentidhelp"></span>
 							</div>
 						</div>
 						<div class="control-group" id="firstnamegroup">
 							<label class="control-label" for="inputFirstname">First Name</label>
 							<div class="controls">
-							<input type="text" name="firstname" required id="inputFirstname" placeholder="First Name" onkeyup="">
+							<input type="text" name="firstname" required id="inputFirstname" placeholder="First Name" onkeyup="validatefname(this.value)">
 							<span class="help-inline" id="firstnamehelp"></span>
 							</div>
 						</div>
 						<div class="control-group" id="lastnamegroup">
 							<label class="control-label" for="inputLastname">Last Name</label>
 							<div class="controls">
-							<input type="text" name="lastname" required id="inputLastname" placeholder="Last Name" onkeyup="">
+							<input type="text" name="lastname" required id="inputLastname" placeholder="Last Name" onkeyup="validatelname(this.value)">
 							<span class="help-inline" id="lastnamehelp"></span>
 							</div>
 						</div>
 						<div class="control-group" id="winggroup">
 							<label class="control-label" for="inputWing">Room Number</label>
 							<div class="controls">
-							<select class="span1" name="wing" required id="inputWing" onkeyup="">
+							<select class="span1" name="wing" required id="inputWing">
 								<option>A</option>
 								<option>B</option>
 								<option>C</option>
 							</select>
-							<input class="span1" type="text" name="roomno" required id="inputRoomno" placeholder="Room" onkeyup="">
+							<input class="span1" type="text" name="roomno" required id="inputRoomno" placeholder="Room" onkeyup="validateroomno(this.value)">
 							<span class="help-inline" id="winghelp"></span>
 							</div>
 						</div>

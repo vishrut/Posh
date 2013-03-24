@@ -2,10 +2,18 @@
 var validpass=0;
 var validveri=0;
 var validemail=0;
+var validsid=0;
+var validrno=0;
+var validfname=0;
+var validlname=0;
+var tfir;
+var tlas;
+var trno;
 var tuser;    
 var temail;
 var tpass;
 var tveri;
+var tsid;
 
 function validateuser(str)
 {
@@ -21,6 +29,37 @@ function validateuser(str)
 		showUserHint(str);}, 500 );
 	}
 };
+
+function validatefname(str)
+{
+	if ( tfir )
+	{
+		clearTimeout( tfir );
+		tfir = setTimeout( function() {
+		showFnameHint(str);}, 500 );
+	}
+	else
+	{
+		tfir = setTimeout( function() {
+		showFnameHint(str);}, 500 );
+	}
+};
+
+function validatelname(str)
+{
+	if ( tlas )
+	{
+		clearTimeout( tlas );
+		tlas = setTimeout( function() {
+		showLnameHint(str);}, 500 );
+	}
+	else
+	{
+		tlas = setTimeout( function() {
+		showLnameHint(str);}, 500 );
+	}
+};
+
 
 function validateemail(str)
 {
@@ -66,6 +105,90 @@ function validateverify(str)
 		showVerifyHint(str);}, 500 );
 	}
 }
+
+function validatestudentid(str)
+{
+	if ( tsid )
+	{
+		clearTimeout( tsid );
+		tsid = setTimeout( function() {
+		showSIDHint(str);}, 500 );
+	}
+	else
+	{
+		tsid = setTimeout( function() {
+		showSIDHint(str);}, 500 );
+	}
+}
+
+function validateroomno(str)
+{
+	if ( trno )
+	{
+		clearTimeout( trno );
+		trno = setTimeout( function() {
+		showRNoHint(str);}, 500 );
+	}
+	else
+	{
+		trno = setTimeout( function() {
+		showRNoHint(str);}, 500 );
+	}
+}
+
+function showRNoHint(str)
+{
+	if(str.length==3 && !(isNaN(str))){
+		
+		id = parseInt(str);
+		
+		if(id>100 && id<300){
+			$("#winggroup").attr("class","control-group success");
+			document.getElementById("winghelp").innerHTML="Seems good!";
+			validrno=1;
+		}
+		else{
+			$("#winggroup").attr("class","control-group error");
+			document.getElementById("winghelp").innerHTML="Invalid";
+			validrno=0;
+		}
+	}
+		
+	else{
+		$("#winggroup").attr("class","control-group error");
+		document.getElementById("winghelp").innerHTML="Invalid";
+		validrno=0;
+	}		
+	
+	checkallvalidations();
+	return;
+}
+
+function showSIDHint(str)
+{
+	if(str.length==9 && !(isNaN(str))){
+		
+		id = parseInt(str);
+		
+		if(id>200700000 && id<201300000){
+			validsid=1;
+			checksidavail(str);
+		}
+		else{
+			validsid=0;
+		}
+	}
+		
+	else{
+		$("#studentidgroup").attr("class","control-group error");
+		document.getElementById("studentidhelp").innerHTML="Invalid";
+		validsid=0;
+	}		
+	
+	checkallvalidations();
+	return;
+}	
+
 
 function showVerifyHint(str)
 {
@@ -116,14 +239,53 @@ function showPasswordHint(str)
 	}
 }
 
+function showFnameHint(str)
+{
+	if(str.length>0)
+	{
+		$("#firstnamegroup").attr("class","control-group success");
+		document.getElementById("firstnamehelp").innerHTML="Seems good!";
+		validfname=1;
+		checkallvalidations();
+		return;
+	}
+	else
+	{
+		$("#firstnamegroup").attr("class","control-group error");
+		document.getElementById("firstnamehelp").innerHTML="Required";
+		validfname=0;
+		checkallvalidations();
+		return;
+	}
+}
+
+function showLnameHint(str)
+{
+	if(str.length>0)
+	{
+		$("#lastnamegroup").attr("class","control-group success");
+		document.getElementById("lastnamehelp").innerHTML="Seems good!";
+		validlname=1;
+		checkallvalidations();
+		return;
+	}
+	else
+	{
+		$("#lastnamegroup").attr("class","control-group error");
+		document.getElementById("lastnamehelp").innerHTML="Required";
+		validlname=0;
+		checkallvalidations();
+		return;
+	}
+}
+
 function showEmailHint(str)
 {
 	var emailexp=new RegExp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$");
 	if(emailexp.test(str))
 	{
-		$("#emailgroup").attr("class","control-group success");
-		document.getElementById("emailhelp").innerHTML="Seems good!";
 		validemail=1;
+		checkemailavail(str);
 		checkallvalidations();
 		return;
 	}
@@ -135,6 +297,74 @@ function showEmailHint(str)
 		checkallvalidations();
 		return;
 	}
+}
+
+function checkemailavail(str){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{	
+			//Removes the special character returned by possibly the include option in checkavailability.php
+			document.getElementById("emailhelp").innerHTML=xmlhttp.responseText.replace(/[^a-zA-Z0-9]/g,'');
+			if(document.getElementById("emailhelp").innerHTML=="Available")
+			{
+				validemail=1;
+				$("#emailgroup").attr("class","control-group success");
+				checkallvalidations();
+			}
+			else
+			{
+				validemail=0;
+				checkallvalidations();
+				$("#emailgroup").attr("class","control-group error");
+			}
+		}
+	}
+	xmlhttp.open("GET","checkemailavail.php?q="+str,true);
+	xmlhttp.send();
+}
+
+function checksidavail(str){
+	var xmlhttp;
+	if (window.XMLHttpRequest)
+	{// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else
+	{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200)
+		{	
+			//Removes the special character returned by possibly the include option in checkavailability.php
+			document.getElementById("studentidhelp").innerHTML=xmlhttp.responseText.replace(/[^a-zA-Z0-9]/g,'');
+			if(document.getElementById("studentidhelp").innerHTML=="Available")
+			{
+				validsid=1;
+				$("#studentidgroup").attr("class","control-group success");
+				checkallvalidations();
+			}
+			else
+			{
+				validsid=0;
+				$("#studentidgroup").attr("class","control-group error");
+				checkallvalidations();
+			}
+		}
+	}
+	xmlhttp.open("GET","checksidavail.php?q="+str,true);
+	xmlhttp.send();
 }
 
 function showUserHint(str)
@@ -178,9 +408,10 @@ function showUserHint(str)
 
 function checkallvalidations()
 {
-	if(validuser==1 && validemail==1 && validpass==1 && validveri==1)
+	if(validuser==1 && validemail==1 && validpass==1 && validveri==1 && validsid==1 && validrno==1 && validfname==1 && validlname==1)
 		$("#signupbtn").removeAttr("disabled");
-	else
+	else{
 		$("#signupbtn").attr("disabled","disabled");
+		}
 }	
 
