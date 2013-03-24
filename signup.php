@@ -24,7 +24,8 @@
 			'lastname' => $mylastname,
 			'wing' => $mywing,
 			'roomno' => $myroomno,
-			'rating' => $myrating
+			'rating' => $myrating,
+			'confirmed' => '0'
 	));
 	
 	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
@@ -49,16 +50,19 @@
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		
-		/*
+		
 		//Comment out if response time exceeds 30s
 		//Sendgrid for e-mail authentication
 		$ch = curl_init();
-		$to = $_POST['email'];	$url="http://sendgrid.com/api/mail.send.json?to=".$to."&from=no-reply@posh.com&subject=PoshWelcomesYou!&text=HellosAndWelcomeToPosh!&api_user=vrp101&api_key=rbhalchandrap";
+		$confirmlink = "localhost/Posh/confirmemail?q=".$myusername;
+		$content = "Hi,%20%20Welcome%20to%20Posh!%20%20Please%20click%20the%20link%20below%20to%20activate%20your%20account.".$confirmlink."%20%20Happy%20Poshing!";
+		$to = $_POST['email'];	
+		$url="http://sendgrid.com/api/mail.send.json?to=".$to."&from=no-reply@posh.com&subject=Posh%20Welcomes%20You!&text=".$content."&api_user=vrp101&api_key=rbhalchandrap";
 		curl_setopt($ch, CURLOPT_URL, $url);
         $output = curl_exec($ch);    
         curl_close($ch);
 		//end of sendgrid script
-		*/
+		
 		
 		header("location:login_success.php");
 	}
