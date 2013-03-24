@@ -39,14 +39,16 @@
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		
-		/*
+		
 		//Comment out if response time exceeds 30s
+		//Sendgrid for e-mail authentication
 		$ch = curl_init();
 		$to = $_POST['email'];	$url="http://sendgrid.com/api/mail.send.json?to=".$to."&from=no-reply@posh.com&subject=PoshWelcomesYou!&text=HellosAndWelcomeToPosh!&api_user=vrp101&api_key=rbhalchandrap";
 		curl_setopt($ch, CURLOPT_URL, $url);
         $output = curl_exec($ch);    
         curl_close($ch);
-		*/
+		//end of sendgrid script
+		
 		
 		header("location:login_success.php");
 	}

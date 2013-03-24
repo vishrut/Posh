@@ -6,7 +6,7 @@
 	DB::$dbName = 'posh';
 
 	/* 
-	//For first-time setup, please uncomment the block and execute the file. Once completed, reccoment the block.
+	//For first-time setup, please uncomment the block and execute the file. Once completed, re-comment the block.
 	
 	//Connect to Database
 	$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
