@@ -1,14 +1,15 @@
 ﻿<?php
 
 	$location = "poshdb.sql";
-	$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
+	//$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b8357f36e71242","ce7c4d24");
+	$con = mysql_connect("localhost","root","root");
 	
 	if (!$con){
 		die('Could not connect: ' . mysql_error());
 	};
 
 	// Create database
-	if (mysql_query("CREATE DATABASE posh",$con)){
+	if (mysql_query("CREATE DATABASE poshdb",$con)){
 		echo "Database created";
 	}
 	else{
@@ -16,7 +17,7 @@
 	};
 
 	//Select database
-	mysql_select_db("posh", $con);
+	mysql_select_db("poshdb", $con);
 
     //load file
     $commands = file_get_contents($location);

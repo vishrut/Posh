@@ -39,8 +39,8 @@
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3">
 			<ul class="nav nav-tabs nav-stacked">
-              <li class="active"><a href="#">Add an Item</a></li>
-              <li><a href="viewitems.php">Items I'm Selling</a></li>
+              <li><a href="sellitem.php">Add an Item</a></li>
+              <li class="active"><a href="#">Items I'm Selling</a></li>
               <li><a href="#">My Services</a></li>
             </ul>
 			</div>
