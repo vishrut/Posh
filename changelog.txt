@@ -1,0 +1,5 @@
+﻿Changelog:
+
+Adding username to inventory table.
+Adding image(location) to inventory table.
+Validity seems unimportant, removing.

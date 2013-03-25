@@ -1,4 +1,14 @@
 ﻿<!DOCTYPE html>
+<?php
+// Check if session is not registered, redirect back to main page.
+// Put this code in first line of web page.
+session_set_cookie_params(0);
+session_start();
+if (!isset($_SESSION['username'])){
+	$_SESSION['loginfailed'] = 1;
+	header("location:index.php");
+}
+?>
 <html lang="en">
   <head>
 	<script src="validation.js"></script>
@@ -11,7 +21,7 @@
     <style type="text/css">
 		body {
 			padding-top: 40px;
-			padding-bottom: 40px;
+			padding-bottom: 20px;
 		}
 
     </style>
@@ -45,11 +55,88 @@
             </ul>
 			</div>
 			<div class="span9">
-				<h1>Hello</h1>
+			<h2>Add a new Item</h2>
+			<hr>
 			</div>
-		</div>
-
-
+			<div class="span5">
+				<form name="uploaditem" class="form-horizontal" action="uploaditem.php" method="post" enctype="multipart/form-data">
+				<?php 
+					if(isset($_SESSION['invalidfile']))
+						if($_SESSION['invalidfile']==1){
+							echo "<p><font color=\"red\">Oops! Invalid file format or exceeding size limit</p></font>";
+							$_SESSION['invalidfile']=0;
+						};		
+				?>
+						<div class="control-group" id="itemnamegroup">
+							<label class="control-label" for="inputItemname">Item Name</label>
+							<div class="controls">
+							<input type="text" name="itemname" required id="inputItemname" placeholder="Item name" onkeyup="">
+							<span class="help-inline" id="itemnamehelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="categorygroup">
+							<label class="control-label" for="inputCategory">Category</label>
+							<div class="controls">
+							<select name="category" required id="inputCategory">
+								<option>A</option>
+								<option>B</option>
+								<option>C</option>
+							</select>
+							<span class="help-inline" id="categoryhelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="pricetaggroup">
+							<label class="control-label" for="inputPricetag">Price Tag</label>
+							<div class="controls">
+							<div class="input-prepend">
+								<span class="add-on">Rs</span>
+								<input class="span1" id="inputPricetag" required name="pricetag" type="text" placeholder="">
+							</div>
+							<!--input type="text" required name="pricetag" id="inputPricetag" placeholder="Price-Tag" onkeyup=""-->
+							<span class="help-inline" id="pricetaghelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="descriptiongroup">
+							<label class="control-label" for="inputDescription">Description</label>
+							<div class="controls">
+							<textarea rows="4" name="description" required id="inputDescription" placeholder="Describe the item" onkeyup="">
+							</textarea>
+							<span class="help-inline" id="descriptionhelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="conditiongroup">
+							<label class="control-label" for="inputCondition">Item Condition</label>
+							<div class="controls">
+							<label class="radio">
+								<input type="radio" name="condition" id="optionCondition1" value="new" checked>
+								Option one is this and that—be sure to include why it's great
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition2" value="used">
+								Option two can be something else and selecting it will deselect option one
+								</label>
+							<span class="help-inline" id="conditionhelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="imagegroup">
+							<label class="control-label" for="inputImage">Image</label>
+							<div class="controls">
+							<input type="file" name="file" id="file">
+							<!--input type="text" name="firstname" required id="inputFirstname" placeholder="First Name" onkeyup=""-->
+							<span class="help-inline" id="imagehelp"></span>
+							</div>
+						</div>
+						 <div class="control-group">
+							<div class="controls">
+							<button type="submit" class="btn">Add Item</button>
+							</div>
+						</div>
+			</form>
+			</div>
+			<div class="span4">
+			<h1>Image here</h1>
+			</div>
+			</div>
 
 		<hr>
 
@@ -62,5 +149,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bootstrap/js/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
-  </body>
+	
+
+	</body>
 </html>

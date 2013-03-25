@@ -33,7 +33,7 @@
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		echo $_SESSION['username'];
-		header("location:login_success.php");
+		header("location:sellitem.php");
 	}
 	else {
 		$_SESSION['loginfailed'] = 1;
