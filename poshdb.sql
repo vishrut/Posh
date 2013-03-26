@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2013 at 01:51 PM
+-- Generation Time: Mar 25, 2013 at 06:18 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.3.4
 
@@ -64,31 +64,20 @@ CREATE TABLE IF NOT EXISTS `feedback` (
 
 CREATE TABLE IF NOT EXISTS `inventory` (
   `itemid` int(10) NOT NULL AUTO_INCREMENT,
-  `owner` varchar(20) NOT NULL,
   `itemname` varchar(40) NOT NULL,
   `category` varchar(40) NOT NULL,
-  `addedon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `addedon` datetime NOT NULL,
+  `validity` datetime NOT NULL,
   `pricetag` int(10) NOT NULL,
   `description` varchar(500) NOT NULL,
   `condition` varchar(20) NOT NULL,
-  `image` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`itemid`),
-  KEY `owner` (`owner`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+  PRIMARY KEY (`itemid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`itemid`, `owner`, `itemname`, `category`, `addedon`, `pricetag`, `description`, `condition`, `image`) VALUES
-(1, 'vish', 'abc', 'A', '2013-03-25 19:18:17', 100, 'hi							', 'new', NULL),
-(2, 'vish', 'abc', 'A', '2013-03-25 19:18:17', 100, 'abc							', 'new', NULL),
-(3, 'vish', 'abcd', 'A', '2013-03-25 19:18:17', 100, 'hello							', 'new', NULL),
-(4, 'vish', 'hi', 'A', '2013-03-25 19:18:17', 100, 'hello							', 'new', NULL),
-(5, 'vish', 'abcdef', 'A', '2013-03-25 19:18:17', 100, 'hello							', 'new', '740ERD.png'),
-(6, 'vish', 'abcdef', 'A', '2013-03-25 19:18:17', 100, 'he							', 'new', '965ERD.png'),
-(7, 'vish', 'xyz', 'A', '2013-03-25 19:18:17', 100, 'hi							', 'new', '57365ERD.png'),
-(8, 'vish', 'newitem', 'A', '2013-03-25 19:19:14', 1000, 'new item here							', 'new', '55571ERD.png');
 
 -- --------------------------------------------------------
 
@@ -261,12 +250,6 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`owner`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `offerdetails`

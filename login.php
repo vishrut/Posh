@@ -29,7 +29,7 @@
 	
 	// If result matched $myusername and $mypassword, table row must be 1 row
 	if($count==1){
-		// Register $username and redirect to file "login_success.php"
+		// Register $username and redirect
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		echo $_SESSION['username'];

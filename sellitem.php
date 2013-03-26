@@ -26,6 +26,7 @@ if (!isset($_SESSION['username'])){
 
     </style>
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-fileupload.css" rel="stylesheet">	
 	</head>
 
 	<body>
@@ -92,7 +93,6 @@ if (!isset($_SESSION['username'])){
 								<span class="add-on">Rs</span>
 								<input class="span1" id="inputPricetag" required name="pricetag" type="text" placeholder="">
 							</div>
-							<!--input type="text" required name="pricetag" id="inputPricetag" placeholder="Price-Tag" onkeyup=""-->
 							<span class="help-inline" id="pricetaghelp"></span>
 							</div>
 						</div>
@@ -121,20 +121,26 @@ if (!isset($_SESSION['username'])){
 						<div class="control-group" id="imagegroup">
 							<label class="control-label" for="inputImage">Image</label>
 							<div class="controls">
-							<input type="file" name="file" id="file">
-							<!--input type="text" name="firstname" required id="inputFirstname" placeholder="First Name" onkeyup=""-->
+							<div class="fileupload fileupload-new" data-provides="fileupload">
+								<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="bootstrap/img/noimage.gif" /></div>
+								<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+								<div>
+								<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" name="file" id="inputImage"/></span>
+								<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+								</div>
+							</div>
 							<span class="help-inline" id="imagehelp"></span>
 							</div>
 						</div>
 						 <div class="control-group">
 							<div class="controls">
-							<button type="submit" class="btn">Add Item</button>
+							<button type="submit" class="btn btn-success">Add Item</button>
 							</div>
 						</div>
 			</form>
 			</div>
 			<div class="span4">
-			<h1>Image here</h1>
+			<h1>Preview here</h1>
 			</div>
 			</div>
 
@@ -149,6 +155,7 @@ if (!isset($_SESSION['username'])){
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bootstrap/js/jquery.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="bootstrap/js/bootstrap-fileupload.js"></script>	
 	
 
 	</body>

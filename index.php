@@ -80,7 +80,7 @@
 						};
 					if (isset($_SESSION['username'])){
 						if ($_SESSION['failedlogin'] == 0);
-							header("location:login_success.php");
+							header("location:sellitem.php");
 					}			
 				?>
 				<input type="text" id="username" name="username" class="input-small" placeholder="Username" >
