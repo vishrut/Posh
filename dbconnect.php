@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	require_once 'meekrodb.2.1.class.php';
 	/*
 	DB::$host = 'ap-cdbr-azure-east-a.cloudapp.net';
@@ -6,6 +6,8 @@
 	DB::$password = 'ce7c4d24';
 	DB::$dbName = 'posh';
 	*/
+	
+	//cosmo, simplex, cerulean, spacelab
 	
 	DB::$host = 'localhost';
 	DB::$user = 'root';

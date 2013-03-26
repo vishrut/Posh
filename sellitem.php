@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
@@ -41,7 +41,7 @@ if (!isset($_SESSION['username'])){
 						<li class="active"><a href="#">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
 						<li><a href="#">My Account</a></li>
-						<li><a href="#">Log Out</a></li>
+						<li><a href="logout.php">Log Out</a></li>
 					</ul>
 				</div>
 			</div>	
@@ -107,15 +107,33 @@ if (!isset($_SESSION['username'])){
 						<div class="control-group" id="conditiongroup">
 							<label class="control-label" for="inputCondition">Item Condition</label>
 							<div class="controls">
-							<label class="radio">
+								<label class="radio">
 								<input type="radio" name="condition" id="optionCondition1" value="new" checked>
-								Option one is this and that—be sure to include why it's great
+								New
 								</label>
 								<label class="radio">
 								<input type="radio" name="condition" id="optionCondition2" value="used">
-								Option two can be something else and selecting it will deselect option one
+								Used
 								</label>
 							<span class="help-inline" id="conditionhelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="ssrgroup">
+							<label class="control-label" for="inputSSR">Put item up for</label>
+							<div class="controls">
+								<label class="checkbox">
+								<input type="checkbox" name="ssrsell" id="optionSSR1" value="sell" checked>
+								Selling
+								</label>
+								<label class="checkbox">
+								<input type="checkbox" name="ssrswap" id="optionSSR2" value="swap">
+								Swapping
+								</label>
+								<label class="checkbox">
+								<input type="checkbox" name="ssrrent" id="optionSSR3" value="rent">
+								Renting
+								</label>
+							<span class="help-inline" id="ssrhelp"></span>
 							</div>
 						</div>
 						<div class="control-group" id="imagegroup">
@@ -134,7 +152,7 @@ if (!isset($_SESSION['username'])){
 						</div>
 						 <div class="control-group">
 							<div class="controls">
-							<button type="submit" class="btn btn-success">Add Item</button>
+							<button type="submit" class="btn btn-large btn-success">Add Item!</button>
 							</div>
 						</div>
 			</form>

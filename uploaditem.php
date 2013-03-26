@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
 
@@ -15,8 +15,9 @@ $allowedExts = array("gif", "jpeg", "jpg", "png");
 
 $extension = end(explode(".", $_FILES["file"]["name"]));
 
-$randomprefix = mt_rand(0,100000);
-$filename = $randomprefix.$_FILES["file"]["name"];
+$randomprefix1 = mt_rand(0,1000);
+$randomprefix2 = mt_rand(0,1000);
+$filename = $randomprefix1.$randomprefix2.$_FILES["file"]["name"];
 
 if ((($_FILES["file"]["type"] == "image/gif")
 	|| ($_FILES["file"]["type"] == "image/jpeg")
@@ -61,5 +62,26 @@ DB::insert($tbl_name, array(
 		'image' => $filename
 ));
 
+$itemdetails = DB::queryFirstRow("SELECT * FROM $tbl_name WHERE image=%s", $filename);
 
+$tbl_name="ssritem";
+
+if(!empty($_POST['ssrsell']))
+	DB::insert($tbl_name, array(
+			'itemid' => $itemdetails['itemid'],
+			'ssr' =>  'sell'
+	));
+	
+if(!empty($_POST['ssrswap']))
+	DB::insert($tbl_name, array(
+			'itemid' => $itemdetails['itemid'],
+			'ssr' =>  'swap'
+	));
+	
+if(!empty($_POST['ssrrent']))
+	DB::insert($tbl_name, array(
+			'itemid' => $itemdetails['itemid'],
+			'ssr' =>  'rent'
+	));
+	
 ?> 
