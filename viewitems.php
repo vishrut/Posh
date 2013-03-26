@@ -10,6 +10,7 @@ if (!isset($_SESSION['username'])){
 	header("location:index.php");
 }
 
+$targetitemid=0;
 ?>
 
 <html lang="en">
@@ -77,11 +78,12 @@ if (!isset($_SESSION['username'])){
 			}
 				echo '<li class="span4">';
 				echo '<div class="thumbnail">';
-				echo '<img src="bootstrap/img/300x200.png" alt="">';
+				echo '<img src="upload/'.$item['image'].'" alt="">';
 				echo '<div class="caption">';
 				echo '<h3>'.$item['itemname'].'</h3>';
 				echo '<p>'.$item['description'].'</p>';
-				echo '<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>';
+				echo '<p><button class="btn btn-primary">Edit Item</button> '; 
+				echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
 				echo '</div>';
 				echo '</div>';
 				echo '</li>';
@@ -105,11 +107,30 @@ if (!isset($_SESSION['username'])){
 		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
 			<p>&copy; Company 2012</p>
 		</div>
-
+	
+	<script>
+	function showConfirmation(targetitemid){
+		var x;
+		var r=confirm("Are you sure you want to delete this item?");
+		if (r==true)
+		  {
+			//$.get('deleteitem.php', { q: targetitemid } );
+			var url = "deleteitem.php?q="+targetitemid;    
+			$(location).attr('href',url);
+		  }
+		else
+		  {
+		  }
+		}
+		
+	</script>
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+	
     <script src="bootstrap/js/jquery.js"></script>
+	    <script src="bootstrap/js/jquery-1.9.1.js"></script>
+
     <script src="bootstrap/js/bootstrap.js"></script>
   </body>
 </html>
