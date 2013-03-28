@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
 
@@ -11,6 +11,7 @@ if (!isset($_SESSION['username'])){
 
 require_once '../dbconnect.php';
 
+if(!($_FILES["file"]["name"]=='')){
 $allowedExts = array("gif", "jpeg", "jpg", "png");
 
 $extension = end(explode(".", $_FILES["file"]["name"]));
@@ -47,12 +48,18 @@ if ((($_FILES["file"]["type"] == "image/gif")
 	
 else{
 	$_SESSION['invalidfile'] = 1;
-	header("location:sellitem.php");
+	//echo $_FILES["file"]["name"];
+	header("location:edititem.php?q=".$_POST['itemid']);
+}
+}
+else{
+$itemrow = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_POST['itemid']);
+$filename = $itemrow['image'];
 }
 
 $tbl_name="inventory";
-	
-DB::insert($tbl_name, array(
+$id=$_POST['itemid'];	
+DB::update($tbl_name, array(
 		'owner' => $_SESSION['username'],
 		'itemname' =>  $_POST['itemname'],
 		'category' => $_POST['category'],
@@ -60,12 +67,12 @@ DB::insert($tbl_name, array(
 		'description' => $_POST['description'],
 		'condition' => $_POST['condition'],
 		'image' => $filename
-));
+), "itemid=%s", $_POST['itemid']);
 
 $itemdetails = DB::queryFirstRow("SELECT * FROM $tbl_name WHERE image=%s", $filename);
 
 $tbl_name="ssritem";
-
+DB::delete('ssritem', "itemid=%s", $itemdetails['itemid']);
 if(!empty($_POST['ssrsell']))
 	DB::insert($tbl_name, array(
 			'itemid' => $itemdetails['itemid'],
@@ -83,7 +90,6 @@ if(!empty($_POST['ssrrent']))
 			'itemid' => $itemdetails['itemid'],
 			'ssr' =>  'rent'
 	));
-		header("location:viewitems.php");
-
 	
+	header("location:viewitems.php");
 ?> 

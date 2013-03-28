@@ -64,6 +64,8 @@ $targetitemid=0;
 			$items = DB::query("SELECT * FROM $tbl_name WHERE owner=%s", $_SESSION['username']);
 			$counter = 0;
 			echo '<div class="span9">';
+			echo '<p><h4><a href="viewitems.php">My Items </a><h4></p>';
+			echo '<hr>';
 			echo '<div class="row-fluid">';
 			echo '<ul class="thumbnails">';
 
@@ -81,7 +83,7 @@ $targetitemid=0;
 				echo '<div class="caption">';
 				echo '<h3>'.$item['itemname'].'</h3>';
 				echo '<p>'.$item['description'].'</p>';
-				echo '<p><button class="btn btn-primary">Edit Item</button> '; 
+				echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
 				echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
 				echo '</div>';
 				echo '</div>';
