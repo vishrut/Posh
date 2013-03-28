@@ -1,10 +1,10 @@
 ﻿<?php
-	require_once 'dbconnect.php';
-	$email = $_GET["q"];
+	require_once '../dbconnect.php';
+	$username = $_GET["q"];
 	
 	$tbl_name="users";
 
-	$result = DB::query("SELECT * FROM $tbl_name WHERE email=%s", $email);
+	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s", $username);
 	
 	// Counting table rows
 	$count=0;
@@ -15,6 +15,6 @@
 	if($count==0)
 		echo "Available!";
 	else
-		echo "Preregistered";
+		echo "Unavailable :(";
 
 ?>

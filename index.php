@@ -2,7 +2,7 @@
 <?php session_start() ?>
 <html lang="en">
   <head>
-	<script src="validation.js"></script>
+	<script src="signup/validation.js"></script>
 	<meta charset="utf-8">
     <title>Posh</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,8 +70,8 @@
 			<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
 			<a class="btn btn-large btn-success" href="#myModal" role="button" data-toggle="modal">Sign up today!</a>
 			<hr>
-			<form class="form-inline" name="loginform" action="login.php" method="post">
-				<p>Existing user? (Use john, 1234 for development purpose)</p>
+			<form class="form-inline" name="loginform" action="login/login.php" method="post">
+				<p>Existing user?</p>
 				<?php 
 					if(isset($_SESSION['loginfailed']))
 						if($_SESSION['loginfailed']==1){
@@ -80,7 +80,7 @@
 						};
 					if (isset($_SESSION['username'])){
 						if ($_SESSION['failedlogin'] == 0);
-							header("location:sellitem.php");
+							header("location:inventory/sellitem.php");
 					}			
 				?>
 				<input type="text" id="username" name="username" class="input-small" placeholder="Username" >
@@ -97,7 +97,7 @@
 				<h3 id="myModalLabel">Sign-up Details</h3>
 			</div>
 			<div class="modal-body">
-				    <form name="signup" class="form-horizontal" action="signup.php" method="post">
+				    <form name="signup" class="form-horizontal" action="signup/signup.php" method="post">
 						<div class="control-group" id="usergroup">
 							<label class="control-label" for="inputUsername">Username</label>
 							<div class="controls">

@@ -1,5 +1,5 @@
 ﻿<?php
-	require_once 'dbconnect.php';
+	require_once '../dbconnect.php';
 	$username = $_GET["q"];
 	
 	$tbl_name="users";

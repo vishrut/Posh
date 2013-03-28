@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
@@ -10,9 +10,12 @@ if (!isset($_SESSION['username'])){
 	header("location:index.php");
 }
 
+require_once '../dbconnect.php';
+
 $deleteitemid = $_GET['q'];
-echo $deleteitemid;
-//header("location:sellitem.php");
+
+DB::delete('inventory', "itemid=%s", $deleteitemid);
+header("location:viewitems.php");
 
 
 ?>

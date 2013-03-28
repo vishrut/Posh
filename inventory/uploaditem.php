@@ -6,10 +6,10 @@ session_set_cookie_params(0);
 session_start();
 if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
-	header("location:index.php");
+	header("location:../index.php");
 }
 
-require_once 'dbconnect.php';
+require_once '../dbconnect.php';
 
 $allowedExts = array("gif", "jpeg", "jpg", "png");
 
@@ -34,13 +34,13 @@ if ((($_FILES["file"]["type"] == "image/gif")
 			echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
 			echo "Temp file: " . $_FILES["file"]["tmp_name"] . "<br>";
 			
-			if (file_exists("upload/" . $filename)){
+			if (file_exists("../upload/" . $filename)){
 				echo $filename . " already exists. ";
 			}
 			
 			else{
-				move_uploaded_file($_FILES["file"]["tmp_name"], "upload/" . $filename);
-				echo "Stored in: " . "upload/" . $filename;
+				move_uploaded_file($_FILES["file"]["tmp_name"], "../upload/" . $filename);
+				echo "Stored in: " . "../upload/" . $filename;
 			}
 		}
 	}

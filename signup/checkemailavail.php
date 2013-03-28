@@ -1,10 +1,10 @@
 ﻿<?php
-	require_once 'dbconnect.php';
-	$sid = $_GET["q"];
+	require_once '../dbconnect.php';
+	$email = $_GET["q"];
 	
 	$tbl_name="users";
 
-	$result = DB::query("SELECT * FROM $tbl_name WHERE studentid=%s", $sid);
+	$result = DB::query("SELECT * FROM $tbl_name WHERE email=%s", $email);
 	
 	// Counting table rows
 	$count=0;

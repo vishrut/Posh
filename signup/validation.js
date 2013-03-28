@@ -329,7 +329,7 @@ function checkemailavail(str){
 			}
 		}
 	}
-	xmlhttp.open("GET","checkemailavail.php?q="+str,true);
+	xmlhttp.open("GET","signup/checkemailavail.php?q="+str,true);
 	xmlhttp.send();
 }
 
@@ -363,7 +363,7 @@ function checksidavail(str){
 			}
 		}
 	}
-	xmlhttp.open("GET","checksidavail.php?q="+str,true);
+	xmlhttp.open("GET","signup/checksidavail.php?q="+str,true);
 	xmlhttp.send();
 }
 
@@ -402,7 +402,7 @@ function showUserHint(str)
 			checkallvalidations();	
 		}
 	}
-	xmlhttp.open("GET","checkavailability.php?q="+str,true);
+	xmlhttp.open("GET","signup/checkavailability.php?q="+str,true);
 	xmlhttp.send();
 }
 

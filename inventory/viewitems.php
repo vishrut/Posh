@@ -7,7 +7,7 @@ session_set_cookie_params(0);
 session_start();
 if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
-	header("location:index.php");
+	header("location:../index.php");
 }
 
 $targetitemid=0;
@@ -15,13 +15,12 @@ $targetitemid=0;
 
 <html lang="en">
   <head>
-	<script src="validation.js"></script>
 	<meta charset="utf-8">
     <title>Posh</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le styles -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
 		body {
 			padding-top: 40px;
@@ -29,7 +28,7 @@ $targetitemid=0;
 		}
 
     </style>
-    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	</head>
 
 	<body>
@@ -44,7 +43,7 @@ $targetitemid=0;
 						<li class="active"><a href="#">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
 						<li><a href="#">My Account</a></li>
-						<li><a href="#">Log Out</a></li>
+						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
 			</div>	
@@ -60,7 +59,7 @@ $targetitemid=0;
 			</div>
 			
 			<?php 
-			require_once 'dbconnect.php';
+			require_once '../dbconnect.php';
 			$tbl_name = "inventory";
 			$items = DB::query("SELECT * FROM $tbl_name WHERE owner=%s", $_SESSION['username']);
 			$counter = 0;
@@ -78,7 +77,7 @@ $targetitemid=0;
 			}
 				echo '<li class="span4">';
 				echo '<div class="thumbnail">';
-				echo '<img src="upload/'.$item['image'].'" alt="">';
+				echo '<img src="../upload/'.$item['image'].'" alt="">';
 				echo '<div class="caption">';
 				echo '<h3>'.$item['itemname'].'</h3>';
 				echo '<p>'.$item['description'].'</p>';
@@ -128,9 +127,7 @@ $targetitemid=0;
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	
-    <script src="bootstrap/js/jquery.js"></script>
-	    <script src="bootstrap/js/jquery-1.9.1.js"></script>
-
-    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="../bootstrap/js/jquery.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
   </body>
 </html>

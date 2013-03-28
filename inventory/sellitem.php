@@ -6,18 +6,17 @@ session_set_cookie_params(0);
 session_start();
 if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
-	header("location:index.php");
+	header("location:../index.php");
 }
 ?>
 <html lang="en">
   <head>
-	<script src="validation.js"></script>
 	<meta charset="utf-8">
     <title>Posh</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Le styles -->
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
 		body {
 			padding-top: 40px;
@@ -25,8 +24,8 @@ if (!isset($_SESSION['username'])){
 		}
 
     </style>
-    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap-fileupload.css" rel="stylesheet">	
+    <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap-fileupload.css" rel="stylesheet">	
 	</head>
 
 	<body>
@@ -41,7 +40,7 @@ if (!isset($_SESSION['username'])){
 						<li class="active"><a href="#">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
 						<li><a href="#">My Account</a></li>
-						<li><a href="logout.php">Log Out</a></li>
+						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
 			</div>	
@@ -59,7 +58,7 @@ if (!isset($_SESSION['username'])){
 			<h2>Add a new Item</h2>
 			<hr>
 			</div>
-			<div class="span5">
+			<div class="span9">
 				<form name="uploaditem" class="form-horizontal" action="uploaditem.php" method="post" enctype="multipart/form-data">
 				<?php 
 					if(isset($_SESSION['invalidfile']))
@@ -157,9 +156,9 @@ if (!isset($_SESSION['username'])){
 						</div>
 			</form>
 			</div>
-			<div class="span4">
+			<!--div class="span4">
 			<h1>Preview here</h1>
-			</div>
+			</div-->
 			</div>
 
 		<hr>
@@ -171,9 +170,9 @@ if (!isset($_SESSION['username'])){
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="bootstrap/js/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.js"></script>
-    <script src="bootstrap/js/bootstrap-fileupload.js"></script>	
+    <script src="../bootstrap/js/jquery.js"></script>
+    <script src="../bootstrap/js/bootstrap.js"></script>
+    <script src="../bootstrap/js/bootstrap-fileupload.js"></script>	
 	
 
 	</body>

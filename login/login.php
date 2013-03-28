@@ -1,6 +1,6 @@
 ﻿<?php
 	session_start();
-	require_once 'dbconnect.php';
+	require_once '../dbconnect.php';
 
 	// username and password sent from form
 	$myusername=$_POST['username'];
@@ -33,10 +33,10 @@
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		echo $_SESSION['username'];
-		header("location:sellitem.php");
+		header("location:../inventory/sellitem.php");
 	}
 	else {
 		$_SESSION['loginfailed'] = 1;
-		header("location:index.php");
+		header("location:../index.php");
 	}
 ?> 
