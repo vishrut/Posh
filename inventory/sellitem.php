@@ -25,7 +25,9 @@ if (!isset($_SESSION['username'])){
 
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="../bootstrap/css/bootstrap-fileupload.css" rel="stylesheet">	
+    <link href="../bootstrap/css/bootstrap-fileupload.css" rel="stylesheet">
+    <link href="../bootstrap/css/docs.css" rel="stylesheet">	
+	
 	</head>
 
 	<body>
@@ -33,9 +35,9 @@ if (!isset($_SESSION['username'])){
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container" style="width: auto; padding: 0 20px;">
-					<a class="brand" href="#">Posh</a>
+					<a class="brand pull-left" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li><a href="#">Search</a></li>
+						<li><a href="../search/searchhome.php">Search</a></li>
 						<li><a href="#">What I'm Buying</a></li>
 						<li class="active"><a href="#">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
@@ -47,14 +49,21 @@ if (!isset($_SESSION['username'])){
 		</div>
 		
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
-			<div class="span3">
+			<div class="span3 bs-docs-sidebar">
+				<ul class="nav nav-list bs-docs-sidenav">
+					<li class="active"><a href="#"><i class="icon-chevron-right"></i>Add an Item</a></li>
+					<li><a href="viewitems.php"><i class="icon-chevron-right"></i>Items I'm Selling</a></li>
+					<li><a href="#"><i class="icon-chevron-right"></i>My Services</a></li>
+				</ul>
+			</div>
+			<!--div class="span3">
 			<ul class="nav nav-tabs nav-stacked">
               <li class="active"><a href="#">Add an Item</a></li>
               <li><a href="viewitems.php">Items I'm Selling</a></li>
               <li><a href="#">My Services</a></li>
             </ul>
-			</div>
-			<div class="span9">
+			</div-->
+			<div class="span9" >
 			<p><h4><a href="sellitem.php">Add a new Item </a><h4></p>
 			<hr>
 			</div>
@@ -161,7 +170,6 @@ if (!isset($_SESSION['username'])){
 			</div-->
 			</div>
 
-		<hr>
 
 		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
 			<p>&copy; Company 2012</p>

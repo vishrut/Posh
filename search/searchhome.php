@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
@@ -10,7 +10,6 @@ if (!isset($_SESSION['username'])){
 	header("location:../index.php");
 }
 
-$targetitemid=0;
 ?>
 
 <html lang="en">
@@ -40,9 +39,9 @@ $targetitemid=0;
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li><a href="../search/searchhome.php">Search</a></li>
+						<li class="active"><a href="#">Search</a></li>
 						<li><a href="#">What I'm Buying</a></li>
-						<li class="active"><a href="#">Sell an Item</a></li>
+						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
 						<li><a href="#">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
@@ -52,61 +51,42 @@ $targetitemid=0;
 		</div>
 		
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
-			<div class="span3 bs-docs-sidebar">
+			<div class="span3">
+			<div class="row-fluid">
+			<div class="bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li ><a href="sellitem.php"><i class="icon-chevron-right"></i>Add an Item</a></li>
-					<li class="active"><a href="#"><i class="icon-chevron-right"></i>Items I'm Selling</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>My Services</a></li>
+					<li class="header"><i class="icon-chevron-down"></i>All Categories</li>
+					<li ><a href="#"><i class="icon-chevron-right"></i>Category A</a></li>
+					<li ><a href="#"><i class="icon-chevron-right"></i>Category B</a></li>
+					<li><a href="#"><i class="icon-chevron-right"></i>Category C</a></li>
 				</ul>
 			</div>
+			</div>
 			
-			<?php 
-			require_once '../dbconnect.php';
-			$tbl_name = "inventory";
-			$items = DB::query("SELECT * FROM $tbl_name WHERE owner=%s", $_SESSION['username']);
-			$counter = 0;
-			echo '<div class="span9">';
-			echo '<p><h4><a href="viewitems.php">My Items </a><h4></p>';
-			echo '<hr>';
-			echo '<div class="row-fluid">';
-			echo '<ul class="thumbnails">';
+			</div>
+			
+			<div class="span9">
+			<div class="row-fluid">
+				<div class="span2"></div>
+				<form class="form-search">
+				<div class="span7 input-append">
+					<input type="text" class="span8" placeholder="Search the database">
+					<select class="span4" name="category" required id="inputCategory">
+								<option>All Categories</option>
+								<option>A</option>
+								<option>B</option>
+								<option>C</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-info">Search!</button>
+				</form>
+			</div>
+			</div>
+			
 
-			
-			foreach($items as $item){
-			if($counter!=0 && $counter%3==0){
-				echo '</ul>';
-				echo '</div>';
-				echo '<div class="row-fluid">';
-				echo '<ul class="thumbnails">';
-			}
-				echo '<li class="span4">';
-				echo '<div class="thumbnail">';
-				echo '<img src="../upload/'.$item['image'].'" alt="">';
-				echo '<div class="caption">';
-				echo '<h3>'.$item['itemname'].'</h3>';
-				echo '<p>'.$item['description'].'</p>';
-				echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-				echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
-				echo '</div>';
-				echo '</div>';
-				echo '</li>';
-				$counter=$counter+1;
-			}
-			
-			echo '</ul>';
-			echo '</div>';
-			echo '</div>';
-			
-			
-			?>
-			
 		</div>
-			
-
-
-
-		<hr>
-
+		
+		
 		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
 			<p>&copy; Company 2012</p>
 		</div>

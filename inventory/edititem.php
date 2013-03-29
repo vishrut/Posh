@@ -34,6 +34,8 @@ else{
 
     <!-- Le styles -->
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+	    <link href="../bootstrap/css/docs.css" rel="stylesheet">
+
     <style type="text/css">
 		body {
 			padding-top: 40px;
@@ -84,7 +86,7 @@ else{
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li><a href="#">Search</a></li>
+						<li><a href="../search/searchhome.php">Search</a></li>
 						<li><a href="#">What I'm Buying</a></li>
 						<li class="active"><a href="#">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
@@ -96,12 +98,12 @@ else{
 		</div>
 		
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
-			<div class="span3">
-			<ul class="nav nav-tabs nav-stacked">
-              <li ><a href="sellitem.php">Add an Item</a></li>
-              <li class="active"><a href="viewitems.php">Items I'm Selling</a></li>
-              <li><a href="#">My Services</a></li>
-            </ul>
+			<div class="span3 bs-docs-sidebar">
+				<ul class="nav nav-list bs-docs-sidenav">
+					<li ><a href="sellitem.php"><i class="icon-chevron-right"></i>Add an Item</a></li>
+					<li class="active"><a href="viewitems.php"><i class="icon-chevron-right"></i>Items I'm Selling</a></li>
+					<li><a href="#"><i class="icon-chevron-right"></i>My Services</a></li>
+				</ul>
 			</div>
 			<div class="span9">
 			<p><h4><a href="viewitems.php">My Items > </a><a href="">Edit Item</a><h4></p>			
