@@ -38,7 +38,7 @@ if (!isset($_SESSION['username'])){
 		function submitQuery(){
 			var query = $("#query").val();
 			var category = $("#cat-btn").text();
-			var url = "test.php?query="+query+"&category="+category;
+			var url = "searchhome.php?query="+query+"&category="+category;
 			var uri = encodeURI(url);	
 			$(location).attr('href',uri);
 		}
@@ -69,9 +69,9 @@ if (!isset($_SESSION['username'])){
 			<div class="bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li class="header"><i class="icon-chevron-down"></i>All Categories</li>
-					<li ><a href="searchhome.php?category=A"><i class="icon-chevron-right"></i>Category A</a></li>
-					<li ><a href="searchhome.php?category=B"><i class="icon-chevron-right"></i>Category B</a></li>
-					<li><a href="searchhome.php?category=C"><i class="icon-chevron-right"></i>Category C</a></li>
+					<li ><a href="searchhome.php?query=&category=A"><i class="icon-chevron-right"></i>Category A</a></li>
+					<li ><a href="searchhome.php?query=&category=B"><i class="icon-chevron-right"></i>Category B</a></li>
+					<li><a href="searchhome.php?query=&category=C"><i class="icon-chevron-right"></i>Category C</a></li>
 				</ul>
 			</div>
 			</div>
@@ -88,8 +88,8 @@ if (!isset($_SESSION['username'])){
 					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-						<li><a href="#" onclick="setCategory(this.text);return false;">Category A</a></li>
-						<li><a href="#" onclick="setCategory(this.text);return false;">Category B</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">A</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">B</a></li>
 					</ul>
 					</div>
 						
@@ -97,6 +97,138 @@ if (!isset($_SESSION['username'])){
 					<button class="btn btn-info" onclick="submitQuery();">Search!</button>
 				</div>
 			</div>
+			
+			<?php
+			
+			function match_word($input, $word){	
+				if(strlen($input)>=strlen($word)){
+					$lev1 = levenshtein($input, $word, 1, 1, 0);
+				}
+				else{
+					$lev1 = levenshtein($input, $word, 0, 1, 1);
+				}
+				return $lev1;
+			}
+			
+			require_once '../dbconnect.php';
+			
+			if(!isset($_GET['query'])&&!isset($_GET['category'])){
+				
+				$tbl_name = "inventory";
+				$items = DB::query("SELECT * FROM $tbl_name");
+				$counter = 0;
+				
+				echo '<hr>';
+				echo '<div class="row-fluid">';
+				echo '<ul class="thumbnails">';
+				
+				foreach($items as $item){
+				if($counter!=0 && $counter%3==0){
+					echo '</ul>';
+					echo '</div>';
+					echo '<div class="row-fluid">';
+					echo '<ul class="thumbnails">';
+				}
+					echo '<li class="span4">';
+					echo '<div class="thumbnail">';
+					echo '<img src="../upload/'.$item['image'].'" alt="">';
+					echo '<div class="caption">';
+					echo '<h3>'.$item['itemname'].'</h3>';
+					echo '<p>'.$item['description'].'</p>';
+					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
+					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '</div>';
+					echo '</div>';
+					echo '</li>';
+					$counter=$counter+1;
+				}
+				echo '</ul>';
+				echo '</div>';
+				echo '</div>';
+			}
+			
+			if(isset($_GET['query'])&&$_GET['query']==''&&isset($_GET['category'])&&$_GET['category']!=''){
+				$tbl_name = "inventory";
+				$items = DB::query("SELECT * FROM $tbl_name WHERE category=%s", $_GET['category']);
+				$counter = 0;
+				
+				echo '<hr>';
+				echo '<div class="row-fluid">';
+				echo '<ul class="thumbnails">';
+				
+				foreach($items as $item){
+				if($counter!=0 && $counter%3==0){
+					echo '</ul>';
+					echo '</div>';
+					echo '<div class="row-fluid">';
+					echo '<ul class="thumbnails">';
+				}
+					echo '<li class="span4">';
+					echo '<div class="thumbnail">';
+					echo '<img src="../upload/'.$item['image'].'" alt="">';
+					echo '<div class="caption">';
+					echo '<h3>'.$item['itemname'].'</h3>';
+					echo '<p>'.$item['description'].'</p>';
+					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
+					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '</div>';
+					echo '</div>';
+					echo '</li>';
+					$counter=$counter+1;
+				}
+				echo '</ul>';
+				echo '</div>';
+				echo '</div>';
+			}
+			
+			if(isset($_GET['query'])&&$_GET['query']!=''&&isset($_GET['category'])&&$_GET['category']!=''){
+				$tbl_name = "inventory";
+				if($_GET['category']!='All Categories')
+					$items = DB::query("SELECT * FROM $tbl_name WHERE category=%s", $_GET['category']);
+				else
+					$items = DB::query("SELECT * FROM $tbl_name");
+				$idmatch = array();
+				$mctr=0;
+				foreach($items as $item){
+					$idmatch[(string)$mctr]=match_word($_GET['query'],$item['itemname']);
+					$mctr++;
+				}
+				asort($idmatch);
+				$counter = 0;
+				
+				echo '<hr>';
+				echo '<div class="row-fluid">';
+				echo '<ul class="thumbnails">';
+				
+				foreach($idmatch as $id=>$mvalue){
+				if($counter!=0 && $counter%3==0){
+					echo '</ul>';
+					echo '</div>';
+					echo '<div class="row-fluid">';
+					echo '<ul class="thumbnails">';
+				}
+					echo '<li class="span4">';
+					echo '<div class="thumbnail">';
+					echo '<img src="../upload/'.$items[$id]['image'].'" alt="">';
+					echo '<div class="caption">';
+					echo '<h3>'.$items[$id]['itemname'].'</h3>';
+					echo '<p>Match Value - '.$mvalue.'</p>';
+					echo '<p>'.$items[$id]['description'].'</p>';
+					echo '<p><a href="edititem.php?q='.$items[$id]['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
+					echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '</div>';
+					echo '</div>';
+					//echo $items[$id]['itemname'].'-'.$id.'-'.$mvalue;
+					echo '</li>';
+					$counter=$counter+1;
+				}
+				echo '</ul>';
+				echo '</div>';
+				echo '</div>';
+			}
+			
+			
+			?>
 			</div>
 			
 

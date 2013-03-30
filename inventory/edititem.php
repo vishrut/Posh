@@ -106,7 +106,7 @@ else{
 				</ul>
 			</div>
 			<div class="span9">
-			<p><h4><a href="viewitems.php">My Items > </a><a href="">Edit Item</a><h4></p>			
+			<p><h4><a href="viewitems.php">My Items </a>> <a href="">Edit Item</a><h4></p>			
 			<hr>
 			</div>
 			<div class="span9">

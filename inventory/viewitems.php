@@ -66,7 +66,7 @@ $targetitemid=0;
 			$items = DB::query("SELECT * FROM $tbl_name WHERE owner=%s", $_SESSION['username']);
 			$counter = 0;
 			echo '<div class="span9">';
-			echo '<p><h4><a href="viewitems.php">My Items </a><h4></p>';
+			echo '<p><h4><a href="viewitems.php">My Items </a></h4></p>';
 			echo '<hr>';
 			echo '<div class="row-fluid">';
 			echo '<ul class="thumbnails">';
