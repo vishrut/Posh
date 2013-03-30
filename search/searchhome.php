@@ -30,6 +30,19 @@ if (!isset($_SESSION['username'])){
 
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	<script>
+		function setCategory(str){
+			$("#cat-btn").text(str);
+		}
+		
+		function submitQuery(){
+			var query = $("#query").val();
+			var category = $("#cat-btn").text();
+			var url = "test.php?query="+query+"&category="+category;
+			var uri = encodeURI(url);	
+			$(location).attr('href',uri);
+		}
+	</script>
 	</head>
 
 	<body>
@@ -56,9 +69,9 @@ if (!isset($_SESSION['username'])){
 			<div class="bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li class="header"><i class="icon-chevron-down"></i>All Categories</li>
-					<li ><a href="#"><i class="icon-chevron-right"></i>Category A</a></li>
-					<li ><a href="#"><i class="icon-chevron-right"></i>Category B</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>Category C</a></li>
+					<li ><a href="searchhome.php?category=A"><i class="icon-chevron-right"></i>Category A</a></li>
+					<li ><a href="searchhome.php?category=B"><i class="icon-chevron-right"></i>Category B</a></li>
+					<li><a href="searchhome.php?category=C"><i class="icon-chevron-right"></i>Category C</a></li>
 				</ul>
 			</div>
 			</div>
@@ -67,19 +80,22 @@ if (!isset($_SESSION['username'])){
 			
 			<div class="span9">
 			<div class="row-fluid">
-				<div class="span2"></div>
-				<form class="form-search">
-				<div class="span7 input-append">
-					<input type="text" class="span8" placeholder="Search the database">
-					<select class="span4" name="category" required id="inputCategory">
-								<option>All Categories</option>
-								<option>A</option>
-								<option>B</option>
-								<option>C</option>
-					</select>
+				<div class="span1"></div>
+				<div class="input-prepend input-append">
+					<div class="btn-group">
+					<button name="category" id="cat-btn" class="btn">All Categories</button>
+					<button class="btn dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li><a href="#" onclick="setCategory(this.text);return false;">Category A</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Category B</a></li>
+					</ul>
+					</div>
+						
+					<input id="query" name="query" type="text" class="span6" placeholder="Search the database">
+					<button class="btn btn-info" onclick="submitQuery();">Search!</button>
 				</div>
-				<button type="submit" class="btn btn-info">Search!</button>
-				</form>
 			</div>
 			</div>
 			
@@ -89,6 +105,7 @@ if (!isset($_SESSION['username'])){
 		
 		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
 			<p>&copy; Company 2012</p>
+			<p>Posh.com</p>
 		</div>
 	
 	<script>
