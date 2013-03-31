@@ -37,7 +37,9 @@ if (!isset($_SESSION['username'])){
 		function submitQuery(){
 			var query = $("#query").val();
 			var category = $("#cat-btn").text();
-			var url = "filtersearch.php?query="+query+"&category="+category;
+			if(category=="All Categories")
+				category = "All";
+			var url = "filtersearch.php?query="+query+"&checkcategory="+category;
 			var uri = encodeURI(url);	
 			$(location).attr('href',uri);
 		}
@@ -68,9 +70,8 @@ if (!isset($_SESSION['username'])){
 			<div class="bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li class="header"><i class="icon-chevron-down"></i>All Categories</li>
-					<li ><a href="filtersearch.php?query=&category=A"><i class="icon-chevron-right"></i>Category A</a></li>
-					<li ><a href="filtersearch.php?query=&category=B"><i class="icon-chevron-right"></i>Category B</a></li>
-					<li><a href="filtersearch.php?query=&category=C"><i class="icon-chevron-right"></i>Category C</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=A"><i class="icon-chevron-right"></i>Category A</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=B"><i class="icon-chevron-right"></i>Category B</a></li>
 				</ul>
 			</div>
 			</div>
