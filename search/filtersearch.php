@@ -30,7 +30,7 @@ if (!isset($_SESSION['username'])){
 
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-	<script>
+	<script>	
 		function setCategory(str){
 			$("#cat-btn").text(str);
 		}
@@ -76,6 +76,45 @@ if (!isset($_SESSION['username'])){
 			</div>
 			</div>
 			
+			<div class="row-fluid" style="width: auto; padding: 20px 12px 0px 0px;">
+				<div class="well well-small">
+					<h4>Item Condition<h4>
+				    <label class="checkbox">
+					<input type="checkbox" id="checknew" value="new"> New
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkold" value="old"> Old
+					</label>
+				</div>
+			</div>
+			
+			<div class="row-fluid" style="width: auto; padding: 0px 12px 0px 0px;">
+				<div class="well well-small">
+					<h4>Items up for<h4>
+				    <label class="checkbox">
+					<input type="checkbox" id="checksell" value="sell"> Selling
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkswap" value="swap"> Swapping
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkrent" value="swap"> Renting
+					</label>
+				</div>
+			</div>
+			
+			<div class="row-fluid" style="width: auto; padding: 0px 12px 0px 0px;">
+				<div class="well well-small">
+					<h4>Price Range<h4>
+				    <label class="radio">
+					<input type="radio" name="pricerange" id="range100" value="100"> Up to Rs. 100
+					</label>
+					<label class="radio">
+					<input type="radio" name="pricerange" id="range500" value="500"> Rs. 100 - Rs. 500
+					</label>
+				</div>
+			</div>
+			
 			</div>
 			
 			<div class="span9">
@@ -83,7 +122,7 @@ if (!isset($_SESSION['username'])){
 				<div class="span1"></div>
 				<div class="input-prepend input-append">
 					<div class="btn-group">
-					<button name="category" id="cat-btn" class="btn">All Categories</button>
+					<button name="category" id="cat-btn" class="btn"><?php echo $_GET['category'];?></button>
 					<button class="btn dropdown-toggle" data-toggle="dropdown">
 					<span class="caret"></span>
 					</button>

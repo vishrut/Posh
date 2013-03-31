@@ -217,7 +217,7 @@ else{
 
 		<hr>
 
-		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
+		<div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
 			<p>&copy; Company 2012</p>
 		</div>
 
