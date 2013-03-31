@@ -25,7 +25,6 @@ if (!isset($_SESSION['username'])){
     <style type="text/css">
 		body {
 			padding-top: 40px;
-			padding-bottom: 20px;
 		}
 
     </style>
@@ -88,6 +87,8 @@ if (!isset($_SESSION['username'])){
 					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
+											<li><a href="#" onclick="setCategory(this.text);return false;">All Categories</a></li>
+
 						<li><a href="#" onclick="setCategory(this.text);return false;">A</a></li>
 						<li><a href="#" onclick="setCategory(this.text);return false;">B</a></li>
 					</ul>

@@ -20,7 +20,6 @@ if (!isset($_SESSION['username'])){
     <style type="text/css">
 		body {
 			padding-top: 40px;
-			padding-bottom: 20px;
 		}
 
     </style>
@@ -117,10 +116,22 @@ if (!isset($_SESSION['username'])){
 							<div class="controls">
 								<label class="radio">
 								<input type="radio" name="condition" id="optionCondition1" value="new" checked>
-								New
+								Brand New
 								</label>
 								<label class="radio">
-								<input type="radio" name="condition" id="optionCondition2" value="used">
+								<input type="radio" name="condition" id="optionCondition2" value="verygood">
+								Very Good
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition3" value="good">
+								Good
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition4" value="acceptable">
+								Acceptable
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition5" value="used">
 								Used
 								</label>
 							<span class="help-inline" id="conditionhelp"></span>
@@ -171,7 +182,7 @@ if (!isset($_SESSION['username'])){
 			</div>
 
 
-		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
+		<div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
 			<p>&copy; Company 2012</p>
 		</div>
 

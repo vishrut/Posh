@@ -9,7 +9,6 @@ session_destroy();
 	<style type="text/css">
 		body {
 			padding-top: 20px;
-			padding-bottom: 40px;
 		}
 	</style>	
 

@@ -9,10 +9,11 @@
 
     <!-- Le styles -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="bootstrap/css/docs.css" rel="stylesheet">
+
     <style type="text/css">
 		body {
 			padding-top: 20px;
-			padding-bottom: 40px;
 		}
 
 		/* Custom container */
@@ -194,11 +195,13 @@
 
 		<hr>
 
-		<div class="footer">
-			<p>&copy; Company 2012</p>
-		</div>
+		
 
     </div> <!-- /container -->
+	<div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
+			<p>&copy; Company 2012</p>
+			<p>Posh.com</p>
+		</div>
 
     <!-- Le javascript
     ================================================== -->

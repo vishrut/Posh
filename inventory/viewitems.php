@@ -26,7 +26,6 @@ $targetitemid=0;
     <style type="text/css">
 		body {
 			padding-top: 40px;
-			padding-bottom: 20px;
 		}
 
     </style>
@@ -107,7 +106,7 @@ $targetitemid=0;
 
 		<hr>
 
-		<div class="footer" style="width: auto; padding: 0px 0px 0px 20px;">
+		<div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
 			<p>&copy; Company 2012</p>
 		</div>
 	

@@ -39,7 +39,6 @@ else{
     <style type="text/css">
 		body {
 			padding-top: 40px;
-			padding-bottom: 20px;
 		}
 
     </style>
@@ -58,9 +57,15 @@ else{
 		$("#inputPricetag").val("'.$item['pricetag'].'");';
 	if($item['condition']=='new')
 		echo '$(\'input:radio[name=condition]\')[0].checked = true;';
-	
-	else 
+	elseif($item['condition']=='verygood')
 		echo '$(\'input:radio[name=condition]\')[1].checked = true;';
+	elseif($item['condition']=='good')
+		echo '$(\'input:radio[name=condition]\')[2].checked = true;';
+	elseif($item['condition']=='acceptable')
+		echo '$(\'input:radio[name=condition]\')[3].checked = true;';
+	else
+		echo '$(\'input:radio[name=condition]\')[4].checked = true;';
+	
 
 	if($sell==1)
 		echo '$(\'input:checkbox[name=ssrsell]\')[0].checked = true;';	
@@ -159,10 +164,22 @@ else{
 							<div class="controls">
 								<label class="radio">
 								<input type="radio" name="condition" id="optionCondition1" value="new" checked>
-								New
+								Brand New
 								</label>
 								<label class="radio">
-								<input type="radio" name="condition" id="optionCondition2" value="used">
+								<input type="radio" name="condition" id="optionCondition2" value="verygood">
+								Very Good
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition3" value="good">
+								Good
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition4" value="acceptable">
+								Acceptable
+								</label>
+								<label class="radio">
+								<input type="radio" name="condition" id="optionCondition5" value="used">
 								Used
 								</label>
 							<span class="help-inline" id="conditionhelp"></span>

@@ -21,18 +21,95 @@ if (!isset($_SESSION['username'])){
     <!-- Le styles -->
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
 	<link href="../bootstrap/css/docs.css" rel="stylesheet">
+	    <script src="../bootstrap/js/jquery.js"></script>
+
 
     <style type="text/css">
 		body {
 			padding-top: 40px;
-			padding-bottom: 20px;
+			padding-bottom: 0px;
 		}
 
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-	<script>	
-		function setCategory(str){
-			$("#cat-btn").text(str);
+	<script>
+		$(document).ready(function(){
+<?php
+
+if(isset($_GET['query']))
+	if($_GET['query']!='')
+		echo '$("#query").val("'.$_GET['query'].'");'; 
+  
+if(isset($_GET['checkssr'])){	
+  $ssr = $_GET['checkssr'];
+  if(empty($ssr))
+  {
+  }
+  else
+  {
+    $N = count($ssr);
+ 
+    for($i=0; $i < $N; $i++)
+    {
+      echo 	'$("#check'.$ssr[$i].'").prop(\'checked\', true);';
+    }
+  }
+  }
+  
+if(isset($_GET['checkcondition'])){	
+  $cond = $_GET['checkcondition'];
+  if(empty($cond))
+  {
+  }
+  else
+  {
+    $N = count($cond);
+ 
+    for($i=0; $i < $N; $i++)
+    {
+      echo 	'$("#check'.$cond[$i].'").prop(\'checked\', true);';
+    }
+  }
+  }
+  
+  if(isset($_GET['pricerange'])){	
+  $range = $_GET['pricerange'];
+  if(empty($range))
+  {
+  }
+  else
+  {
+      echo 	'$("#range'.$range.'").prop(\'checked\', true);';
+  }
+  }
+
+if(isset($_GET['checkcategory'])){	
+  $cat = $_GET['checkcategory'];
+  if(empty($cat))
+  {
+		  
+  }
+  else
+  {
+      echo 	'$("#'.$cat.'").prop(\'checked\', true);';
+	  //echo 'var astr = $("#check'.$cat.'").text();';
+	  //echo  '$("#cat-btn").text(astr);'; 
+  }
+  }
+else{
+echo '$("#All").prop(\'checked\', true);';  
+echo '$("#All").click()';  
+}
+
+?>
+		});
+	
+		function setCategory(str1){
+			$("#cat-btn").text(str1);
+			if(str1=="All Categories")
+				str1 = "All";
+			$("#"+str1).prop('checked', true);
+			$("#"+str1).click();
 		}
 		
 		function submitQuery(){
@@ -65,40 +142,58 @@ if (!isset($_SESSION['username'])){
 		
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3">
-			<div class="row-fluid">
-			<div class="bs-docs-sidebar">
-				<ul class="nav nav-list bs-docs-sidenav">
-					<li class="header"><i class="icon-chevron-down"></i>All Categories</li>
-					<li ><a href="filtersearch.php?query=&category=A"><i class="icon-chevron-right"></i>Category A</a></li>
-					<li ><a href="filtersearch.php?query=&category=B"><i class="icon-chevron-right"></i>Category B</a></li>
-					<li><a href="filtersearch.php?query=&category=C"><i class="icon-chevron-right"></i>Category C</a></li>
-				</ul>
-			</div>
-			</div>
-			
-			<div class="row-fluid" style="width: auto; padding: 20px 12px 0px 0px;">
+			<div class="row-fluid" style="width: auto; padding: 0px 12px 0px 0px;">
 				<div class="well well-small">
-					<h4>Item Condition<h4>
-				    <label class="checkbox">
-					<input type="checkbox" id="checknew" value="new"> New
+					<h4>Categories</h4>
+					<form name="cform" action="filtersearch.php" method="get">
+				    <label class="radio">
+					<!--The id of the radio buttons beow must be the same as the category button group text-->
+					<input type="radio" id="All" name="checkcategory" onclick="document.cform.submit ();" value="All"> All Categories
 					</label>
-					<label class="checkbox">
-					<input type="checkbox" id="checkold" value="old"> Old
+					<label class="radio">
+					<input type="radio" id="A" name="checkcategory" onclick="document.cform.submit ();" value="A"> A
+					</label>
+					<label class="radio">
+					<input type="radio" id="B" name="checkcategory" onclick="document.cform.submit ();" value="B"> B
 					</label>
 				</div>
 			</div>
 			
 			<div class="row-fluid" style="width: auto; padding: 0px 12px 0px 0px;">
 				<div class="well well-small">
-					<h4>Items up for<h4>
+					<h4>Item Condition</h4>
 				    <label class="checkbox">
-					<input type="checkbox" id="checksell" value="sell"> Selling
+					<input type="checkbox" id="checknew" name="checkcondition[]" onclick="document.cform.submit ();" value="new"> Brand New
 					</label>
 					<label class="checkbox">
-					<input type="checkbox" id="checkswap" value="swap"> Swapping
+					<input type="checkbox" id="checkverygood" name="checkcondition[]" onclick="document.cform.submit ();" value="verygood"> Very Good
 					</label>
 					<label class="checkbox">
-					<input type="checkbox" id="checkrent" value="swap"> Renting
+					<input type="checkbox" id="checkgood" name="checkcondition[]" onclick="document.cform.submit ();" value="good"> Good
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkacceptable" name="checkcondition[]" onclick="document.cform.submit ();" value="acceptable"> Acceptable
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkused" name="checkcondition[]" onclick="document.cform.submit ();" value="used"> Used
+					</label>
+					<!--input type="submit" name="formSubmit" value="Submit" -->
+					<!--/form-->
+				</div>
+			</div>
+			
+			<div class="row-fluid" style="width: auto; padding: 0px 12px 0px 0px;">
+				<div class="well well-small">
+					<h4>Items up for<h4>
+					<!--form name="sform" action="filtersearch.php" method="get"-->
+				    <label class="checkbox">
+					<input type="checkbox" id="checksell" name="checkssr[]" onclick="document.cform.submit ();" value="sell"> Selling
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkswap" name="checkssr[]" onclick="document.cform.submit ();" value="swap"> Swapping
+					</label>
+					<label class="checkbox">
+					<input type="checkbox" id="checkrent" name="checkssr[]" onclick="document.cform.submit ();" value="rent"> Renting
 					</label>
 				</div>
 			</div>
@@ -107,11 +202,15 @@ if (!isset($_SESSION['username'])){
 				<div class="well well-small">
 					<h4>Price Range<h4>
 				    <label class="radio">
-					<input type="radio" name="pricerange" id="range100" value="100"> Up to Rs. 100
+					<input type="radio" name="pricerange" id="range100" onclick="document.cform.submit ();" value="100"> Up to Rs. 100
 					</label>
 					<label class="radio">
-					<input type="radio" name="pricerange" id="range500" value="500"> Rs. 100 - Rs. 500
+					<input type="radio" name="pricerange" id="range500" onclick="document.cform.submit ();" value="500"> Rs. 100 - Rs. 500
 					</label>
+					<label class="radio">
+					<input type="radio" name="pricerange" id="rangeall" onclick="document.cform.submit ();" value="all"> All Price-ranges
+					</label>
+
 				</div>
 			</div>
 			
@@ -122,18 +221,21 @@ if (!isset($_SESSION['username'])){
 				<div class="span1"></div>
 				<div class="input-prepend input-append">
 					<div class="btn-group">
-					<button name="category" id="cat-btn" class="btn"><?php echo $_GET['category'];?></button>
+					<button name="category" id="cat-btn" class="btn"><?php if(isset($_GET['checkcategory'])) if($_GET['checkcategory']!='All')echo $_GET['checkcategory']; else echo 'All Categories';?></button>
 					<button class="btn dropdown-toggle" data-toggle="dropdown">
 					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
+						<!--The text of the below categories and the id of the category radio buttons must be the same, except for 'All Categories' -->
+						<li><a href="#" onclick="setCategory(this.text);return false;">All Categories</a></li>
 						<li><a href="#" onclick="setCategory(this.text);return false;">A</a></li>
 						<li><a href="#" onclick="setCategory(this.text);return false;">B</a></li>
 					</ul>
 					</div>
 						
-					<input id="query" name="query" type="text" class="span6" placeholder="Search the database">
-					<button class="btn btn-info" onclick="submitQuery();">Search!</button>
+					<input id="query" name="query" type="text" class="span6" ></input>
+					<button class="btn btn-info" onclick="document.cform.submit ();">Search!</button>
+					</form>
 				</div>
 			</div>
 			
@@ -299,7 +401,6 @@ if (!isset($_SESSION['username'])){
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	
-    <script src="../bootstrap/js/jquery.js"></script>
     <script src="../bootstrap/js/bootstrap.js"></script>
   </body>
 </html>
