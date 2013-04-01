@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
@@ -115,7 +115,7 @@ echo '$("#All").click()';
 		function submitQuery(){
 			var query = $("#query").val();
 			var category = $("#cat-btn").text();
-			var url = "filtersearch.php?query="+query+"&category="+category;
+			var url = "filtersearch.php?query="+query;
 			var uri = encodeURI(url);	
 			$(location).attr('href',uri);
 		}
@@ -205,12 +205,17 @@ echo '$("#All").click()';
 					<input type="radio" name="pricerange" id="range100" onclick="document.cform.submit ();" value="100"> Up to Rs. 100
 					</label>
 					<label class="radio">
-					<input type="radio" name="pricerange" id="range500" onclick="document.cform.submit ();" value="500"> Rs. 100 - Rs. 500
+					<input type="radio" name="pricerange" id="range500" onclick="document.cform.submit ();" value="500"> Up to Rs. 500
+					</label>
+					<label class="radio">
+					<input type="radio" name="pricerange" id="range1000" onclick="document.cform.submit ();" value="1000"> Up to Rs. 1000
+					</label>
+					<label class="radio">
+					<input type="radio" name="pricerange" id="range2000" onclick="document.cform.submit ();" value="2000"> Up to Rs. 2000
 					</label>
 					<label class="radio">
 					<input type="radio" name="pricerange" id="rangeall" onclick="document.cform.submit ();" value="all"> All Price-ranges
 					</label>
-
 				</div>
 			</div>
 			
@@ -252,18 +257,60 @@ echo '$("#All").click()';
 			}
 			
 			require_once '../dbconnect.php';
-			
-			if(!isset($_GET['query'])&&!isset($_GET['category'])){
+			$items = array();				
+			$tbl_name = "inventory";
+			if(isset($_GET['query'])&&$_GET['query']==''&&isset($_GET['checkcategory'])&&$_GET['checkcategory']!=''){
+				$getcategory = $_GET['checkcategory'];
 				
-				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name");
+				$where = new WhereClause('and');
+	
+				if($_GET['checkcategory']=='All');
+				else{
+					$where->add('`category`=%s', $_GET['checkcategory']);
+				}	
+				
+				if(isset($_GET['checkcondition'])){
+					$cond = $_GET['checkcondition'];
+					if(empty($cond));
+					else{
+						$conditionclause = $where->addClause('or');
+						$N = count($cond);
+						for($i=0; $i < $N; $i++)
+							$conditionclause->add('`condition`=%s', $cond[$i]);
+					}
+				}
+
+				if(isset($_GET['pricerange'])&&$_GET['pricerange']!='all'){
+					if($_GET['pricerange']!=3000){
+						$where->add('pricetag<=%i', $_GET['pricerange']);
+					}
+				}				
+				
+				$items = DB::query("SELECT * FROM inventory WHERE %l", $where->text());	
 				$counter = 0;
 				
 				echo '<hr>';
+				echo $where->text();
 				echo '<div class="row-fluid">';
 				echo '<ul class="thumbnails">';
 				
 				foreach($items as $item){
+				$ssrvalue = DB::query("SELECT ssr FROM ssritem WHERE itemid=%i",$item['itemid']);
+				$enable=1;
+				if(isset($_GET['checkssr'])){
+					$enable=0;
+					$ssrval = $_GET['checkssr'];
+					$N = count($ssrval);
+					for($i=0; $i < $N; $i++){
+						$S = count($ssrvalue);
+						for($j=0; $j < $S; $j++){
+							if(in_array($ssrval[$i],$ssrvalue[$j]))
+								$enable=1;
+							}
+						}
+					
+				}
+				if($enable==1){
 				if($counter!=0 && $counter%3==0){
 					echo '</ul>';
 					echo '</div>';
@@ -274,7 +321,7 @@ echo '$("#All").click()';
 					echo '<div class="thumbnail">';
 					echo '<img src="../upload/'.$item['image'].'" alt="">';
 					echo '<div class="caption">';
-					echo '<h3>'.$item['itemname'].'</h3>';
+					echo '<h3>'.$item['itemname'].print_r($ssrvalue).'</h3>';
 					echo '<p>'.$item['description'].'</p>';
 					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
 					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
@@ -282,93 +329,11 @@ echo '$("#All").click()';
 					echo '</div>';
 					echo '</li>';
 					$counter=$counter+1;
-				}
+				}}
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';
 			}
-			
-			if(isset($_GET['query'])&&$_GET['query']==''&&isset($_GET['category'])&&$_GET['category']!=''){
-				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name WHERE category=%s", $_GET['category']);
-				$counter = 0;
-				
-				echo '<hr>';
-				echo '<div class="row-fluid">';
-				echo '<ul class="thumbnails">';
-				
-				foreach($items as $item){
-				if($counter!=0 && $counter%3==0){
-					echo '</ul>';
-					echo '</div>';
-					echo '<div class="row-fluid">';
-					echo '<ul class="thumbnails">';
-				}
-					echo '<li class="span4">';
-					echo '<div class="thumbnail">';
-					echo '<img src="../upload/'.$item['image'].'" alt="">';
-					echo '<div class="caption">';
-					echo '<h3>'.$item['itemname'].'</h3>';
-					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
-					echo '</div>';
-					echo '</div>';
-					echo '</li>';
-					$counter=$counter+1;
-				}
-				echo '</ul>';
-				echo '</div>';
-				echo '</div>';
-			}
-			
-			if(isset($_GET['query'])&&$_GET['query']!=''&&isset($_GET['category'])&&$_GET['category']!=''){
-				$tbl_name = "inventory";
-				if($_GET['category']!='All Categories')
-					$items = DB::query("SELECT * FROM $tbl_name WHERE category=%s", $_GET['category']);
-				else
-					$items = DB::query("SELECT * FROM $tbl_name");
-				$idmatch = array();
-				$mctr=0;
-				foreach($items as $item){
-					$idmatch[(string)$mctr]=match_word($_GET['query'],$item['itemname']);
-					$mctr++;
-				}
-				asort($idmatch);
-				$counter = 0;
-				
-				echo '<hr>';
-				echo '<div class="row-fluid">';
-				echo '<ul class="thumbnails">';
-				
-				foreach($idmatch as $id=>$mvalue){
-				if($counter!=0 && $counter%3==0){
-					echo '</ul>';
-					echo '</div>';
-					echo '<div class="row-fluid">';
-					echo '<ul class="thumbnails">';
-				}
-					echo '<li class="span4">';
-					echo '<div class="thumbnail">';
-					echo '<img src="../upload/'.$items[$id]['image'].'" alt="">';
-					echo '<div class="caption">';
-					echo '<h3>'.$items[$id]['itemname'].'</h3>';
-					echo '<p>Match Value - '.$mvalue.'</p>';
-					echo '<p>'.$items[$id]['description'].'</p>';
-					echo '<p><a href="edititem.php?q='.$items[$id]['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-					echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
-					echo '</div>';
-					echo '</div>';
-					//echo $items[$id]['itemname'].'-'.$id.'-'.$mvalue;
-					echo '</li>';
-					$counter=$counter+1;
-				}
-				echo '</ul>';
-				echo '</div>';
-				echo '</div>';
-			}
-			
-			
 			?>
 			</div>
 			
