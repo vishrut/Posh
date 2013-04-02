@@ -259,6 +259,7 @@ echo '$("#All").click()';
 			require_once '../dbconnect.php';
 			$items = array();				
 			$tbl_name = "inventory";
+			
 			if(isset($_GET['query'])&&$_GET['query']==''&&isset($_GET['checkcategory'])&&$_GET['checkcategory']!=''){
 				$getcategory = $_GET['checkcategory'];
 				
@@ -321,10 +322,11 @@ echo '$("#All").click()';
 					echo '<div class="thumbnail">';
 					echo '<img src="../upload/'.$item['image'].'" alt="">';
 					echo '<div class="caption">';
-					echo '<h3>'.$item['itemname'].print_r($ssrvalue).'</h3>';
+					print_r($ssrvalue);
+					echo '<h3>'.$item['itemname'].'</h3>';
 					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
+					echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					echo '</li>';
@@ -334,6 +336,93 @@ echo '$("#All").click()';
 				echo '</div>';
 				echo '</div>';
 			}
+			
+			if(isset($_GET['query'])&&$_GET['query']!=''&&isset($_GET['checkcategory'])&&$_GET['checkcategory']!=''){
+				$getcategory = $_GET['checkcategory'];
+				
+				$where = new WhereClause('and');
+	
+				if($_GET['checkcategory']=='All');
+				else{
+					$where->add('`category`=%s', $_GET['checkcategory']);
+				}	
+				
+				if(isset($_GET['checkcondition'])){
+					$cond = $_GET['checkcondition'];
+					if(empty($cond));
+					else{
+						$conditionclause = $where->addClause('or');
+						$N = count($cond);
+						for($i=0; $i < $N; $i++)
+							$conditionclause->add('`condition`=%s', $cond[$i]);
+					}
+				}
+
+				if(isset($_GET['pricerange'])&&$_GET['pricerange']!='all'){
+					if($_GET['pricerange']!=3000){
+						$where->add('pricetag<=%i', $_GET['pricerange']);
+					}
+				}				
+				
+				$items = DB::query("SELECT * FROM inventory WHERE %l", $where->text());
+				$idmatch = array();
+				$mctr=0;
+				foreach($items as $item){
+					$idmatch[(string)$mctr]=match_word($_GET['query'],$item['itemname']);
+					$mctr++;
+				}
+				asort($idmatch);				
+				$counter = 0;
+				
+				echo '<hr>';
+				echo $where->text();
+				echo '<div class="row-fluid">';
+				echo '<ul class="thumbnails">';
+				
+				foreach($idmatch as $id=>$mvalue){
+				$ssrvalue = DB::query("SELECT ssr FROM ssritem WHERE itemid=%i",$items[$id]['itemid']);
+				$enable=1;
+				if(isset($_GET['checkssr'])){
+					$enable=0;
+					$ssrval = $_GET['checkssr'];
+					$N = count($ssrval);
+					for($i=0; $i < $N; $i++){
+						$S = count($ssrvalue);
+						for($j=0; $j < $S; $j++){
+							if(in_array($ssrval[$i],$ssrvalue[$j]))
+								$enable=1;
+							}
+						}
+					
+				}
+				if($enable==1){
+				if($counter!=0 && $counter%3==0){
+					echo '</ul>';
+					echo '</div>';
+					echo '<div class="row-fluid">';
+					echo '<ul class="thumbnails">';
+				}
+					echo '<li class="span4">';
+					echo '<div class="thumbnail">';
+					echo '<img src="../upload/'.$items[$id]['image'].'" alt="">';
+					echo '<div class="caption">';
+					print_r($ssrvalue);
+					echo '<br>Match value: '.$mvalue;
+					echo '<h3>'.$items[$id]['itemname'].'</h3>';
+					echo '<p>'.$items[$id]['description'].'</p>';
+					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
+					echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-info">Add to Wishlist</button></p>';
+					echo '</div>';
+					echo '</div>';
+					echo '</li>';
+					$counter=$counter+1;
+				}}
+				echo '</ul>';
+				echo '</div>';
+				echo '</div>';
+			}
+			
+			
 			?>
 			</div>
 			
@@ -353,8 +442,8 @@ echo '$("#All").click()';
 		if (r==true)
 		  {
 			//$.get('deleteitem.php', { q: targetitemid } );
-			var url = "deleteitem.php?q="+targetitemid;    
-			$(location).attr('href',url);
+			//var url = "deleteitem.php?q="+targetitemid;    
+			//$(location).attr('href',url);
 		  }
 		else
 		  {

@@ -137,8 +137,8 @@ if (!isset($_SESSION['username'])){
 					echo '<div class="caption">';
 					echo '<h3>'.$item['itemname'].'</h3>';
 					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
+					echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					echo '</li>';
@@ -171,8 +171,8 @@ if (!isset($_SESSION['username'])){
 					echo '<div class="caption">';
 					echo '<h3>'.$item['itemname'].'</h3>';
 					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-					echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
+					echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					echo '</li>';
@@ -216,8 +216,8 @@ if (!isset($_SESSION['username'])){
 					echo '<h3>'.$items[$id]['itemname'].'</h3>';
 					echo '<p>Match Value - '.$mvalue.'</p>';
 					echo '<p>'.$items[$id]['description'].'</p>';
-					echo '<p><a href="edititem.php?q='.$items[$id]['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
-					echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
+					echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					//echo $items[$id]['itemname'].'-'.$id.'-'.$mvalue;

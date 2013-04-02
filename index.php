@@ -67,8 +67,8 @@
 		<hr>
 
 		<div class="jumbotron">
-			<h1>Super awesome marketing speak!</h1>
-			<p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+			<h1>Welcome to Posh!</h1>
+			<p class="lead">Posh is your final destinantion for the inner merchant in you. It allows you to sell, swap and rent your goods with great ease!</p>
 			<a class="btn btn-large btn-success" href="#myModal" role="button" data-toggle="modal">Sign up today!</a>
 			<hr>
 			<form class="form-inline" name="loginform" action="login/login.php" method="post">
