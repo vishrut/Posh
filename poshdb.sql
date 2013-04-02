@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 25, 2013 at 06:18 AM
+-- Generation Time: Apr 02, 2013 at 05:31 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.3.4
 
@@ -64,18 +64,54 @@ CREATE TABLE IF NOT EXISTS `feedback` (
 
 CREATE TABLE IF NOT EXISTS `inventory` (
   `itemid` int(10) NOT NULL AUTO_INCREMENT,
+  `owner` varchar(20) NOT NULL,
   `itemname` varchar(40) NOT NULL,
   `category` varchar(40) NOT NULL,
-  `addedon` datetime NOT NULL,
-  `validity` datetime NOT NULL,
+  `addedon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `pricetag` int(10) NOT NULL,
   `description` varchar(500) NOT NULL,
   `condition` varchar(20) NOT NULL,
-  PRIMARY KEY (`itemid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `image` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`itemid`),
+  KEY `owner` (`owner`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
 
 --
 -- Dumping data for table `inventory`
+--
+
+INSERT INTO `inventory` (`itemid`, `owner`, `itemname`, `category`, `addedon`, `pricetag`, `description`, `condition`, `image`) VALUES
+(9, 'vish', 'newfile', 'A', '2013-03-26 10:49:16', 100, 'new file upload button							', 'new', '28895ERD.png'),
+(11, 'vish', 'newitemagain', 'A', '2013-03-26 11:19:58', 100, 'yo							', 'new', '33288ERD.png'),
+(13, 'vish', 'aaa', 'A', '2013-03-26 18:07:20', 100, 'ho							', 'new', '49737ERD.png'),
+(14, 'vish', 'hi', 'A', '2013-03-26 18:08:21', 123, 'hi							', 'new', '689260ERD.png'),
+(15, 'vi', 'itemvi', 'A', '2013-03-26 18:11:01', 100, 'hellos							', 'new', '627102ERD.png'),
+(16, 'vish', 'aa', 'A', '2013-03-26 19:08:01', 100, 'des							', 'new', '167306ERD.png'),
+(17, 'vish', 'b', 'A', '2013-03-26 19:08:23', 100, 'nnini							', 'new', '592518ERD.png'),
+(18, 'vish', 'c', 'A', '2013-03-26 19:08:44', 100, 'mkmk							', 'new', '906973ERD.png'),
+(20, 'vish', 'xitem', 'B', '2013-03-28 21:50:36', 100, 'this is item X							', 'new', '231435DFD.jpg'),
+(21, 'vish', 'yitems', 'A', '2013-03-28 22:07:27', 4123, 'hi shello							', 'new', '842272ERD.png'),
+(22, 'vish', 'nokia lumia', 'A', '2013-03-30 16:33:17', 2000, 'Nokia lumia phone							', 'used', '322691lumia.jpg'),
+(23, 'vish', 'poshitem', 'C', '2013-03-31 17:27:45', 1000, '							New item', 'new', '130423pics 024.gif'),
+(24, 'vish', 'Computer', 'A', '2013-04-02 14:16:01', 5000, 'New dell computer for sale							', 'good', '495659images.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `notificationid` int(10) NOT NULL AUTO_INCREMENT,
+  `notificationdetails` varchar(500) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `viewed` int(5) NOT NULL,
+  PRIMARY KEY (`notificationid`),
+  KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `notifications`
 --
 
 
@@ -89,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   `offerid` int(10) NOT NULL AUTO_INCREMENT,
   `buyer` varchar(20) NOT NULL,
   `seller` varchar(20) NOT NULL,
-  `ssrid` int(10) NOT NULL,
+  `ss` varchar(10) NOT NULL,
   `sellingitem` int(10) NOT NULL,
   `offereditem1` int(10) NOT NULL,
   `offereditem2` int(10) NOT NULL,
@@ -104,8 +140,7 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   KEY `offereditem3` (`offereditem3`),
   KEY `offereditem4` (`offereditem4`),
   KEY `sellingitem` (`sellingitem`),
-  KEY `buyer` (`buyer`),
-  KEY `ssrid` (`ssrid`)
+  KEY `buyer` (`buyer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -136,37 +171,49 @@ CREATE TABLE IF NOT EXISTS `reportabuse` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ssr`
---
-
-CREATE TABLE IF NOT EXISTS `ssr` (
-  `ssrid` int(10) NOT NULL,
-  `ssr` varchar(10) NOT NULL,
-  PRIMARY KEY (`ssrid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ssr`
---
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `ssritem`
 --
 
 CREATE TABLE IF NOT EXISTS `ssritem` (
   `itemid` int(10) NOT NULL,
-  `ssrid` int(10) NOT NULL,
-  KEY `itemid` (`itemid`),
-  KEY `ssrid` (`ssrid`)
+  `ssr` varchar(10) NOT NULL,
+  KEY `itemid` (`itemid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `ssritem`
 --
 
+INSERT INTO `ssritem` (`itemid`, `ssr`) VALUES
+(14, 'sell'),
+(14, 'swap'),
+(15, 'sell'),
+(15, 'swap'),
+(15, 'rent'),
+(22, 'swap'),
+(22, 'rent'),
+(23, 'sell'),
+(23, 'rent'),
+(9, 'sell'),
+(9, 'swap'),
+(11, 'sell'),
+(11, 'rent'),
+(13, 'sell'),
+(13, 'swap'),
+(13, 'rent'),
+(16, 'sell'),
+(16, 'rent'),
+(17, 'sell'),
+(18, 'sell'),
+(18, 'swap'),
+(18, 'rent'),
+(20, 'sell'),
+(20, 'swap'),
+(20, 'rent'),
+(21, 'sell'),
+(21, 'swap'),
+(24, 'sell'),
+(24, 'swap');
 
 -- --------------------------------------------------------
 
@@ -212,6 +259,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`username`, `studentid`, `email`, `firstname`, `lastname`, `roomno`, `wing`, `rating`, `password`, `confirmed`) VALUES
+('abc', 201001199, 'vrp101@gmail.co.in', 'Vishrut', 'Patel', 117, 'A', 5, 'webmail', 0),
+('Arun', 201001111, 'arungupta@gmail.com', 'Arun ', 'GUpta', 110, 'A', 5, 'arungupta', 0),
+('vedang', 200801135, 'vrp101@gmail.coms', 'V', 'P', 219, 'A', 5, 'abcdef', 0),
 ('vi', 201001194, 'vrp101@gmail.co', 'Vishrut', 'Patel', 117, 'A', 5, 'aaaaaa', 0),
 ('vish', 201001195, '201001193@daiict.ac.in', 'Vishrutk', 'l', 117, 'A', 5, 'abcdef', 0),
 ('vishrut', 201001193, 'vrp101@gmail.com', 'Vishrut', 'Patel', 117, 'F', 5, 'aaaaaa', 1);
@@ -252,17 +302,28 @@ ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`owner`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `offerdetails`
 --
 ALTER TABLE `offerdetails`
-  ADD CONSTRAINT `offerdetails_ibfk_14` FOREIGN KEY (`sellingitem`) REFERENCES `inventory` (`itemid`),
   ADD CONSTRAINT `offerdetails_ibfk_1` FOREIGN KEY (`buyer`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `offerdetails_ibfk_10` FOREIGN KEY (`offereditem1`) REFERENCES `inventory` (`itemid`),
   ADD CONSTRAINT `offerdetails_ibfk_11` FOREIGN KEY (`offereditem2`) REFERENCES `inventory` (`itemid`),
   ADD CONSTRAINT `offerdetails_ibfk_12` FOREIGN KEY (`offereditem3`) REFERENCES `inventory` (`itemid`),
   ADD CONSTRAINT `offerdetails_ibfk_13` FOREIGN KEY (`offereditem4`) REFERENCES `inventory` (`itemid`),
-  ADD CONSTRAINT `offerdetails_ibfk_2` FOREIGN KEY (`seller`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `offerdetails_ibfk_3` FOREIGN KEY (`ssrid`) REFERENCES `ssr` (`ssrid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `offerdetails_ibfk_14` FOREIGN KEY (`sellingitem`) REFERENCES `inventory` (`itemid`),
+  ADD CONSTRAINT `offerdetails_ibfk_2` FOREIGN KEY (`seller`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reportabuse`
@@ -275,8 +336,7 @@ ALTER TABLE `reportabuse`
 -- Constraints for table `ssritem`
 --
 ALTER TABLE `ssritem`
-  ADD CONSTRAINT `ssritem_ibfk_1` FOREIGN KEY (`itemid`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ssritem_ibfk_2` FOREIGN KEY (`ssrid`) REFERENCES `ssr` (`ssrid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `ssritem_ibfk_1` FOREIGN KEY (`itemid`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transaction`
@@ -288,5 +348,5 @@ ALTER TABLE `transaction`
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `wishlist_ibfk_3` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`itemid`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`itemid`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `wishlist_ibfk_3` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
