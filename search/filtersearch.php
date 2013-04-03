@@ -312,21 +312,21 @@ echo '$("#All").click()';
 					
 				}
 				if($enable==1){
-				if($counter!=0 && $counter%3==0){
+				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
 					echo '</div>';
 					echo '<div class="row-fluid">';
 					echo '<ul class="thumbnails">';
 				}
-					echo '<li class="span4">';
+					echo '<li class="span3">';
 					echo '<div class="thumbnail">';
 					echo '<img src="../upload/'.$item['image'].'" alt="">';
 					echo '<div class="caption">';
 					print_r($ssrvalue);
 					echo '<h3>'.$item['itemname'].'</h3>';
 					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
-					echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
+					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
+					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					echo '</li>';
@@ -396,13 +396,13 @@ echo '$("#All").click()';
 					
 				}
 				if($enable==1){
-				if($counter!=0 && $counter%3==0){
+				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
 					echo '</div>';
 					echo '<div class="row-fluid">';
 					echo '<ul class="thumbnails">';
 				}
-					echo '<li class="span4">';
+					echo '<li class="span3">';
 					echo '<div class="thumbnail">';
 					echo '<img src="../upload/'.$items[$id]['image'].'" alt="">';
 					echo '<div class="caption">';
@@ -410,8 +410,8 @@ echo '$("#All").click()';
 					echo '<br>Match value: '.$mvalue;
 					echo '<h3>'.$items[$id]['itemname'].'</h3>';
 					echo '<p>'.$items[$id]['description'].'</p>';
-					echo '<p><a href="#"> <button class="btn btn-primary">View Details</button></a> '; 
-					echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-info">Add to Wishlist</button></p>';
+					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 					
+					//echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					echo '</li>';
