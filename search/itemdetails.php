@@ -70,7 +70,7 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 			</div-->
 			<div class="span6">
 			<div class="row-fluid">
-			<h4><p class="text-info">Showing Item Details for <?php echo $item['itemname'];?> </p></h4>
+			<h4><p class="text-info">Item Details </p></h4>
 			</div>
 			<div class="row-fluid">
 				<table class="table table-hover">

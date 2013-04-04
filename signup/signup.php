@@ -53,6 +53,7 @@
 		
 		//Comment out if response time exceeds 30s
 		//Sendgrid for e-mail authentication
+		/*
 		$ch = curl_init();
 		$confirmlink = "localhost/Posh/confirmemail?q=".$myusername;
 		$content = "Hi,%20%20Welcome%20to%20Posh!%20%20Please%20click%20the%20link%20below%20to%20activate%20your%20account.".$confirmlink."%20%20Happy%20Poshing!";
@@ -61,10 +62,11 @@
 		curl_setopt($ch, CURLOPT_URL, $url);
         $output = curl_exec($ch);    
         curl_close($ch);
+        */
 		//end of sendgrid script
 		
 		
-		header("location:../inventory/sellitem.php");
+		header("location:../search/searchhome.php");
 	}
 	
 	else {

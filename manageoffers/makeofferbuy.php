@@ -70,7 +70,7 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			</div-->
 			<div class="span6">
 			<div class="row-fluid">
-			<h4><p class="text-info">Item Details > Make an Offer </p></h4>
+			<h4><p class="text-info">Item Details > Make an Offer > Buy Item </p></h4>
 			</div>
 			<hr>
 			<div class="row-fluid">
@@ -86,12 +86,9 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 						$ssrstring = "";
 						for($i=0;$i<$N;$i++){
 							$val = array_values($ssrvalue[$i]);
-							if($val[0]=='sell')
-								echo '<a href="../manageoffers/makeofferbuy.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-primary align-center" type="button">Buy This Item!</button> </a><hr>';
-							if($val[0]=='swap')
-								echo '<a href="../manageoffers/makeofferswap.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-success" type="button">Swap For This Item!</button> </a><hr>';
-							if($val[0]=='rent')
-								echo '<a href="../manageoffers/makeofferrent.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-info" type="button">Rent This Item!</button> </a><hr>';
+							if($val[0]=='sell');
+							if($val[0]=='swap');
+							if($val[0]=='rent');
 						}
 						echo $ssrstring;
 					?>
