@@ -22,6 +22,9 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 
     <!-- Le styles -->
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="datepicker.css" rel="stylesheet">
+
+
 
     <style type="text/css">
 		body {
@@ -71,18 +74,45 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			<p>	
 			<form name="makeofferbuy" class="form-horizontal" action="submitoffer.php" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="sellingitem" id="sellingitemgroup" value="<?php echo $item['itemid']?>" />
-						<input type="hidden" name="buyoffer" id="buyoffergroup" value="1" />
+						<input type="hidden" name="rentoffer" id="rentoffergroup" value="1" />
 
-						<div class="control-group" id="amountgroup">
-							<label class="control-label" for="inputAmount">Pay an Amount of: </label>
+						<div class="control-group" id="startgroup">
+							<label class="control-label" for="dpd1">Rent Start Date: </label>
+							<div class="controls">
+							<input class="span4" required name="startdate" id="dpd1" type="text">
+							<span class="help-inline" id="starthelp"></span>
+							</div>
+						</div>
+						<div class="control-group" id="endgroup">
+							<label class="control-label" for="dpd2">Rent End Date: </label>
+							<div class="controls">
+							<input class="span4" required name="enddate" id="dpd2" type="text">
+							<span class="help-inline" id="endhelp"></span>
+							</div>
+						</div>
+						<hr>
+						<div class="control-group" id="pricetaggroup">
+							<label class="control-label" for="inputPricetag">Proposed Rent Amount: </label>
 							<div class="controls">
 							<div class="input-prepend">
 								<span class="add-on">Rs</span>
-								<input class="span6" id="inputAmount" required name="amount" type="text" placeholder="">
+								<input class="span4" id="inputPricetag" required name="pricetag" type="text" placeholder="">
 							</div>
-							<span class="help-inline" id="amounthelp"></span>
+							<span class="help-inline" id="pricetaghelp"></span>
 							</div>
 						</div>
+						<div class="control-group" id="winggroup">
+							<label class="control-label" for="inputWing">Per every:  </label>
+							<div class="controls">
+							<select class="span3" name="wing" required id="inputWing">
+								<option>Day</option>
+								<option>Week</option>
+								<option>Month</option>
+							</select>
+							<span class="help-inline" id="winghelp"></span>
+							</div>
+						</div>
+						<hr>
 						<div class="control-group" id="commentgroup">
 							<label class="control-label" for="inputComment">Comments:</label>
 							<div class="controls">
@@ -163,6 +193,38 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			</div>
 			</div>
 			</div>
+    <script src="../bootstrap/js/jquery.js"></script>
+    		<script src="../bootstrap/js/bootstrap.js"></script>
+        	<script src="bootstrap-datepicker.js"></script>	
+			<script>
+
+		$(function(){
+        // disabling dates
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+        var checkin = $('#dpd1').datepicker({
+          onRender: function(date) {
+            return date.valueOf() < now.valueOf() ? 'disabled' : '';
+          }
+        }).on('changeDate', function(ev) {
+          if (ev.date.valueOf() > checkout.date.valueOf()) {
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate() + 1);
+            checkout.setValue(newDate);
+          }
+          checkin.hide();
+          $('#dpd2')[0].focus();
+        }).data('datepicker');
+        var checkout = $('#dpd2').datepicker({
+          onRender: function(date) {
+            return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+          }
+        }).on('changeDate', function(ev) {
+          checkout.hide();
+        }).data('datepicker');
+		});
+	</script>
 		<!--div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
 			<p>&copy; Company 2012</p>
 		</div-->
@@ -170,9 +232,8 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../bootstrap/js/jquery.js"></script>
-    <script src="../bootstrap/js/bootstrap.js"></script>
-    <script src="../bootstrap/js/bootstrap-fileupload.js"></script>	
+   
+
 	
 
 	</body>

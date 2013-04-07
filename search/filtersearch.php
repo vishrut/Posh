@@ -311,6 +311,8 @@ echo '$("#All").click()';
 						}
 					
 				}
+				if($item['owner']==$_SESSION['username'])
+					$enable=0;
 				if($enable==1){
 				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
@@ -395,6 +397,8 @@ echo '$("#All").click()';
 						}
 					
 				}
+				if($items[$id]['owner']==$_SESSION['username'])
+					$enable=0;
 				if($enable==1){
 				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
@@ -410,13 +414,14 @@ echo '$("#All").click()';
 					echo '<br>Match value: '.$mvalue;
 					echo '<h3>'.$items[$id]['itemname'].'</h3>';
 					echo '<p>'.$items[$id]['description'].'</p>';
-					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 					
+					echo '<p><a href="itemdetails.php?itemid='.$items[$id]['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 					
 					//echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
 					echo '</li>';
 					$counter=$counter+1;
-				}}
+				}
+			}
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';

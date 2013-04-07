@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
@@ -125,6 +125,7 @@ if (!isset($_SESSION['username'])){
 				echo '<ul class="thumbnails">';
 				
 				foreach($items as $item){
+				if($item['owner']!=$_SESSION['username']){	
 				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
 					echo '</div>';
@@ -143,6 +144,7 @@ if (!isset($_SESSION['username'])){
 					echo '</div>';
 					echo '</li>';
 					$counter=$counter+1;
+				}
 				}
 				echo '</ul>';
 				echo '</div>';
@@ -159,6 +161,7 @@ if (!isset($_SESSION['username'])){
 				echo '<ul class="thumbnails">';
 				
 				foreach($items as $item){
+				if($item['owner']!=$_SESSION['username']){
 				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
 					echo '</div>';
@@ -178,6 +181,7 @@ if (!isset($_SESSION['username'])){
 					echo '</li>';
 					$counter=$counter+1;
 				}
+			}
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';
@@ -203,6 +207,7 @@ if (!isset($_SESSION['username'])){
 				echo '<ul class="thumbnails">';
 				
 				foreach($idmatch as $id=>$mvalue){
+				if($items[$id]['owner']!=$_SESSION['username']){	
 				if($counter!=0 && $counter%4==0){
 					echo '</ul>';
 					echo '</div>';
@@ -216,7 +221,7 @@ if (!isset($_SESSION['username'])){
 					echo '<h3>'.$items[$id]['itemname'].'</h3>';
 					echo '<p>Match Value - '.$mvalue.'</p>';
 					echo '<p>'.$items[$id]['description'].'</p>';
-					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
+					echo '<p><a href="itemdetails.php?itemid='.$items[$id]['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
 					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';
@@ -224,6 +229,7 @@ if (!isset($_SESSION['username'])){
 					echo '</li>';
 					$counter=$counter+1;
 				}
+			}
 				echo '</ul>';
 				echo '</div>';
 				echo '</div>';

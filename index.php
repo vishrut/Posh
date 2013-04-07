@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <?php session_start() ?>
 <html lang="en">
   <head>
@@ -81,7 +81,7 @@
 						};
 					if (isset($_SESSION['username'])){
 						if ($_SESSION['failedlogin'] == 0);
-							header("location:inventory/sellitem.php");
+							header("location:search/searchhome.php");
 					}			
 				?>
 				<input type="text" id="username" name="username" class="input-small" placeholder="Username" >
