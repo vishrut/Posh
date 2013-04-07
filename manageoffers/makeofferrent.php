@@ -72,7 +72,7 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			
 			<div class="row-fluid">
 			<p>	
-			<form name="makeofferbuy" class="form-horizontal" action="submitoffer.php" method="post" enctype="multipart/form-data">
+			<form name="makeofferrent" class="form-horizontal" action="submitrentoffer.php" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="sellingitem" id="sellingitemgroup" value="<?php echo $item['itemid']?>" />
 						<input type="hidden" name="rentoffer" id="rentoffergroup" value="1" />
 
@@ -91,36 +91,28 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 							</div>
 						</div>
 						<hr>
-						<div class="control-group" id="pricetaggroup">
-							<label class="control-label" for="inputPricetag">Proposed Rent Amount: </label>
+						<div class="control-group" id="amountgroup">
+							<label class="control-label" for="inputAmount">Proposed Rent Amount: </label>
 							<div class="controls">
 							<div class="input-prepend">
 								<span class="add-on">Rs</span>
-								<input class="span4" id="inputPricetag" required name="pricetag" type="text" placeholder="">
+								<input class="span4" id="inputAmount" required name="amount" type="text" placeholder="">
 							</div>
-							<span class="help-inline" id="pricetaghelp"></span>
+							<span class="help-inline" id="amounthelp"></span>
 							</div>
 						</div>
-						<div class="control-group" id="winggroup">
-							<label class="control-label" for="inputWing">Per every:  </label>
+						<div class="control-group" id="pergroup">
+							<label class="control-label" for="inputPer">Per every:  </label>
 							<div class="controls">
-							<select class="span3" name="wing" required id="inputWing">
+							<select class="span3" name="per" required id="inputWing">
 								<option>Day</option>
 								<option>Week</option>
 								<option>Month</option>
 							</select>
-							<span class="help-inline" id="winghelp"></span>
+							<span class="help-inline" id="perhelp"></span>
 							</div>
 						</div>
 						<hr>
-						<div class="control-group" id="commentgroup">
-							<label class="control-label" for="inputComment">Comments:</label>
-							<div class="controls">
-							<textarea rows="4" name="comment" required id="inputComment" placeholder="Any comments..." onkeyup="">
-							</textarea>
-							<span class="help-inline" id="commenthelp"></span>
-							</div>
-						</div>
 						<div class="control-group">
 							<div class="controls">
 							<button type="submit" class="btn btn-large btn-success">Make the Offer!</button>

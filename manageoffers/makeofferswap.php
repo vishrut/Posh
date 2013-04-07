@@ -166,8 +166,14 @@ $itemcount=0;
 
 			<div class="row-fluid">
 			<p>
-			<a class="btn btn-success" href="#myModal" role="button" data-toggle="modal" <?php if($itemcount==4)echo 'disabled'?>>Add item to swap</a></p>
+			<a class="btn btn-success pull-right" href="#myModal" role="button" data-toggle="modal" <?php if($itemcount==4)echo 'disabled'?>>Add item to swap</a></p>
 			</div>
+			<div class="row-fluid">
+			<hr>
+			<div class="span4"></div>
+			<p>
+			<a class="btn btn-info btn-large" href="submitswapoffer.php?sellingitem=<?php echo $selling['itemid']?>" role="button" data-toggle="modal">Submit Offer!</a></p>
+			</div>	
 		</div>
 			<div class="span3">
 			<div class="thumbnail">

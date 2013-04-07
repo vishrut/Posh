@@ -69,7 +69,7 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			
 			<div class="row-fluid">
 			<p>	
-			<form name="makeofferbuy" class="form-horizontal" action="submitoffer.php" method="post" enctype="multipart/form-data">
+			<form name="makeofferbuy" class="form-horizontal" action="submitbuyoffer.php" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="sellingitem" id="sellingitemgroup" value="<?php echo $item['itemid']?>" />
 						<input type="hidden" name="buyoffer" id="buyoffergroup" value="1" />
 
@@ -81,14 +81,6 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 								<input class="span6" id="inputAmount" required name="amount" type="text" placeholder="">
 							</div>
 							<span class="help-inline" id="amounthelp"></span>
-							</div>
-						</div>
-						<div class="control-group" id="commentgroup">
-							<label class="control-label" for="inputComment">Comments:</label>
-							<div class="controls">
-							<textarea rows="4" name="comment" required id="inputComment" placeholder="Any comments..." onkeyup="">
-							</textarea>
-							<span class="help-inline" id="commenthelp"></span>
 							</div>
 						</div>
 						<div class="control-group">
