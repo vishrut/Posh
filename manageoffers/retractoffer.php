@@ -7,26 +7,11 @@ session_start();
 if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
 	header("location:../index.php");
-}
+}	
 
 require_once '../dbconnect.php';
 
-$item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_POST['sellingitem']);
-
-if(isset($_POST['buyoffer'])){
-	DB::insert('offerdetails', array(
-	  'buyer' => $_SESSION['username'],
-	  'seller' => $item['owner'],
-	  'ssr' => 'sell',
-	  'sellingitem' => $item['itemid'],
-	  'cash'  => $_POST['amount']
-	));
-}
-
-else
-	print_r($_POST);
-
+DB::delete('offerdetails', "offerid=%i", $_GET['offerid']);
 header("location:listoffersbyme.php");
-
 
 ?>

@@ -8,10 +8,35 @@ if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
 	header("location:../index.php");
 }	
-
+$_SESSION['offerid']=$_GET['offerid'];
 require_once '../dbconnect.php';
+$offerdetails = DB::query("SELECT * FROM offerdetails WHERE offerid=%i", $_GET['offerid']);
+$offerdetails = $offerdetails[0];
 
-$selling = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['itemid']);
+$selling = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $offerdetails['sellingitem']);
+
+if(!isset($_SESSION['firsttime'])){
+if(isset($_SESSION['swap1']))
+	unset($_SESSION['swap1']);
+if(isset($_SESSION['swap2']))
+	unset($_SESSION['swap2']);
+if(isset($_SESSION['swap3']))
+	unset($_SESSION['swap3']);
+if(isset($_SESSION['swap4']))
+	unset($_SESSION['swap4']);
+
+
+if($offerdetails['offereditem1']!='')
+	$_SESSION['swap1']=$offerdetails['offereditem1'];
+if($offerdetails['offereditem2']!='')
+	$_SESSION['swap2']=$offerdetails['offereditem2'];
+if($offerdetails['offereditem3']!='')
+	$_SESSION['swap3']=$offerdetails['offereditem3'];
+if($offerdetails['offereditem4']!='')
+	$_SESSION['swap4']=$offerdetails['offereditem4'];
+
+//$_SESSION['firsttime'] = 0;
+}
 $item1=-1;
 $item2=-1;
 $item3=-1;
@@ -45,6 +70,7 @@ $itemcount=0;
 
 	<body>
 	
+		
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container" style="width: auto; padding: 0 20px;">
@@ -64,9 +90,9 @@ $itemcount=0;
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li ><a href="#"><i class="icon-chevron-right"></i>Back to Item Details</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>Back to User Details</a></li>
+					<li><a href=""><i class="icon-chevron-right"></i>Back to Offers I Made</a></li>
 				</ul>
+			
 			</div>
 			
 			<div class="span6">
@@ -85,7 +111,7 @@ $itemcount=0;
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap1&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitemswap.php?q=swap1&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
@@ -107,7 +133,7 @@ $itemcount=0;
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap2&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitemswap.php?q=swap2&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
@@ -129,7 +155,7 @@ $itemcount=0;
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap3&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitemswap.php?q=swap3&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
@@ -151,7 +177,7 @@ $itemcount=0;
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap4&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitemswap.php?q=swap4&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
@@ -172,10 +198,9 @@ $itemcount=0;
 			<hr>
 			<div class="span4"></div>
 			<p>
-			<?php
+				<?php
 			if($itemcount>0)
-			echo	
-			'<a class="btn btn-info btn-large" href="submitswapoffer.php?sellingitem='.$selling['itemid'].'" role="button" data-toggle="modal">Submit Offer!</a>';
+			echo '<a class="btn btn-info btn-large" href="updateswapoffer.php?offerid='.$_GET['offerid'].'" role="button" data-toggle="modal">Submit Offer!</a>';
 			?>
 			</p>
 			</div>	
@@ -258,6 +283,7 @@ $itemcount=0;
 				$offered = array();
 				$prevoffers = DB::query("SELECT * FROM offerdetails where buyer=%s",$_SESSION['username']);
 				foreach ($prevoffers as $prevoffer) {
+					if($prevoffer['offerid']!=$_GET['offerid']){
 					if($prevoffer['offereditem1']!='')
 						array_push($offered, $prevoffer['offereditem1']);
 					if($prevoffer['offereditem2']!='')
@@ -265,7 +291,8 @@ $itemcount=0;
 					if($prevoffer['offereditem3']!='')
 						array_push($offered, $prevoffer['offereditem3']);
 					if($prevoffer['offereditem4']!='')
-						array_push($offered, $prevoffer['offereditem4']);						
+						array_push($offered, $prevoffer['offereditem4']);
+					}						
 				}
 				
 				echo '<div class="row-fluid">';
@@ -285,7 +312,7 @@ $itemcount=0;
 					echo '<div class="caption">';
 					echo '<p><b>'.$item['itemname'].'</b></p>';
 					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="addtoswap.php?selling='.$selling['itemid'].'&itemid='.$item['itemid'].'"> <button class="btn btn-primary">Add</button></a></p> '; 
+					echo '<p><a href="addtoeditswap.php?selling='.$selling['itemid'].'&itemid='.$item['itemid'].'"> <button class="btn btn-primary">Add</button></a></p> '; 
 					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
 					echo '</div>';

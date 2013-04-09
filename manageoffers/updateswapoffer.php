@@ -11,16 +11,7 @@ if (!isset($_SESSION['username'])){
 
 require_once '../dbconnect.php';
 
-$item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['sellingitem']);
-
-DB::insert('offerdetails', array(
-  'buyer' => $_SESSION['username'],
-  'seller' => $item['owner'],
-  'ssr' => 'swap',
-  'sellingitem' => $item['itemid']
-));
-
-$lastofferid=DB::insertID();
+$lastofferid = $_GET['offerid'];
 
 if(isset($_SESSION['swap1'])){
 	DB::update('offerdetails', array(
@@ -29,11 +20,22 @@ if(isset($_SESSION['swap1'])){
 	unset($_SESSION['swap1']);
 }
 
+else{
+	DB::update('offerdetails', array(
+  'offereditem1' => NULL
+  ), "offerid=%i", $lastofferid);
+}
+
 if(isset($_SESSION['swap2'])){
 	DB::update('offerdetails', array(
   'offereditem2' => $_SESSION['swap2']
   ), "offerid=%i", $lastofferid);
 	unset($_SESSION['swap2']);
+}
+else{
+	DB::update('offerdetails', array(
+  'offereditem2' => NULL
+  ), "offerid=%i", $lastofferid);
 }
 
 if(isset($_SESSION['swap3'])){
@@ -42,6 +44,11 @@ if(isset($_SESSION['swap3'])){
   ), "offerid=%i", $lastofferid);
 	unset($_SESSION['swap3']);
 }
+else{
+	DB::update('offerdetails', array(
+  'offereditem3' => NULL
+  ), "offerid=%i", $lastofferid);
+}
 
 if(isset($_SESSION['swap4'])){
 	DB::update('offerdetails', array(
@@ -49,6 +56,15 @@ if(isset($_SESSION['swap4'])){
   ), "offerid=%i", $lastofferid);
 	unset($_SESSION['swap4']);
 }
+else{
+	DB::update('offerdetails', array(
+  'offereditem4' => NULL
+  ), "offerid=%i", $lastofferid);
+}
+
+//put this up on all pages that can be accessed from editofferswap
+if(isset($_SESSION['firsttime']))
+unset($_SESSION['firsttime']);
 
 header("location:listoffersbyme.php");
 

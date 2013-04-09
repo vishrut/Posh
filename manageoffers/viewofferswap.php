@@ -11,13 +11,12 @@ if (!isset($_SESSION['username'])){
 
 require_once '../dbconnect.php';
 
-$selling = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['itemid']);
-$item1=-1;
-$item2=-1;
-$item3=-1;
-$item4=-1;
+$offerdetails = DB::query("SELECT * from offerdetails where offerid=%i", $_GET['offerid']);
+$offerdetails = $offerdetails[0];
 
-$itemcount=0;	
+$selling = DB::query("SELECT * from inventory where itemid=%i", $offerdetails['sellingitem']);
+$selling=$selling[0];
+
 ?>
 <html lang="en">
   <head>
@@ -64,8 +63,8 @@ $itemcount=0;
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li ><a href="#"><i class="icon-chevron-right"></i>Back to Item Details</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>Back to User Details</a></li>
+					<li><a href="listoffersbyme.php"><i class="icon-chevron-right"></i>Back Offers I made</a></li>
+					<li ><a href="listoffersforme.php"><i class="icon-chevron-right"></i>Back to Offers for me</a></li>
 				</ul>
 			</div>
 			
@@ -76,19 +75,46 @@ $itemcount=0;
 			<hr>
 			
 		<?php
-			if(isset($_SESSION['swap1'])){
-				$item1=$_SESSION['swap1'];
-				$itemcount=$itemcount+1;
+			if($offerdetails['offereditem1']!=''){
+				$item1=$offerdetails['offereditem1'];
 				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$_SESSION['swap1']);
+				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$item1);
 								
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap1&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="128" width="128" alt=""></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
+					echo '<p>Category: '.$item['category'].'</p>';
+					echo '<p>PriceTag: '.$item['pricetag'].'</p>';
+					echo '<p>Condition: '.$item['condition'].'</p>';
+
+					echo '</div>';
+					echo '</div>';
+					echo '</div>';
+					echo '<hr>';
+				}
+			}
+			?>
+		<?php
+			if($offerdetails['offereditem2']!=''){
+				$item2=$offerdetails['offereditem2'];
+				$tbl_name = "inventory";
+				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$item2);
+								
+				foreach ($items as $item) {
+					echo '<div class="row-fluid">';
+					echo '<div class="media">';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="128" width="128" alt=""></a>';
+					echo '<div class="media-body">';
+					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
+					echo '<p>'.$item['description'].'</p>';
+					echo '<p>Category: '.$item['category'].'</p>';
+					echo '<p>PriceTag: '.$item['pricetag'].'</p>';
+					echo '<p>Condition: '.$item['condition'].'</p>';
+
 					echo '<p></p>';
 					echo '</div>';
 					echo '</div>';
@@ -98,19 +124,22 @@ $itemcount=0;
 			}
 			?>
 		<?php
-			if(isset($_SESSION['swap2'])){
-				$item2=$_SESSION['swap2'];
-				$itemcount=$itemcount+1;
+			if($offerdetails['offereditem3']!=''){
+				$item3=$offerdetails['offereditem3'];
 				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$_SESSION['swap2']);
+				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$item3);
 								
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap2&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="128" width="128" alt=""></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
+					echo '<p>Category: '.$item['category'].'</p>';
+					echo '<p>PriceTag: '.$item['pricetag'].'</p>';
+					echo '<p>Condition: '.$item['condition'].'</p>';
+
 					echo '<p></p>';
 					echo '</div>';
 					echo '</div>';
@@ -120,41 +149,22 @@ $itemcount=0;
 			}
 			?>
 		<?php
-			if(isset($_SESSION['swap3'])){
-				$item3=$_SESSION['swap3'];
-				$itemcount=$itemcount+1;
+			if($offerdetails['offereditem4']!=''){
+				$item4=$offerdetails['offereditem4'];
 				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$_SESSION['swap3']);
+				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$item4);
 								
 				foreach ($items as $item) {
 					echo '<div class="row-fluid">';
 					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap3&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
+					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="128" width="128" alt=""></a>';
 					echo '<div class="media-body">';
 					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
 					echo '<p>'.$item['description'].'</p>';
-					echo '<p></p>';
-					echo '</div>';
-					echo '</div>';
-					echo '</div>';
-					echo '<hr>';
-				}
-			}
-			?>
-		<?php
-			if(isset($_SESSION['swap4'])){
-				$item4=$_SESSION['swap4'];
-				$itemcount=$itemcount+1;
-				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name where itemid=%s",$_SESSION['swap4']);
-								
-				foreach ($items as $item) {
-					echo '<div class="row-fluid">';
-					echo '<div class="media">';
-					echo '<a class="pull-left" href="#"><img src="../upload/'.$item['image'].'" height="64" width="64" alt=""></a><a class="btn pull-right btn-mini" href="removeitem.php?q=swap4&selling='.$selling['itemid'].'" role="button" data-toggle="modal"><i class="icon-remove-sign"></i></a>';
-					echo '<div class="media-body">';
-					echo '<h4 class="media-heading">'.$item['itemname'].'</h4>';
-					echo '<p>'.$item['description'].'</p>';
+					echo '<p>Category: '.$item['category'].'</p>';
+					echo '<p>PriceTag: '.$item['pricetag'].'</p>';
+					echo '<p>Condition: '.$item['condition'].'</p>';
+
 					echo '<p></p>';
 					echo '</div>';
 					echo '</div>';
@@ -166,18 +176,59 @@ $itemcount=0;
 
 			<div class="row-fluid">
 			<p>
-			<a class="btn btn-success pull-right" href="#myModal" role="button" data-toggle="modal" <?php if($itemcount==4)echo 'disabled'?>>Add item to swap</a></p>
+				<div class="span3"></div>
+				<?php
+				echo	
+			'<a class="btn btn-large btn-success" href="acceptoffer.php?offerid='.$_GET['offerid'].'" role="button" data-toggle="modal">Accept Offer!</a>';
+			echo	
+				' <button class="btn btn-large btn-danger" onclick="showConfirmation('.$_GET['offerid'].')" class="btn btn-danger">Reject Offer</button>';
+			
+			?>
+			
+			</p>
 			</div>
 			<div class="row-fluid">
 			<hr>
-			<div class="span4"></div>
 			<p>
 			<?php
-			if($itemcount>0)
-			echo	
-			'<a class="btn btn-info btn-large" href="submitswapoffer.php?sellingitem='.$selling['itemid'].'" role="button" data-toggle="modal">Submit Offer!</a>';
+			$comments = DB::query("SELECT * from comments where offerid=%i order by time", $_GET['offerid']);
+			$thisofferid=$_GET['offerid'];
+			echo 'Comments for this offer: ';
+			echo '<table class="table table-hover">
+				<thead>
+					<tr>
+					<th></th>
+					<th></th>
+					</tr>
+				</thead>';
+			foreach ($comments as $comment) {
+				echo '<tr>
+					<td><b>'.$comment['commenter'].'</b><i> commented on '.$comment['time'].'</i><br>'.$comment['comment'];
+				if($comment['commenter']==$_SESSION['username'])
+					echo '<br><a href="deletecomment.php?prev=viewofferswap.php?offerid='.$thisofferid.'&commentid='.$comment['commentid'].'">Delete</a>';
+						
+				echo'</td>
+				</tr>';
+			}
+			echo 	'</table>';
+
 			?>
 			</p>
+			<form name="comment" class="form-horizontal" action="submitcomment.php" method="post">
+				<input type="hidden" name="offerid" value="<?php echo $_GET['offerid'];?>"></input>
+				<input type="hidden" name="prev" value="viewofferswap.php?offerid=<?php echo $_GET['offerid'];?>"></input>
+				
+						<div class="control-group" id="commentgroup">
+							<label class="control-label" for="inputComment">Your Comment: </label>
+							<div class="controls">
+							<textarea rows="4" name="comment" required id="inputComment" placeholder="Your comment" onkeyup=""></textarea>
+							<span class="help-inline" id="commenthelp"></span>
+							<button class="btn btn-primary pull-right" type="submit" id="signupbtn">Submit Comment</button>
+
+							</div>
+
+						</div>
+			</form>
 			</div>	
 		</div>
 			<div class="span3">
@@ -244,65 +295,8 @@ $itemcount=0;
 			</div>
 			</div>
 		</div>
-
-		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button-->
-				<h3 id="myModalLabel">Add item which you would like to swap</h3>
-			</div>
-			<div class="modal-body">
-				<?php
-				$tbl_name = "inventory";
-				$items = DB::query("SELECT * FROM $tbl_name");
-				$counter = 0;
-				$offered = array();
-				$prevoffers = DB::query("SELECT * FROM offerdetails where buyer=%s",$_SESSION['username']);
-				foreach ($prevoffers as $prevoffer) {
-					if($prevoffer['offereditem1']!='')
-						array_push($offered, $prevoffer['offereditem1']);
-					if($prevoffer['offereditem2']!='')
-						array_push($offered, $prevoffer['offereditem2']);
-					if($prevoffer['offereditem3']!='')
-						array_push($offered, $prevoffer['offereditem3']);
-					if($prevoffer['offereditem4']!='')
-						array_push($offered, $prevoffer['offereditem4']);						
-				}
-				
-				echo '<div class="row-fluid">';
-				echo '<ul class="thumbnails">';
-				
-				foreach($items as $item){
-				if(($item['owner']==$_SESSION['username'])&&($item['itemid']!=$item1)&&($item['itemid']!=$item2)&&($item['itemid']!=$item3)&&($item['itemid']!=$item4)&&!(in_array($item['itemid'], $offered))){	
-				if($counter!=0 && $counter%3==0){
-					echo '</ul>';
-					echo '</div>';
-					echo '<div class="row-fluid">';
-					echo '<ul class="thumbnails">';
-				}
-					echo '<li class="span4">';
-					echo '<div class="thumbnail">';
-					echo '<img src="../upload/'.$item['image'].'" alt="">';
-					echo '<div class="caption">';
-					echo '<p><b>'.$item['itemname'].'</b></p>';
-					echo '<p>'.$item['description'].'</p>';
-					echo '<p><a href="addtoswap.php?selling='.$selling['itemid'].'&itemid='.$item['itemid'].'"> <button class="btn btn-primary">Add</button></a></p> '; 
-					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
-					echo '</div>';
-					echo '</div>';
-					echo '</li>';
-					$counter=$counter+1;
-				}
-				}
-				echo '</ul>';
-				echo '</div>';
-				?>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" type="button" data-dismiss="modal" aria-hidden="false">Close</button>
-			</div>
-		</div>
-
-    <script src="../bootstrap/js/jquery.js"></script>
+</div>
+<script src="../bootstrap/js/jquery.js"></script>
     		<script src="../bootstrap/js/bootstrap.js"></script>
         	<script src="bootstrap-datepicker.js"></script>	
 			<script>
@@ -334,6 +328,22 @@ $itemcount=0;
         }).data('datepicker');
 		});
 
+	</script>
+	<script>
+	function showConfirmation(targetofferid){
+		var x;
+		var r=confirm("Are you sure you want to reject this offer?");
+		if (r==true)
+		  {
+			//$.get('deleteitem.php', { q: targetitemid } );
+			var url = "rejectoffer.php?offerid="+targetofferid;    
+			$(location).attr('href',url);
+		  }
+		else
+		  {
+		  }
+		}
+		
 	</script>
 		<!--div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
 			<p>&copy; Company 2012</p>

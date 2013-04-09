@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 02, 2013 at 05:31 PM
+-- Generation Time: Apr 08, 2013 at 10:36 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.3.4
 
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `image` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`itemid`),
   KEY `owner` (`owner`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `inventory`
@@ -93,7 +93,8 @@ INSERT INTO `inventory` (`itemid`, `owner`, `itemname`, `category`, `addedon`, `
 (21, 'vish', 'yitems', 'A', '2013-03-28 22:07:27', 4123, 'hi shello							', 'new', '842272ERD.png'),
 (22, 'vish', 'nokia lumia', 'A', '2013-03-30 16:33:17', 2000, 'Nokia lumia phone							', 'used', '322691lumia.jpg'),
 (23, 'vish', 'poshitem', 'C', '2013-03-31 17:27:45', 1000, '							New item', 'new', '130423pics 024.gif'),
-(24, 'vish', 'Computer', 'A', '2013-04-02 14:16:01', 5000, 'New dell computer for sale							', 'good', '495659images.jpg');
+(24, 'vish', 'Computer', 'A', '2013-04-02 14:16:01', 5000, 'New dell computer for sale							', 'good', '495659images.jpg'),
+(25, 'saheb', 'sahebsitem', 'A', '2013-04-08 00:33:56', 1000, 'This is sahebs item							', 'good', '270413Level1.png');
 
 -- --------------------------------------------------------
 
@@ -125,14 +126,14 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   `offerid` int(10) NOT NULL AUTO_INCREMENT,
   `buyer` varchar(20) NOT NULL,
   `seller` varchar(20) NOT NULL,
-  `ss` varchar(10) NOT NULL,
+  `ssr` varchar(10) NOT NULL,
   `sellingitem` int(10) NOT NULL,
-  `offereditem1` int(10) NOT NULL,
-  `offereditem2` int(10) NOT NULL,
-  `offereditem3` int(10) NOT NULL,
-  `offereditem4` int(10) NOT NULL,
-  `cash` int(10) NOT NULL,
-  `timestamp` datetime NOT NULL,
+  `offereditem1` int(10) DEFAULT NULL,
+  `offereditem2` int(10) DEFAULT NULL,
+  `offereditem3` int(10) DEFAULT NULL,
+  `offereditem4` int(10) DEFAULT NULL,
+  `cash` int(10) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`offerid`),
   KEY `seller` (`seller`),
   KEY `offereditem1` (`offereditem1`),
@@ -141,12 +142,40 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   KEY `offereditem4` (`offereditem4`),
   KEY `sellingitem` (`sellingitem`),
   KEY `buyer` (`buyer`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Dumping data for table `offerdetails`
 --
 
+INSERT INTO `offerdetails` (`offerid`, `buyer`, `seller`, `ssr`, `sellingitem`, `offereditem1`, `offereditem2`, `offereditem3`, `offereditem4`, `cash`, `timestamp`) VALUES
+(33, 'vish', 'saheb', 'swap', 25, 22, 24, 23, NULL, NULL, '2013-04-08 15:34:46'),
+(34, 'vish', 'vi', 'swap', 15, 20, NULL, NULL, NULL, NULL, '2013-04-08 15:35:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rentdetails`
+--
+
+CREATE TABLE IF NOT EXISTS `rentdetails` (
+  `offerid` int(10) NOT NULL,
+  `startdate` varchar(20) NOT NULL,
+  `enddate` varchar(20) NOT NULL,
+  `amount` int(10) NOT NULL,
+  `per` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rentdetails`
+--
+
+INSERT INTO `rentdetails` (`offerid`, `startdate`, `enddate`, `amount`, `per`) VALUES
+(8, '04/08/2013', '04/10/2013', 30, 'Day'),
+(17, '04/10/2013', '04/12/2013', 34, 'Day'),
+(18, '04/10/2013', '04/12/2013', 34, 'Day'),
+(19, '04/09/2013', '04/10/2013', 123, 'Week'),
+(20, '04/08/2013', '04/11/2013', 1234, 'Day');
 
 -- --------------------------------------------------------
 
@@ -213,7 +242,10 @@ INSERT INTO `ssritem` (`itemid`, `ssr`) VALUES
 (21, 'sell'),
 (21, 'swap'),
 (24, 'sell'),
-(24, 'swap');
+(24, 'swap'),
+(25, 'sell'),
+(25, 'swap'),
+(25, 'rent');
 
 -- --------------------------------------------------------
 
@@ -261,10 +293,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`username`, `studentid`, `email`, `firstname`, `lastname`, `roomno`, `wing`, `rating`, `password`, `confirmed`) VALUES
 ('abc', 201001199, 'vrp101@gmail.co.in', 'Vishrut', 'Patel', 117, 'A', 5, 'webmail', 0),
 ('Arun', 201001111, 'arungupta@gmail.com', 'Arun ', 'GUpta', 110, 'A', 5, 'arungupta', 0),
+('saheb', 201001158, '201001158@daiict.ac.in', 'Saheb', 'Motiani', 123, 'A', 5, 'sahebrocks', 0),
+('shikhar', 201001103, 'gshikhri@gmail.com', 'shikhar', 'Gupta', 218, 'A', 5, 'qwerty', 0),
 ('vedang', 200801135, 'vrp101@gmail.coms', 'V', 'P', 219, 'A', 5, 'abcdef', 0),
 ('vi', 201001194, 'vrp101@gmail.co', 'Vishrut', 'Patel', 117, 'A', 5, 'aaaaaa', 0),
 ('vish', 201001195, '201001193@daiict.ac.in', 'Vishrutk', 'l', 117, 'A', 5, 'abcdef', 0),
-('vishrut', 201001193, 'vrp101@gmail.com', 'Vishrut', 'Patel', 117, 'F', 5, 'aaaaaa', 1);
+('vishrut', 201001193, 'vrp101@gmail.com', 'Vishrut', 'Patel', 117, 'F', 5, 'aaaaaa', 1),
+('vishrutp', 201000000, 'vishrut103@gmail.com', 'Vishrut', 'Patel', 117, 'A', 5, 'abcdef', 0);
 
 -- --------------------------------------------------------
 
@@ -318,11 +353,11 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `offerdetails`
   ADD CONSTRAINT `offerdetails_ibfk_1` FOREIGN KEY (`buyer`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `offerdetails_ibfk_10` FOREIGN KEY (`offereditem1`) REFERENCES `inventory` (`itemid`),
-  ADD CONSTRAINT `offerdetails_ibfk_11` FOREIGN KEY (`offereditem2`) REFERENCES `inventory` (`itemid`),
-  ADD CONSTRAINT `offerdetails_ibfk_12` FOREIGN KEY (`offereditem3`) REFERENCES `inventory` (`itemid`),
-  ADD CONSTRAINT `offerdetails_ibfk_13` FOREIGN KEY (`offereditem4`) REFERENCES `inventory` (`itemid`),
-  ADD CONSTRAINT `offerdetails_ibfk_14` FOREIGN KEY (`sellingitem`) REFERENCES `inventory` (`itemid`),
+  ADD CONSTRAINT `offerdetails_ibfk_14` FOREIGN KEY (`sellingitem`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `offerdetails_ibfk_15` FOREIGN KEY (`offereditem1`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `offerdetails_ibfk_16` FOREIGN KEY (`offereditem2`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `offerdetails_ibfk_17` FOREIGN KEY (`offereditem3`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `offerdetails_ibfk_18` FOREIGN KEY (`offereditem4`) REFERENCES `inventory` (`itemid`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `offerdetails_ibfk_2` FOREIGN KEY (`seller`) REFERENCES `users` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

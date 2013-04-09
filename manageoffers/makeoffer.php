@@ -12,6 +12,26 @@ if (!isset($_SESSION['username'])){
 require_once '../dbconnect.php';
 
 $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['itemid']);
+$existingswap = DB::query("SELECT * FROM offerdetails WHERE buyer=%s AND sellingitem=%i AND ssr='swap'", $_SESSION['username'], $_GET['itemid']);
+$existingswap = DB::count();
+$existingsell = DB::query("SELECT * FROM offerdetails WHERE buyer=%s AND sellingitem=%i AND ssr='sell'", $_SESSION['username'], $_GET['itemid']);
+$existingsell = DB::count();
+$existingrent = DB::query("SELECT * FROM offerdetails WHERE buyer=%s AND sellingitem=%i AND ssr='rent'", $_SESSION['username'], $_GET['itemid']);
+$existingrent = DB::count();
+
+$involved = array();
+$transactions = DB::query("SELECT * FROM transaction");
+foreach ($transactions as $transaction) {
+	$offerid = $transaction['transactionid'];
+	$offerdetails = DB::query("SELECT * from offerdetails where offerid=%i",$offerid);
+	$offerdetails = $offerdetails[0];
+	array_push($involved, $offerdetails['sellingitem']);
+	array_push($involved, $offerdetails['offereditem1']);
+	array_push($involved, $offerdetails['offereditem2']);
+	array_push($involved, $offerdetails['offereditem3']);
+	array_push($involved, $offerdetails['offereditem4']);
+}
+
 	
 ?>
 <html lang="en">
@@ -73,27 +93,38 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			<h4><p class="text-info">Item Details > Make an Offer </p></h4>
 			</div>
 			<hr>
-			<div class="row-fluid">
-			<p class="text-info">I want to: </p>
-			<br>
-			</div>
+			
 			<div class="row-fluid">
 			<p>	
 			<?php 
+			if(!in_array($_GET['itemid'], $involved)){
 						$ssrvalue = DB::query("SELECT ssr FROM ssritem WHERE itemid=%i",$item['itemid']);
 						$N = count($ssrvalue);
 						//echo print_r($vals);
 						$ssrstring = "";
 						for($i=0;$i<$N;$i++){
 							$val = array_values($ssrvalue[$i]);
-							if($val[0]=='sell')
-								echo '<a href="../manageoffers/makeofferbuy.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-primary align-center" type="button">Buy This Item!</button> </a><hr>';
-							if($val[0]=='swap')
-								echo '<a href="../manageoffers/makeofferswap.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-success" type="button">Swap For This Item!</button> </a><hr>';
-							if($val[0]=='rent')
-								echo '<a href="../manageoffers/makeofferrent.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-info" type="button">Rent This Item!</button> </a><hr>';
+							if($val[0]=='sell'){
+								if($existingsell>0)
+									echo '<a href=""><button class="btn btn-large btn-primary align-center disabled" type="button" >Buy This Item!</button> </a><hr>';
+								else echo '<a href="../manageoffers/makeofferbuy.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-primary align-center" type="button">Buy This Item!</button> </a><hr>';
+									
+							}
+							if($val[0]=='swap'){
+								if($existingswap>0)
+								echo '<a href=""><button class="btn btn-large btn-success disabled" type="button" >Swap For This Item!</button> </a><hr>';
+							else echo '<a href="../manageoffers/makeofferswap.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-success" type="button" >Swap For This Item!</button> </a><hr>';
+							}
+							if($val[0]=='rent'){
+								if($existingrent>0)
+								echo '<a href=""><button class="btn btn-large btn-info disabled" type="button" >Rent This Item!</button> </a><hr>';
+							else echo '<a href="../manageoffers/makeofferrent.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-info" type="button">Rent This Item!</button> </a><hr>';
+							}
 						}
 						echo $ssrstring;
+					}
+					else
+						echo 'This item is currently involved in another transaction';
 					?>
 			</p>		
 			</div>

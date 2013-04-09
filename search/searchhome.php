@@ -54,7 +54,7 @@ if (!isset($_SESSION['username'])){
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
 						<li class="active"><a href="#">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">What I'm Buying</a></li>
 						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
 						<li><a href="#">Help Center</a></li>
 						<li><a href="#">My Account</a></li>

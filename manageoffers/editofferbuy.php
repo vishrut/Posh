@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <?php
 // Check if session is not registered, redirect back to main page.
 // Put this code in first line of web page.
@@ -11,8 +11,9 @@ if (!isset($_SESSION['username'])){
 
 require_once '../dbconnect.php';
 
-$item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['itemid']);
-$ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
+$offerdetails = DB::query("SELECT * FROM offerdetails WHERE offerid=%i", $_GET['offerid']);
+$offerdetails  = $offerdetails[0];
+$item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $offerdetails['sellingitem']);
 	
 ?>
 <html lang="en">
@@ -23,10 +24,14 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 
     <!-- Le styles -->
     <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="datepicker.css" rel="stylesheet">
+
+
 
     <style type="text/css">
 		body {
 			padding-top: 40px;
+			padding-bottom: 20px;
 		}
     </style>
     <link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -56,23 +61,52 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li class="active"><a href="#"><i class="icon-chevron-right"></i>Item Details</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>User Details</a></li>
-					<!--li><a href="#"><i class="icon-chevron-right"></i>Show similar items</a></li-->
+					<li><a href=""><i class="icon-chevron-right"></i>Back to Offers I Made</a></li>
 				</ul>
 			</div>
-			<!--div class="span3">
-			<ul class="nav nav-tabs nav-stacked">
-              <li class="active"><a href="#">Add an Item</a></li>
-              <li><a href="viewitems.php">Items I'm Selling</a></li>
-              <li><a href="#">My Services</a></li>
-            </ul>
-			</div-->
+			
 			<div class="span6">
 			<div class="row-fluid">
-			<h4><p class="text-info">Item Details </p></h4>
+			<h4><p class="text-info">Edit Offer </p></h4>
 			</div>
-			<div class="row-fluid">
+			<hr>
+			
+			<?php
+			if($offerdetails['ssr']=='sell'){
+			
+			echo '<div class="row-fluid">
+			<p>	
+			<form name="editbuyoffer" class="form-horizontal" action="updatebuyoffer.php" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="offerid" id="offeridgroup" value="'.$offerdetails['offerid'].'" />
+						<input type="hidden" name="buyoffer" id="rentoffergroup" value="1" />
+
+						
+						<div class="control-group" id="amountgroup">
+							<label class="control-label" for="inputAmount">Pay an Amount of: </label>
+							<div class="controls">
+							<div class="input-prepend">
+								<span class="add-on">Rs</span>
+								<input class="span6" id="inputAmount" required name="amount" type="text" value="'.$offerdetails['cash'].'"  placeholder="">
+							</div>
+							<span class="help-inline" id="amounthelp"></span>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+							<button type="submit" class="btn btn-large btn-success">Make the Offer!</button>
+							</div>
+						</div>
+			</form>		
+			</p>		
+			</div>';
+		}
+			?>
+			</div>
+			<div class="span3">
+			<div class="thumbnail">
+			<?php echo '<img src="../upload/'.$item['image'].'" alt="">';?>
+			<div class="caption">
+				<div class="row-fluid">
 				<table class="table table-hover">
 				<thead>
 					<tr>
@@ -127,21 +161,42 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 				</tr>
 				</table>
 			</div>
-			<div claass="row-fluid">
-			<?php
-			if($_SESSION['username']!=$item['owner']){	
-			echo '<p><a href="../manageoffers/makeoffer.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-success" type="button">Make An Offer!</button></a>
-			<button class="btn btn-large btn-info" type="button">Add to Wishlist!</button></p>'; 
-			}
-			?>
-			</div>
-			</div>
-			<div class="span3">
-			<div class="thumbnail">
-			<?php echo '<img src="../upload/'.$item['image'].'" alt="">';?>
 			</div>
 			</div>
 			</div>
+			</div>
+    <script src="../bootstrap/js/jquery.js"></script>
+    		<script src="../bootstrap/js/bootstrap.js"></script>
+        	<script src="bootstrap-datepicker.js"></script>	
+			<script>
+
+		$(function(){
+        // disabling dates
+        var nowTemp = new Date();
+        var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+        var checkin = $('#dpd1').datepicker({
+          onRender: function(date) {
+            return date.valueOf() < now.valueOf() ? 'disabled' : '';
+          }
+        }).on('changeDate', function(ev) {
+          if (ev.date.valueOf() > checkout.date.valueOf()) {
+            var newDate = new Date(ev.date)
+            newDate.setDate(newDate.getDate() + 1);
+            checkout.setValue(newDate);
+          }
+          checkin.hide();
+          $('#dpd2')[0].focus();
+        }).data('datepicker');
+        var checkout = $('#dpd2').datepicker({
+          onRender: function(date) {
+            return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+          }
+        }).on('changeDate', function(ev) {
+          checkout.hide();
+        }).data('datepicker');
+		});
+	</script>
 		<!--div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
 			<p>&copy; Company 2012</p>
 		</div-->
@@ -149,9 +204,8 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../bootstrap/js/jquery.js"></script>
-    <script src="../bootstrap/js/bootstrap.js"></script>
-    <script src="../bootstrap/js/bootstrap-fileupload.js"></script>	
+   
+
 	
 
 	</body>

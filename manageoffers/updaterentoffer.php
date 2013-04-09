@@ -11,24 +11,12 @@ if (!isset($_SESSION['username'])){
 
 require_once '../dbconnect.php';
 
-$item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_POST['sellingitem']);
-
-DB::insert('offerdetails', array(
-  'buyer' => $_SESSION['username'],
-  'seller' => $item['owner'],
-  'ssr' => 'rent',
-  'sellingitem' => $item['itemid']
-));
-
-$lastofferid=DB::insertID();
-
-DB::insert('rentdetails', array(
-  'offerid' => $lastofferid,
+DB::update('rentdetails', array(
   'startdate' => $_POST['startdate'],
   'enddate' => $_POST['enddate'],
   'amount' => $_POST['amount'],
   'per' => $_POST['per']
-));
+),"offerid=%i",$_POST['offerid']);
 
 header("location:listoffersbyme.php");
 
