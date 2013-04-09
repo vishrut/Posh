@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 08, 2013 at 10:36 AM
+-- Generation Time: Apr 09, 2013 at 01:45 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.3.4
 
@@ -26,17 +26,35 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `comments` (
+  `commentid` int(11) NOT NULL AUTO_INCREMENT,
   `commenter` varchar(20) NOT NULL,
   `offerid` int(10) NOT NULL,
-  `time` datetime NOT NULL,
+  `time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `comment` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`commentid`),
   KEY `commenter` (`commenter`),
   KEY `offerid` (`offerid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `comments`
 --
 
+INSERT INTO `comments` (`commentid`, `commenter`, `offerid`, `time`, `comment`) VALUES
+(2, 'vishrut', 50, '2013-04-09 15:04:50', 'this s comment 2'),
+(3, 'Arun', 50, '2013-04-09 15:05:15', 'comment numero trios'),
+(10, 'vish', 47, '2013-04-09 16:16:10', 'hello'),
+(11, 'saheb', 47, '2013-04-09 16:53:59', 'wassup'),
+(13, 'vish', 47, '2013-04-09 16:56:13', 'saheb plz increase rent amount'),
+(14, 'vish', 50, '2013-04-09 16:57:06', 'change swapping item plz'),
+(15, 'vish', 51, '2013-04-09 16:57:20', 'buying amt too less'),
+(16, 'vish', 52, '2013-04-09 16:57:32', 'buying amt too much'),
+(17, 'vish', 53, '2013-04-09 16:57:43', 'add swap item'),
+(19, 'saheb', 47, '2013-04-09 16:59:13', 'ok maybe'),
+(21, 'saheb', 51, '2013-04-09 16:59:33', 'to me kya karu'),
+(22, 'saheb', 52, '2013-04-09 16:59:44', 'really?'),
+(24, 'saheb', 52, '2013-04-09 16:59:53', 'hi'),
+(26, 'saheb', 53, '2013-04-09 17:00:11', 'maybe');
 
 -- --------------------------------------------------------
 
@@ -134,6 +152,7 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   `offereditem4` int(10) DEFAULT NULL,
   `cash` int(10) DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `accepted` int(3) DEFAULT '0',
   PRIMARY KEY (`offerid`),
   KEY `seller` (`seller`),
   KEY `offereditem1` (`offereditem1`),
@@ -142,15 +161,21 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   KEY `offereditem4` (`offereditem4`),
   KEY `sellingitem` (`sellingitem`),
   KEY `buyer` (`buyer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
 
 --
 -- Dumping data for table `offerdetails`
 --
 
-INSERT INTO `offerdetails` (`offerid`, `buyer`, `seller`, `ssr`, `sellingitem`, `offereditem1`, `offereditem2`, `offereditem3`, `offereditem4`, `cash`, `timestamp`) VALUES
-(33, 'vish', 'saheb', 'swap', 25, 22, 24, 23, NULL, NULL, '2013-04-08 15:34:46'),
-(34, 'vish', 'vi', 'swap', 15, 20, NULL, NULL, NULL, NULL, '2013-04-08 15:35:45');
+INSERT INTO `offerdetails` (`offerid`, `buyer`, `seller`, `ssr`, `sellingitem`, `offereditem1`, `offereditem2`, `offereditem3`, `offereditem4`, `cash`, `timestamp`, `accepted`) VALUES
+(40, 'vish', 'vi', 'swap', 15, 11, NULL, NULL, NULL, NULL, '2013-04-08 17:47:21', 1),
+(44, 'vish', 'saheb', 'swap', 25, 13, NULL, NULL, NULL, NULL, '2013-04-09 00:49:40', 1),
+(47, 'saheb', 'vish', 'rent', 16, NULL, NULL, NULL, NULL, NULL, '2013-04-09 10:32:03', 0),
+(49, 'saheb', 'vish', 'sell', 24, NULL, NULL, NULL, NULL, 2500, '2013-04-09 10:41:31', 1),
+(50, 'vi', 'vish', 'swap', 9, 15, NULL, NULL, NULL, NULL, '2013-04-09 14:34:35', 0),
+(51, 'saheb', 'vish', 'sell', 16, NULL, NULL, NULL, NULL, 500, '2013-04-09 16:54:44', 0),
+(52, 'saheb', 'vish', 'sell', 17, NULL, NULL, NULL, NULL, 123, '2013-04-09 16:54:59', 0),
+(53, 'saheb', 'vish', 'swap', 20, 25, NULL, NULL, NULL, NULL, '2013-04-09 16:55:12', 0);
 
 -- --------------------------------------------------------
 
@@ -175,7 +200,12 @@ INSERT INTO `rentdetails` (`offerid`, `startdate`, `enddate`, `amount`, `per`) V
 (17, '04/10/2013', '04/12/2013', 34, 'Day'),
 (18, '04/10/2013', '04/12/2013', 34, 'Day'),
 (19, '04/09/2013', '04/10/2013', 123, 'Week'),
-(20, '04/08/2013', '04/11/2013', 1234, 'Day');
+(20, '04/08/2013', '04/11/2013', 1234, 'Day'),
+(36, '04/09/2013', '04/11/2013', 100, 'Day'),
+(38, '04/09/2013', '04/12/2013', 34, 'Month'),
+(43, '04/09/2013', '04/10/2013', 45, 'Day'),
+(45, '04/11/2013', '04/24/2013', 123, 'Day'),
+(47, '04/10/2013', '04/11/2013', 45, 'Day');
 
 -- --------------------------------------------------------
 
@@ -255,9 +285,9 @@ INSERT INTO `ssritem` (`itemid`, `ssr`) VALUES
 
 CREATE TABLE IF NOT EXISTS `transaction` (
   `transactionid` int(10) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `startdate` datetime NOT NULL,
-  `enddate` datetime NOT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `startdate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `enddate` timestamp NULL DEFAULT NULL,
   KEY `transactionid` (`transactionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -265,6 +295,10 @@ CREATE TABLE IF NOT EXISTS `transaction` (
 -- Dumping data for table `transaction`
 --
 
+INSERT INTO `transaction` (`transactionid`, `status`, `startdate`, `enddate`) VALUES
+(44, 'started', '2013-04-09 00:50:06', NULL),
+(40, 'started', '2013-04-09 01:06:10', NULL),
+(49, 'started', '2013-04-09 10:41:38', NULL);
 
 -- --------------------------------------------------------
 
