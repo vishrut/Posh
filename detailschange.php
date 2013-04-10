@@ -30,7 +30,7 @@ if (!isset($_SESSION['username'])){
 			
 			email = '$myemail',
 			firstname = '$myfirstname',
-			lastname = 'abcd',
+			lastname = '$mylastname',
 			wing = '$mywing',
 			roomno = '$myroomno'
 	 where username= '$myusername'");
