@@ -25,6 +25,7 @@ DB::insert('transaction', array(
 
 DB::delete('offerdetails', "sellingitem=%i AND accepted=0", $offer['sellingitem']);
 
-header("location:listoffersforme.php");
+$offerid = $_GET['offerid'];
+header("location:../addnotification.php?type=acceptoffer&offerid=$offerid");
 
 ?>

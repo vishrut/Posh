@@ -45,11 +45,11 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand pull-left" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li class="active"><a href="#">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
-						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li class="active"><a href="../search/searchhome.php">Search</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -59,8 +59,8 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li ><a href="#"><i class="icon-chevron-right"></i>Back to Item Details</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>Back to User Details</a></li>
+					<li class="active"><a href="#"><i class="icon-chevron-right"></i>Make Offer</a></li>
+					<li><a href="../search/searchhome.php"><i class="icon-chevron-right"></i>Back to Search</a></li>
 				</ul>
 			</div>
 			
@@ -140,7 +140,7 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 				</tr>
 				<tr>
 					<th>Item Description </th>
-					<td><?php echo $item['description']?></td>
+					<td><?php echo substr($item['description'],0,20)."..."?></td>
 				</tr>
 				<tr>
 						<th>Category </th>
@@ -176,8 +176,12 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 					</td>
 				</tr>
 				<tr>
-					<th>Owner </th>
-					<td><?php echo $item['owner'];?></td>
+					<th>Owner Rating</th>
+					<td><?php 
+					$user = DB::query("SELECT * from users where username=%s", $item['owner']);
+					$user = $user[0];
+					echo round($user['rating'], 2);
+					?></td>
 				</tr>
 				</table>
 			</div>

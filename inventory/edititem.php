@@ -92,10 +92,10 @@ else{
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
 						<li><a href="../search/searchhome.php">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
-						<li class="active"><a href="#">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li class="active"><a href="viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>

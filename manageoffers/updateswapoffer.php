@@ -66,6 +66,6 @@ else{
 if(isset($_SESSION['firsttime']))
 unset($_SESSION['firsttime']);
 
-header("location:listoffersbyme.php");
-
+$offerid  = $_GET['offerid'];
+header("location:../addnotification.php?type=editoffer&offerid=$offerid");
 ?>

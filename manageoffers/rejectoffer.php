@@ -11,8 +11,6 @@ if (!isset($_SESSION['username'])){
 
 require_once '../dbconnect.php';
 
-DB::delete('offerdetails', "offerid=%i", $_GET['offerid']);
-
-header("location:listoffersforme.php");
-
+$offerid = $_GET['offerid'];
+header("location:../addnotification.php?type=rejectoffer&offerid=$offerid");
 ?>

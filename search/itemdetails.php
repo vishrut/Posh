@@ -42,11 +42,11 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand pull-left" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li class="active"><a href="#">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
-						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li  class="active"><a href="../search/searchhome.php">Search</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -57,7 +57,7 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li class="active"><a href="#"><i class="icon-chevron-right"></i>Item Details</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>User Details</a></li>
+					<li><a href="../userdetails.php"><i class="icon-chevron-right"></i>User Details</a></li>
 					<!--li><a href="#"><i class="icon-chevron-right"></i>Show similar items</a></li-->
 				</ul>
 			</div>
@@ -125,13 +125,26 @@ $ssrs = DB::query("SELECT * FROM ssritem WHERE itemid=%s", $_GET['itemid']);
 					<th>Owner </th>
 					<td><?php echo $item['owner'];?></td>
 				</tr>
+				<tr>
+					<th>Owner Rating</th>
+					<td><?php 
+					$user = DB::query("SELECT * from users where username=%s", $item['owner']);
+					$user = $user[0];
+					echo round($user['rating'], 2);
+					?></td>
+				</tr>
 				</table>
 			</div>
 			<div claass="row-fluid">
 			<?php
 			if($_SESSION['username']!=$item['owner']){	
-			echo '<p><a href="../manageoffers/makeoffer.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-success" type="button">Make An Offer!</button></a>
-			<button class="btn btn-large btn-info" type="button">Add to Wishlist!</button></p>'; 
+			echo '<p><a href="../manageoffers/makeoffer.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-success" type="button">Make An Offer!</button></a>';
+			DB::query("SELECT * from wishlist where username=%s and itemid=%i", $_SESSION['username'],$item['itemid']);
+			if(DB::count()==0)
+			echo ' <a href="addtowishlist.php?itemid='.$item['itemid'].'"><button class="btn btn-large btn-info" type="button">Add to Wishlist!</button></a></p>'; 
+			else
+			echo ' <a href=""><button class="btn btn-large btn-info disabled" type="button">Added to Wishlist!</button></a></p>'; 
+
 			}
 			?>
 			</div>

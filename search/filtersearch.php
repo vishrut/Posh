@@ -129,11 +129,11 @@ echo '$("#All").click()';
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li class="active"><a href="#">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
-						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li  class="active"><a href="../search/searchhome.php">Search</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -291,7 +291,7 @@ echo '$("#All").click()';
 				$counter = 0;
 				
 				echo '<hr>';
-				echo $where->text();
+				//echo $where->text();
 				echo '<div class="row-fluid">';
 				echo '<ul class="thumbnails">';
 				
@@ -324,9 +324,8 @@ echo '$("#All").click()';
 					echo '<div class="thumbnail">';
 					echo '<img src="../upload/'.$item['image'].'" alt="">';
 					echo '<div class="caption">';
-					print_r($ssrvalue);
 					echo '<h3>'.$item['itemname'].'</h3>';
-					echo '<p>'.$item['description'].'</p>';
+					//echo '<p>'.$item['description'].'</p>';
 					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
 					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
@@ -377,7 +376,7 @@ echo '$("#All").click()';
 				$counter = 0;
 				
 				echo '<hr>';
-				echo $where->text();
+				//echo $where->text();
 				echo '<div class="row-fluid">';
 				echo '<ul class="thumbnails">';
 				
@@ -410,10 +409,9 @@ echo '$("#All").click()';
 					echo '<div class="thumbnail">';
 					echo '<img src="../upload/'.$items[$id]['image'].'" alt="">';
 					echo '<div class="caption">';
-					print_r($ssrvalue);
 					echo '<br>Match value: '.$mvalue;
 					echo '<h3>'.$items[$id]['itemname'].'</h3>';
-					echo '<p>'.$items[$id]['description'].'</p>';
+					//echo '<p>'.$items[$id]['description'].'</p>';
 					echo '<p><a href="itemdetails.php?itemid='.$items[$id]['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 					
 					//echo '<button onclick="showConfirmation('.$items[$id]['itemid'].')" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';

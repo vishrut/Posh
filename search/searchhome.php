@@ -53,11 +53,11 @@ if (!isset($_SESSION['username'])){
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li class="active"><a href="#">Search</a></li>
-						<li><a href="../manageoffers/listoffersbyme.php">What I'm Buying</a></li>
-						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li  class="active"><a href="../search/searchhome.php">Search</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -99,6 +99,43 @@ if (!isset($_SESSION['username'])){
 					<button class="btn btn-info" onclick="submitQuery();">Search!</button>
 				</div>
 			</div>
+			<?php
+				require_once("../dbconnect.php");
+				$tbl_name = "inventory";
+				$items = DB::query("SELECT * FROM $tbl_name group by addedon DESC");
+				$counter = 0;
+				
+				echo '<hr>';
+				echo '<div class="row-fluid">';
+				echo '<p class="text-info">Newsfeed - Some items which were added or modified recently: </p>';
+				echo '<ul class="thumbnails">';
+				
+				foreach($items as $item){
+				if($item['owner']!=$_SESSION['username']&&$counter<4){
+				if($counter!=0 && $counter%4==0){
+					echo '</ul>';
+					echo '</div>';
+					echo '<div class="row-fluid">';
+					echo '<ul class="thumbnails">';
+				}
+					echo '<li class="span3">';
+					echo '<div class="thumbnail">';
+					echo '<img src="../upload/'.$item['image'].'" alt="">';
+					echo '<div class="caption">';
+					echo '<h3>'.$item['itemname'].'</h3>';
+					//echo '<p>'.$item['description'].'</p>';
+					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
+					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
+					echo '</div>';
+					echo '</div>';
+					echo '</li>';
+					$counter=$counter+1;
+				}
+			}
+				echo '</ul>';
+				echo '</div>';
+			
+			?>
 			
 			<?php
 			
@@ -137,7 +174,7 @@ if (!isset($_SESSION['username'])){
 					echo '<img src="../upload/'.$item['image'].'" alt="">';
 					echo '<div class="caption">';
 					echo '<h3>'.$item['itemname'].'</h3>';
-					echo '<p>'.$item['description'].'</p>';
+					//echo '<p>'.$item['description'].'</p>';
 					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
 					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
@@ -173,7 +210,7 @@ if (!isset($_SESSION['username'])){
 					echo '<img src="../upload/'.$item['image'].'" alt="">';
 					echo '<div class="caption">';
 					echo '<h3>'.$item['itemname'].'</h3>';
-					echo '<p>'.$item['description'].'</p>';
+					//echo '<p>'.$item['description'].'</p>';
 					echo '<p><a href="itemdetails.php?itemid='.$item['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
 					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
@@ -219,8 +256,8 @@ if (!isset($_SESSION['username'])){
 					echo '<img src="../upload/'.$items[$id]['image'].'" alt="">';
 					echo '<div class="caption">';
 					echo '<h3>'.$items[$id]['itemname'].'</h3>';
-					echo '<p>Match Value - '.$mvalue.'</p>';
-					echo '<p>'.$items[$id]['description'].'</p>';
+					//echo '<p>Match Value - '.$mvalue.'</p>';
+					//echo '<p>'.$items[$id]['description'].'</p>';
 					echo '<p><a href="itemdetails.php?itemid='.$items[$id]['itemid'].'"> <button class="btn btn-primary">View Details</button></a></p> '; 
 					//echo '<button onclick="" class="btn btn-info">Add to Wishlist</button></p>';
 					echo '</div>';
@@ -239,7 +276,6 @@ if (!isset($_SESSION['username'])){
 			?>
 			</div>
 			
-
 		</div>
 		
 		

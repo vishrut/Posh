@@ -40,10 +40,10 @@ require_once '../dbconnect.php';
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
 						<li><a href="../search/searchhome.php">Search</a></li>
-						<li class="active"><a href="#">What I'm Buying</a></li>
-						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li class="active"><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -58,6 +58,8 @@ require_once '../dbconnect.php';
 					<li><a href="listoffersbyme.php"><i class="icon-chevron-right"></i>Offers I Made</a></li>
 					<li  class="active"><a href="listoffersforme.php"><i class="icon-chevron-right"></i>Offers Made For Me</a></li>
 					<li><a href="../transactions/viewongoing.php"><i class="icon-chevron-right"></i>Ongoing Transactions</a></li>
+					<li><a href="../transactions/archived.php"><i class="icon-chevron-right"></i>Archived Transactions</a></li>
+
 				</ul>
 			</div>
 			</div>
@@ -95,6 +97,13 @@ require_once '../dbconnect.php';
 						echo '<div class="caption">';
 						echo '<h3>'.$item['itemname'].'</h3>';
 						echo '<p>Offer from: '.$offer['buyer'].'</p>';
+
+						echo '<p>User Rating: ';
+						$user = DB::query("SELECT * from users where username=%s", $offer['buyer']);
+						$user = $user[0];
+						echo round($user['rating'], 2);
+						echo '</p>';
+					
 
 						if($offer['ssr']=='sell'){	
 							echo '<p>Offer Type: Buying </p>';

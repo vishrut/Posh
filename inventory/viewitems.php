@@ -11,6 +11,20 @@ if (!isset($_SESSION['username'])){
 }
 
 $targetitemid=0;
+require_once("../dbconnect.php");
+
+$involved = array();
+$transactions = DB::query("SELECT * FROM transaction");
+foreach ($transactions as $transaction) {
+	$offerid = $transaction['transactionid'];
+	$offerdetails = DB::query("SELECT * from offerdetails where offerid=%i",$offerid);
+	$offerdetails = $offerdetails[0];
+	array_push($involved, $offerdetails['sellingitem']);
+	array_push($involved, $offerdetails['offereditem1']);
+	array_push($involved, $offerdetails['offereditem2']);
+	array_push($involved, $offerdetails['offereditem3']);
+	array_push($involved, $offerdetails['offereditem4']);
+}
 ?>
 
 <html lang="en">
@@ -39,11 +53,11 @@ $targetitemid=0;
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li><a href="../search/searchhome.php">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
-						<li class="active"><a href="#">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li ><a href="../search/searchhome.php">Search</a></li>
+						<li><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li  class="active"><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -55,7 +69,6 @@ $targetitemid=0;
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li ><a href="sellitem.php"><i class="icon-chevron-right"></i>Add an Item</a></li>
 					<li class="active"><a href="#"><i class="icon-chevron-right"></i>Items I'm Selling</a></li>
-					<li><a href="#"><i class="icon-chevron-right"></i>My Services</a></li>
 				</ul>
 			</div>
 			
@@ -84,8 +97,12 @@ $targetitemid=0;
 				echo '<div class="caption">';
 				echo '<h3>'.$item['itemname'].'</h3>';
 				echo '<p>'.$item['description'].'</p>';
+				if(!in_array($item['itemid'], $involved)){
 				echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
 				echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';
+			}
+			else
+				echo '<p>This item is involved in a transaction, you cannot edit it.</p>';
 				echo '</div>';
 				echo '</div>';
 				echo '</li>';

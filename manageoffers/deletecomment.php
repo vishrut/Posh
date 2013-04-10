@@ -14,6 +14,21 @@ require_once '../dbconnect.php';
 DB::delete('comments', "commentid=%s", $_GET['commentid']);
 
 $prev = $_GET['prev'];
+if ($prev=='viewtransswap') {
+	$offerid = $_GET['offerid'];
+	header("location:../transactions/viewtransswap.php?offerid=$offerid");
+}
+elseif ($prev=='viewtransrent') {
+	$offerid = $_GET['offerid'];
+	header("location:../transactions/viewtransrent.php?offerid=$offerid");
+	
+}
+elseif ($prev=='viewtranssell') {
+	$offerid = $_GET['offerid'];
+	header("location:../transactions/viewtranssell.php?offerid=$offerid");
+	# code...
+}
+else
 header("location:$prev");
 
 ?>

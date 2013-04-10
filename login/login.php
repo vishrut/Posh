@@ -11,7 +11,7 @@
 	$mypassword = stripslashes($mypassword);	
 
 	$tbl_name="users";	
-	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s", $myusername, $mypassword);
+	$result = DB::query("SELECT * FROM $tbl_name WHERE username=%s and password=%s and confirmed=1", $myusername, $mypassword);
 
 	$count = 0;
 	foreach ($result as $row) {

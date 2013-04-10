@@ -56,13 +56,67 @@
     <div class="container-narrow">
 
 		<div class="masthead">
-			<ul class="nav nav-pills pull-right">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Contact</a></li>
-			</ul>
-			<h2 class="muted">Posh</h2>
-		</div>
+
+	
+
+	
+
+	
+
+<ul class="nav nav-pills pull-right">
+
+	
+
+	
+
+	
+
+	
+
+<li class="active"><a href="#">Home</a></li>
+
+	
+
+	
+
+	
+
+	
+
+<li><a href="#About" role="button" data-toggle="modal">About</a></li>
+
+	
+
+	
+
+	
+
+	
+
+<li><a href="#Contact" role="button" data-toggle="modal">Contact</a></li>
+
+	
+
+	
+
+	
+
+</ul>
+
+	
+
+	
+
+	
+
+<h2 class="muted">Posh</h2>
+
+	
+
+	
+
+</div>
+
 
 		<hr>
 
@@ -76,7 +130,7 @@
 				<?php 
 					if(isset($_SESSION['loginfailed']))
 						if($_SESSION['loginfailed']==1){
-							echo "<p><font color=\"red\">Oops! Please enter correct Username and Password</p></font>";
+							echo "<p><font color=\"red\">Oops! Please enter correct Username and Password<br>Or perhaps, you aren't a confirmed member.</p></font>";
 							$_SESSION['loginfailed']=0;
 						};
 					if (isset($_SESSION['username'])){
@@ -87,11 +141,180 @@
 				<input type="text" id="username" name="username" class="input-small" placeholder="Username" >
 				<input type="password" id="password" name="password" class="input-small" placeholder="Password" >
 				<button type="submit" class="btn" >Sign in</button>
-				<hr>
+				<a href="#myModal2" role="button" data-toggle="modal">Forgot Password?</a>
 			</form>
 		</div>
+		<div id="Contact" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+	
+
+	
+
+	
+
+<div class="modal-header">
+
+	
+
+	
+
+	
+
+	
+
+<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button-->
+
+	
+
+	
+
+	
+
+	
+
+<h3 id="myModalLabel">Contact us</h3>
+
+	
+
+	
+
+	
+
+</div>
+
+	
+
+	
+
+	
+
+<div class="modal-body">
+
+	
+
+	
+
+	
+
+	
+
+   <p>CONTACT US AT:
+
+	
+
+	
+
+	
+
+	
+
+   
+
+	
+
+<p><i> contactposhwebsite@gmail.com
+
+	
+
+	
+
+	
+
+</div>
+
+	
+
+	
+
+</div><div id="About" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+	
+
+	
+
+	
+
+<div class="modal-header">
+
+	
+
+	
+
+	
+
+	
+
+<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button-->
+
+	
+
+	
+
+	
+
+	
+
+<h3 id="myModalLabel">Contact us</h3>
+
+	
+
+	
+
+	
+
+</div>
+
+	
+
+	
+
+	
+
+<div class="modal-body">
+
+	
+
+	
+
+	
+
+	
+
+   <p>Welcome to a revolutionary online shopping intra community site. Enjoy our endless item shopping. If you are an expert at something then offer your services and make money.
+
+	
+
+	
+
+	
+
+</div>
+
+	
+
+	
+
+</div>
 	  
 		<!-- Modal -->
+		<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button-->
+				<h3 id="myModalLabel">Enter Your Details</h3>
+			</div>
+			<div class="modal-body">
+				    <form name="signup2" class="form-horizontal" action="forgotpassword.php" method="post">
+						
+						<div class="control-group" id="studentidgroup2">
+							<label class="control-label" for="inputStudentid2">Student ID</label>
+							<div class="controls">
+							<input type="text" name="studentid2" required  placeholder="Your Student ID">
+							</div>
+						</div>
+				   <button class="btn btn-primary pull-right" type="submit" id="signupbtn2" >Submit</button>
+			</form>	
+			</div>
+		</div>
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<!--button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button-->
@@ -156,6 +379,13 @@
 								<option>A</option>
 								<option>B</option>
 								<option>C</option>
+								<option>D</option>
+								<option>E</option>
+								<option>F</option>
+								<option>G</option>
+								<option>H</option>
+								<option>J</option>
+								<option>K</option>	
 							</select>
 							<input class="span1" type="text" name="roomno" required id="inputRoomno" placeholder="Room" onkeyup="validateroomno(this.value)">
 							<span class="help-inline" id="winghelp"></span>
@@ -169,29 +399,7 @@
 			</form>
 		</div>
 
-		<div class="row-fluid marketing">
-			<div class="span6">
-				<h4>Subheading</h4>
-				<p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-				<h4>Subheading</h4>
-				<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-				<h4>Subheading</h4>
-				<p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-			</div>
-
-			<div class="span6">
-				<h4>Subheading</h4>
-				<p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-				<h4>Subheading</h4>
-				<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-				<h4>Subheading</h4>
-				<p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-			</div>
-		</div>
+		
 
 		<hr>
 

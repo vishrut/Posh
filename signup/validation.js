@@ -142,7 +142,7 @@ function showRNoHint(str)
 		
 		id = parseInt(str);
 		
-		if(id>100 && id<300){
+		if(id>100 && id<400){
 			$("#winggroup").attr("class","control-group success");
 			document.getElementById("winghelp").innerHTML="Seems good!";
 			validrno=1;

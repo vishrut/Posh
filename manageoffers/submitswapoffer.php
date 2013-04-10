@@ -50,6 +50,6 @@ if(isset($_SESSION['swap4'])){
 	unset($_SESSION['swap4']);
 }
 
-header("location:listoffersbyme.php");
+header("location:../addnotification.php?type=madeoffer&offerid=$lastofferid");
 
 ?>

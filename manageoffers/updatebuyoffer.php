@@ -15,6 +15,6 @@ DB::update('offerdetails', array(
   'cash' => $_POST['amount'],
 ),"offerid=%i",$_POST['offerid']);
 
-header("location:listoffersbyme.php");
-
+$offerid  = $_POST['offerid'];
+header("location:../addnotification.php?type=editoffer&offerid=$offerid");
 ?>

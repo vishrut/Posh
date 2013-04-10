@@ -72,7 +72,7 @@ DB::update($tbl_name, array(
 $itemdetails = DB::queryFirstRow("SELECT * FROM $tbl_name WHERE image=%s", $filename);
 
 $tbl_name="ssritem";
-DB::delete('ssritem', "itemid=%s", $itemdetails['itemid']);
+DB::delete('ssritem', "itemid=%i", $itemdetails['itemid']);
 if(!empty($_POST['ssrsell']))
 	DB::insert($tbl_name, array(
 			'itemid' => $itemdetails['itemid'],
@@ -91,5 +91,7 @@ if(!empty($_POST['ssrrent']))
 			'ssr' =>  'rent'
 	));
 	
-	header("location:viewitems.php");
+	$itemid=$_POST['itemid'];
+	header("location:../addnotification.php?type=edititem&itemid=$itemid");
+
 ?> 

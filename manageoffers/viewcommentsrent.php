@@ -51,11 +51,11 @@ $selling=$selling[0];
 				<div class="container" style="width: auto; padding: 0 20px;">
 					<a class="brand pull-left" href="#">Posh</a>
 					<ul class="nav pull-right">
-						<li class="active"><a href="#">Search</a></li>
-						<li><a href="#">What I'm Buying</a></li>
-						<li><a href="../inventory/viewitems.php">Sell an Item</a></li>
-						<li><a href="#">Help Center</a></li>
-						<li><a href="#">My Account</a></li>
+						<li><a href="../search/searchhome.php">Search</a></li>
+						<li class="active"><a href="../manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
+						<li><a href="../inventory/viewitems.php">Sell/Edit Item</a></li>
+						<li><a href="../helpcenter.php">Help Center</a></li>
+						<li><a href="../userdetails.php">My Account</a></li>
 						<li><a href="../login/logout.php">Log Out</a></li>
 					</ul>
 				</div>
@@ -65,8 +65,10 @@ $selling=$selling[0];
 		<div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
-					<li><a href="listoffersbyme.php"><i class="icon-chevron-right"></i>Back Offers I made</a></li>
-					<li ><a href="listoffersforme.php"><i class="icon-chevron-right"></i>Back to Offers for me</a></li>
+					<li  class="active"><a href="listoffersbyme.php"><i class="icon-chevron-right"></i>Offers I Made</a></li>
+					<li ><a href="listoffersforme.php"><i class="icon-chevron-right"></i>Offers Made For Me</a></li>
+					<li><a href="../transactions/viewongoing.php"><i class="icon-chevron-right"></i>Ongoing Transactions</a></li>
+					<li><a href="../transactions/archived.php"><i class="icon-chevron-right"></i>Archived Transactions</a></li>
 				</ul>
 			</div>
 			
@@ -168,7 +170,7 @@ $selling=$selling[0];
 				</tr>
 				<tr>
 					<th>Item Description </th>
-					<td><?php echo $selling['description']?></td>
+					<td><?php echo substr($selling['description'],0,20)."..."?></td>
 				</tr>
 				<tr>
 						<th>Category </th>
@@ -206,6 +208,14 @@ $selling=$selling[0];
 				<tr>
 					<th>Owner </th>
 					<td><?php echo $selling['owner'];?></td>
+				</tr>
+				<tr>
+					<th>Owner Rating</th>
+					<td><?php 
+					$user = DB::query("SELECT * from users where username=%s", $selling['owner']);
+					$user = $user[0];
+					echo round($user['rating'], 2);
+					?></td>
 				</tr>
 				</table>
 

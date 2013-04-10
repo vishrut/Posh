@@ -30,6 +30,5 @@ DB::insert('rentdetails', array(
   'per' => $_POST['per']
 ));
 
-header("location:listoffersbyme.php");
-
+header("location:../addnotification.php?type=madeoffer&offerid=$lastofferid");
 ?>

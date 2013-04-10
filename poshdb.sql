@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 09, 2013 at 01:45 PM
+-- Generation Time: Apr 10, 2013 at 11:14 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.3.4
 
@@ -34,27 +34,12 @@ CREATE TABLE IF NOT EXISTS `comments` (
   PRIMARY KEY (`commentid`),
   KEY `commenter` (`commenter`),
   KEY `offerid` (`offerid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`commentid`, `commenter`, `offerid`, `time`, `comment`) VALUES
-(2, 'vishrut', 50, '2013-04-09 15:04:50', 'this s comment 2'),
-(3, 'Arun', 50, '2013-04-09 15:05:15', 'comment numero trios'),
-(10, 'vish', 47, '2013-04-09 16:16:10', 'hello'),
-(11, 'saheb', 47, '2013-04-09 16:53:59', 'wassup'),
-(13, 'vish', 47, '2013-04-09 16:56:13', 'saheb plz increase rent amount'),
-(14, 'vish', 50, '2013-04-09 16:57:06', 'change swapping item plz'),
-(15, 'vish', 51, '2013-04-09 16:57:20', 'buying amt too less'),
-(16, 'vish', 52, '2013-04-09 16:57:32', 'buying amt too much'),
-(17, 'vish', 53, '2013-04-09 16:57:43', 'add swap item'),
-(19, 'saheb', 47, '2013-04-09 16:59:13', 'ok maybe'),
-(21, 'saheb', 51, '2013-04-09 16:59:33', 'to me kya karu'),
-(22, 'saheb', 52, '2013-04-09 16:59:44', 'really?'),
-(24, 'saheb', 52, '2013-04-09 16:59:53', 'hi'),
-(26, 'saheb', 53, '2013-04-09 17:00:11', 'maybe');
 
 -- --------------------------------------------------------
 
@@ -92,27 +77,17 @@ CREATE TABLE IF NOT EXISTS `inventory` (
   `image` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`itemid`),
   KEY `owner` (`owner`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
 
 --
 -- Dumping data for table `inventory`
 --
 
 INSERT INTO `inventory` (`itemid`, `owner`, `itemname`, `category`, `addedon`, `pricetag`, `description`, `condition`, `image`) VALUES
-(9, 'vish', 'newfile', 'A', '2013-03-26 10:49:16', 100, 'new file upload button							', 'new', '28895ERD.png'),
-(11, 'vish', 'newitemagain', 'A', '2013-03-26 11:19:58', 100, 'yo							', 'new', '33288ERD.png'),
-(13, 'vish', 'aaa', 'A', '2013-03-26 18:07:20', 100, 'ho							', 'new', '49737ERD.png'),
-(14, 'vish', 'hi', 'A', '2013-03-26 18:08:21', 123, 'hi							', 'new', '689260ERD.png'),
 (15, 'vi', 'itemvi', 'A', '2013-03-26 18:11:01', 100, 'hellos							', 'new', '627102ERD.png'),
-(16, 'vish', 'aa', 'A', '2013-03-26 19:08:01', 100, 'des							', 'new', '167306ERD.png'),
-(17, 'vish', 'b', 'A', '2013-03-26 19:08:23', 100, 'nnini							', 'new', '592518ERD.png'),
-(18, 'vish', 'c', 'A', '2013-03-26 19:08:44', 100, 'mkmk							', 'new', '906973ERD.png'),
-(20, 'vish', 'xitem', 'B', '2013-03-28 21:50:36', 100, 'this is item X							', 'new', '231435DFD.jpg'),
-(21, 'vish', 'yitems', 'A', '2013-03-28 22:07:27', 4123, 'hi shello							', 'new', '842272ERD.png'),
-(22, 'vish', 'nokia lumia', 'A', '2013-03-30 16:33:17', 2000, 'Nokia lumia phone							', 'used', '322691lumia.jpg'),
-(23, 'vish', 'poshitem', 'C', '2013-03-31 17:27:45', 1000, '							New item', 'new', '130423pics 024.gif'),
-(24, 'vish', 'Computer', 'A', '2013-04-02 14:16:01', 5000, 'New dell computer for sale							', 'good', '495659images.jpg'),
-(25, 'saheb', 'sahebsitem', 'A', '2013-04-08 00:33:56', 1000, 'This is sahebs item							', 'good', '270413Level1.png');
+(25, 'saheb', 'sahebsitem', 'A', '2013-04-08 00:33:56', 1000, 'This is sahebs item							', 'good', '270413Level1.png'),
+(27, 'saheb', 'noti', 'A', '2013-04-10 11:22:33', 25, 'this is an aitem							', 'new', '806164ERD.png'),
+(28, 'saheb', 'hudi', 'A', '2013-04-10 12:25:08', 33, '							wadup', 'new', '874908ERD.png');
 
 -- --------------------------------------------------------
 
@@ -124,15 +99,32 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `notificationid` int(10) NOT NULL AUTO_INCREMENT,
   `notificationdetails` varchar(500) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `viewed` int(5) NOT NULL,
+  `viewed` int(5) NOT NULL DEFAULT '0',
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`notificationid`),
   KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `notifications`
 --
 
+INSERT INTO `notifications` (`notificationid`, `notificationdetails`, `username`, `viewed`, `time`) VALUES
+(9, 'Congratulations! User <b>vish</b> has accepted your offer for the item <b>c</b>.<br>You can find your new transaction in the Offers and Transactions tab.', 'saheb', 1, '2013-04-10 11:40:32'),
+(13, 'Sorry! User <b>vish</b> has rejected your offer for the item <b>yitems</b>.<br>You can find your new transaction in the Offers and Transactions tab.', 'saheb', 1, '2013-04-10 11:40:32'),
+(14, 'Sorry! User <b>vish</b> has rejected your offer for the item <b>yitems</b>.<br>You can find your new transaction in the Offers and Transactions tab.', 'saheb', 1, '2013-04-10 11:40:32'),
+(20, 'Congratulations! User <b>vish</b> has accepted your offer for the item <b>nokia lumia</b>.<br>You can find your new transaction in the Offers and Transactions tab.<br>Seller username: <br>Seller name:  <br>Room number:  <br>Email: ', 'saheb', 1, '2013-04-10 11:56:16'),
+(23, 'Congratulations! User <b>vish</b> has accepted your offer for the item <b>erroritem</b>.<br>You can find your new transaction in the Offers and Transactions tab.<br>Seller username: vish<br>Seller name: Vishrutk l<br>Room number: A 117<br>Email: 201001193@daiict.ac.in', 'saheb', 1, '2013-04-10 11:59:09'),
+(25, 'Wishlist item edited! User <b>vish</b> has edited the item <b>yitems</b>.<br>You can find the item using the search feature.', 'saheb', 1, '2013-04-10 12:30:13'),
+(26, 'Wishlist item edited! User <b>vish</b> has edited the item <b>yitems</b>.<br>You can find the item using the search feature.', 'vi', 0, '2013-04-10 12:30:13'),
+(27, 'Transaction status update!<br>Transaction between <b>vish and vish</b><br>User <b>vish</b> has reported the transaction as unsuccessful. <br>User <b>vi</b> has reported the transaction as completed', 'vi', 0, '2013-04-10 12:54:07'),
+(30, 'Transaction status update!<br>Transaction between <b>vish and vi</b><br>Both users have reported the transaction as completed', 'vi', 0, '2013-04-10 12:55:22'),
+(31, 'Transaction status update!<br>Transaction between <b>saheb and vish</b><br>User <b>vish</b> has reported the transaction as completed', 'saheb', 1, '2013-04-10 12:56:31'),
+(33, 'User <b>vish</b> has made an offer for your item <b>hudi</b>', 'saheb', 0, '2013-04-10 14:05:32'),
+(34, 'Transaction status update!<br>Transaction between <b>saheb and vish</b><br>User <b>vish</b> has reported the transaction as completed', 'saheb', 0, '2013-04-10 14:11:38'),
+(36, 'Transaction status update!<br>Transaction between <b>saheb and vish</b><br>User <b>vish</b> has reported the transaction as completed', 'saheb', 0, '2013-04-10 14:11:43'),
+(38, 'User <b>saheb</b> has made an offer for your item <b>itemvi</b>', 'vi', 0, '2013-04-10 16:02:40'),
+(39, 'User <b>saheb</b> has made an offer for your item <b>itemvi</b>', 'vi', 0, '2013-04-10 16:12:39');
 
 -- --------------------------------------------------------
 
@@ -161,21 +153,15 @@ CREATE TABLE IF NOT EXISTS `offerdetails` (
   KEY `offereditem4` (`offereditem4`),
   KEY `sellingitem` (`sellingitem`),
   KEY `buyer` (`buyer`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
 
 --
 -- Dumping data for table `offerdetails`
 --
 
 INSERT INTO `offerdetails` (`offerid`, `buyer`, `seller`, `ssr`, `sellingitem`, `offereditem1`, `offereditem2`, `offereditem3`, `offereditem4`, `cash`, `timestamp`, `accepted`) VALUES
-(40, 'vish', 'vi', 'swap', 15, 11, NULL, NULL, NULL, NULL, '2013-04-08 17:47:21', 1),
-(44, 'vish', 'saheb', 'swap', 25, 13, NULL, NULL, NULL, NULL, '2013-04-09 00:49:40', 1),
-(47, 'saheb', 'vish', 'rent', 16, NULL, NULL, NULL, NULL, NULL, '2013-04-09 10:32:03', 0),
-(49, 'saheb', 'vish', 'sell', 24, NULL, NULL, NULL, NULL, 2500, '2013-04-09 10:41:31', 1),
-(50, 'vi', 'vish', 'swap', 9, 15, NULL, NULL, NULL, NULL, '2013-04-09 14:34:35', 0),
-(51, 'saheb', 'vish', 'sell', 16, NULL, NULL, NULL, NULL, 500, '2013-04-09 16:54:44', 0),
-(52, 'saheb', 'vish', 'sell', 17, NULL, NULL, NULL, NULL, 123, '2013-04-09 16:54:59', 0),
-(53, 'saheb', 'vish', 'swap', 20, 25, NULL, NULL, NULL, NULL, '2013-04-09 16:55:12', 0);
+(71, 'saheb', 'vi', 'sell', 15, NULL, NULL, NULL, NULL, 123, '2013-04-10 16:02:39', 0),
+(72, 'saheb', 'vi', 'swap', 15, 27, NULL, NULL, NULL, NULL, '2013-04-10 16:12:39', 0);
 
 -- --------------------------------------------------------
 
@@ -205,7 +191,40 @@ INSERT INTO `rentdetails` (`offerid`, `startdate`, `enddate`, `amount`, `per`) V
 (38, '04/09/2013', '04/12/2013', 34, 'Month'),
 (43, '04/09/2013', '04/10/2013', 45, 'Day'),
 (45, '04/11/2013', '04/24/2013', 123, 'Day'),
-(47, '04/10/2013', '04/11/2013', 45, 'Day');
+(47, '04/10/2013', '04/11/2013', 45, 'Day'),
+(8, '04/08/2013', '04/10/2013', 30, 'Day'),
+(17, '04/10/2013', '04/12/2013', 34, 'Day'),
+(18, '04/10/2013', '04/12/2013', 34, 'Day'),
+(19, '04/09/2013', '04/10/2013', 123, 'Week'),
+(20, '04/08/2013', '04/11/2013', 1234, 'Day'),
+(36, '04/09/2013', '04/11/2013', 100, 'Day'),
+(38, '04/09/2013', '04/12/2013', 34, 'Month'),
+(43, '04/09/2013', '04/10/2013', 45, 'Day'),
+(45, '04/11/2013', '04/24/2013', 123, 'Day'),
+(47, '04/10/2013', '04/11/2013', 45, 'Day'),
+(8, '04/08/2013', '04/10/2013', 30, 'Day'),
+(17, '04/10/2013', '04/12/2013', 34, 'Day'),
+(18, '04/10/2013', '04/12/2013', 34, 'Day'),
+(19, '04/09/2013', '04/10/2013', 123, 'Week'),
+(20, '04/08/2013', '04/11/2013', 1234, 'Day'),
+(36, '04/09/2013', '04/11/2013', 100, 'Day'),
+(38, '04/09/2013', '04/12/2013', 34, 'Month'),
+(43, '04/09/2013', '04/10/2013', 45, 'Day'),
+(45, '04/11/2013', '04/24/2013', 123, 'Day'),
+(47, '04/10/2013', '04/11/2013', 45, 'Day'),
+(8, '04/08/2013', '04/10/2013', 30, 'Day'),
+(17, '04/10/2013', '04/12/2013', 34, 'Day'),
+(18, '04/10/2013', '04/12/2013', 34, 'Day'),
+(19, '04/09/2013', '04/10/2013', 123, 'Week'),
+(20, '04/08/2013', '04/11/2013', 1234, 'Day'),
+(36, '04/09/2013', '04/11/2013', 100, 'Day'),
+(38, '04/09/2013', '04/12/2013', 34, 'Month'),
+(43, '04/09/2013', '04/10/2013', 45, 'Day'),
+(45, '04/11/2013', '04/24/2013', 123, 'Day'),
+(47, '04/10/2013', '04/11/2013', 45, 'Day'),
+(62, '04/11/2013', '04/13/2013', 2400, 'Day'),
+(66, '04/10/2013', '04/11/2013', 25, 'Day'),
+(67, '04/11/2013', '04/13/2013', 1, 'Day');
 
 -- --------------------------------------------------------
 
@@ -244,38 +263,14 @@ CREATE TABLE IF NOT EXISTS `ssritem` (
 --
 
 INSERT INTO `ssritem` (`itemid`, `ssr`) VALUES
-(14, 'sell'),
-(14, 'swap'),
+(25, 'sell'),
+(25, 'swap'),
+(25, 'rent'),
 (15, 'sell'),
 (15, 'swap'),
 (15, 'rent'),
-(22, 'swap'),
-(22, 'rent'),
-(23, 'sell'),
-(23, 'rent'),
-(9, 'sell'),
-(9, 'swap'),
-(11, 'sell'),
-(11, 'rent'),
-(13, 'sell'),
-(13, 'swap'),
-(13, 'rent'),
-(16, 'sell'),
-(16, 'rent'),
-(17, 'sell'),
-(18, 'sell'),
-(18, 'swap'),
-(18, 'rent'),
-(20, 'sell'),
-(20, 'swap'),
-(20, 'rent'),
-(21, 'sell'),
-(21, 'swap'),
-(24, 'sell'),
-(24, 'swap'),
-(25, 'sell'),
-(25, 'swap'),
-(25, 'rent');
+(27, 'sell'),
+(28, 'sell');
 
 -- --------------------------------------------------------
 
@@ -295,10 +290,6 @@ CREATE TABLE IF NOT EXISTS `transaction` (
 -- Dumping data for table `transaction`
 --
 
-INSERT INTO `transaction` (`transactionid`, `status`, `startdate`, `enddate`) VALUES
-(44, 'started', '2013-04-09 00:50:06', NULL),
-(40, 'started', '2013-04-09 01:06:10', NULL),
-(49, 'started', '2013-04-09 10:41:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -317,6 +308,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `rating` float NOT NULL,
   `password` varchar(20) NOT NULL,
   `confirmed` int(1) NOT NULL,
+  `ratingno` int(11) DEFAULT '1',
+  `random` int(11) DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -324,16 +317,17 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`username`, `studentid`, `email`, `firstname`, `lastname`, `roomno`, `wing`, `rating`, `password`, `confirmed`) VALUES
-('abc', 201001199, 'vrp101@gmail.co.in', 'Vishrut', 'Patel', 117, 'A', 5, 'webmail', 0),
-('Arun', 201001111, 'arungupta@gmail.com', 'Arun ', 'GUpta', 110, 'A', 5, 'arungupta', 0),
-('saheb', 201001158, '201001158@daiict.ac.in', 'Saheb', 'Motiani', 123, 'A', 5, 'sahebrocks', 0),
-('shikhar', 201001103, 'gshikhri@gmail.com', 'shikhar', 'Gupta', 218, 'A', 5, 'qwerty', 0),
-('vedang', 200801135, 'vrp101@gmail.coms', 'V', 'P', 219, 'A', 5, 'abcdef', 0),
-('vi', 201001194, 'vrp101@gmail.co', 'Vishrut', 'Patel', 117, 'A', 5, 'aaaaaa', 0),
-('vish', 201001195, '201001193@daiict.ac.in', 'Vishrutk', 'l', 117, 'A', 5, 'abcdef', 0),
-('vishrut', 201001193, 'vrp101@gmail.com', 'Vishrut', 'Patel', 117, 'F', 5, 'aaaaaa', 1),
-('vishrutp', 201000000, 'vishrut103@gmail.com', 'Vishrut', 'Patel', 117, 'A', 5, 'abcdef', 0);
+INSERT INTO `users` (`username`, `studentid`, `email`, `firstname`, `lastname`, `roomno`, `wing`, `rating`, `password`, `confirmed`, `ratingno`, `random`) VALUES
+('abc', 201001199, 'vrp101@gmail.co.in', 'Vishrut', 'Patel', 117, 'A', 5, 'webmail', 0, 1, NULL),
+('aman', 201001231, '201001231@daiict.ac.in', 'Aman', 'Jain', 123, 'A', 5, 'amanjain', 1, 1, 13),
+('Arun', 201001111, 'arungupta@gmail.com', 'Arun ', 'GUpta', 110, 'A', 5, 'arungupta', 0, 1, NULL),
+('saheb', 201001158, '201001158@daiict.ac.in', 'Saheb', 'Motiani', 123, 'A', 3.58334, 'sahebrocks', 1, 12, NULL),
+('shikhar', 201001103, 'gshikhri@gmail.com', 'shikhar', 'Gupta', 218, 'A', 5, 'qwerty', 0, 1, NULL),
+('vedang', 200801135, 'vrp101@gmail.coms', 'V', 'P', 219, 'A', 5, 'abcdef', 0, 1, NULL),
+('vi', 201001194, 'vrp101@gmail.co', 'Vishrut', 'Patel', 117, 'A', 3.66667, 'aaaaaa', 0, 3, NULL),
+('vish', 201001010, '201001193@daiict.ac.in', 'Vishrut', 'Patel', 117, 'F', 4, 'aaaaaa', 1, 1, NULL),
+('vishrut', 201001193, 'vrp101@gmail.com', 'Vishrut', 'Patel', 117, 'F', 5, 'aaaaaa', 1, 1, NULL),
+('vishrutp', 201000000, 'vishrut103@gmail.com', 'Vishrut', 'Patel', 117, 'A', 5, 'abcdef', 0, 1, NULL);
 
 -- --------------------------------------------------------
 

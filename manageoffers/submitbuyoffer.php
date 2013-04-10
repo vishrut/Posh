@@ -14,6 +14,7 @@ require_once '../dbconnect.php';
 $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_POST['sellingitem']);
 
 if(isset($_POST['buyoffer'])){
+
 	DB::insert('offerdetails', array(
 	  'buyer' => $_SESSION['username'],
 	  'seller' => $item['owner'],
@@ -21,12 +22,13 @@ if(isset($_POST['buyoffer'])){
 	  'sellingitem' => $item['itemid'],
 	  'cash'  => $_POST['amount']
 	));
+
+	$id = DB::insertId();
+	header("location:../addnotification.php?type=madeoffer&offerid=$id");
 }
 
 else
-	print_r($_POST);
-
-header("location:listoffersbyme.php");
+	header("location:listoffersbyme.php");
 
 
 ?>
