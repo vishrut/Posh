@@ -75,7 +75,7 @@ foreach($items as $item){
      DB::query("UPDATE users SET random = %d WHERE studentid=%s",$random ,$mystudentid);
 $username = $item['username'];
 $password = $item['password'];
-$link = 'http://localhost/posh/validate.php?q='.$username.'&v='.$random ;
+$link = 'http://posh.azurewebsites.net/validate.php?q='.$username.'&v='.$random ;
 require("../PHPMailer_5.2.1/class.phpmailer.php"); // path to the PHPMailer class
  
           $mail = new PHPMailer();  
