@@ -1,17 +1,14 @@
 <?php
+//Database=poshdb;Data Source=ap-cdbr-azure-east-a.cloudapp.net;User Id=b70d55a676a5fc;Password=7bea5405
+
 	require_once 'meekrodb.2.1.class.php';
-	/*
-	DB::$host = 'ap-cdbr-azure-east-a.cloudapp.net';
-	DB::$user = 'b8357f36e71242';
-	DB::$password = 'ce7c4d24';
-	DB::$dbName = 'posh';
-	*/
+
 	
 	//cosmo, simplex, cerulean, spacelab
 	
-	DB::$host = 'localhost';
-	DB::$user = 'root';
-	DB::$password = 'root';
+	DB::$host = 'ap-cdbr-azure-east-a.cloudapp.net';
+	DB::$user = 'b70d55a676a5fc';
+	DB::$password = '7bea5405';
 	DB::$dbName = 'poshdb';
 
 	/* 
