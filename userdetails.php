@@ -9,6 +9,10 @@ if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
 	header("location:index.php");
 }
+
+if(isset($_SESSION['firsttime']))
+unset($_SESSION['firsttime']);
+
 require_once 'dbconnect.php';
 
 $items = DB::query("SELECT * FROM users WHERE username=%s",$_SESSION['username']);

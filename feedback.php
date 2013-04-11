@@ -7,7 +7,7 @@ session_set_cookie_params(0);
 session_start();
 if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
-	header("location:index.php");
+	header("location:../index.php");
 }
 
 ?>
@@ -66,18 +66,19 @@ if (!isset($_SESSION['username'])){
 				<ul class="nav nav-list bs-docs-sidenav">
 					
 					<li ><a href="helpcenter.php"><i class="icon-chevron-right"></i>FAQs</a></li>
-                    <li class="active"><a href="#"><i class="icon-chevron-right"></i>Report Abuse</a></li>
-                    <li><a href="feedback.php"><i class="icon-chevron-right"></i>Give Feedback</a></li>
+                    <li ><a href="reportabuse.php"><i class="icon-chevron-right"></i>Report Abuse</a></li>
+                    <li class="active"><a href="feedback.php"><i class="icon-chevron-right"></i>Give Feedback</a></li>
                     <li ><a href="contactus.php"><i class="icon-chevron-right"></i>Contact us</a></li>
+
 
 				</ul>
 			</div>
         	<div class="span9">
-			<form name="reportabuse" class="form-horizontal" action="report.php" method="post">
-				Username to be reported: <input type="text" name="firstname"><br> <br> 
-				Complaint:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<textarea rows="4" cols="50" name="complain">
+			<form name="feedback" class="form-horizontal" action="submitfb.php" method="post">
+				 
+				Feedback:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<textarea rows="4" cols="50" name="feedback">
 			</textarea><br><br><div class="span2"></div>
-						<button class="btn btn-primary" type="submit" id="changepassworddetails" >Save Changes</button>
+						<button class="btn btn-primary" type="submit" id="changepassworddetails" >Submit Feedback</button>
 
 			</form>
  

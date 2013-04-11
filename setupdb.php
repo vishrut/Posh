@@ -1,7 +1,7 @@
 ﻿<?php
 //Database=poshdb;Data Source=ap-cdbr-azure-east-a.cloudapp.net;User Id=b70d55a676a5fc;Password=7bea5405
 	$location = "poshdb.sql";
-	$con = mysql_connect("ap-cdbr-azure-east-a.cloudapp.net","b70d55a676a5fc","7bea5405");
+	$con = mysql_connect("localhost","root","root");
 	
 	if (!$con){
 		die('Could not connect: ' . mysql_error());

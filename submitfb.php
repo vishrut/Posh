@@ -10,17 +10,15 @@ if (!isset($_SESSION['username'])){
 	header("location:index.php");
 }
 
-$reporter = $_SESSION['username'];
-$abuser = $_POST['firstname'];
-$details = $_POST['complain'];
+$username = $_SESSION['username'];
+$feedback = $_POST['feedback'];
 require_once 'dbconnect.php';
-DB::insert('reportabuse', array(
-  'reporter' => $reporter,
-  'abuser' => $abuser,
-  'details' => $details
+DB::insert('feedback', array(
+  'username' => $username,
+  'feedback' => $feedback,
 ));
 
-header("location:reportabuse.php");
+header("location:feedback.php");
 
 ?>
  

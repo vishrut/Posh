@@ -85,9 +85,16 @@ if (!isset($_SESSION['username'])){
 							<label class="control-label" for="inputCategory">Category</label>
 							<div class="controls">
 							<select name="category" required id="inputCategory">
-								<option>A</option>
-								<option>B</option>
-								<option>C</option>
+								<option>Apparels</option>
+								<option>Electronics</option>
+								<option>Daily-Needs</option>
+								<option>Healthcare</option>
+								<option>Entertainment</option>
+								<option>Sports</option>
+								<option>Books</option>
+								<option>Services</option>
+								<option>Miscellaneous</option>
+								
 							</select>
 							<span class="help-inline" id="categoryhelp"></span>
 							</div>
@@ -99,7 +106,7 @@ if (!isset($_SESSION['username'])){
 								<span class="add-on">Rs</span>
 								<input class="span1" id="inputPricetag" required name="pricetag" type="text" placeholder="">
 							</div>
-							<span class="help-inline" id="pricetaghelp"></span>
+							<span class="help-inline" id="pricetaghelp"><p class="text-success">If you had to place a monetary value on your item, what would it be?</p></span>
 							</div>
 						</div>
 						<div class="control-group" id="descriptiongroup">
@@ -136,7 +143,7 @@ if (!isset($_SESSION['username'])){
 							<span class="help-inline" id="conditionhelp"></span>
 							</div>
 						</div>
-						<div class="control-group" id="ssrgroup">
+						<div class="control-group" id="ssrgroup" required>
 							<label class="control-label" for="inputSSR">Put item up for</label>
 							<div class="controls">
 								<label class="checkbox">
@@ -165,7 +172,7 @@ if (!isset($_SESSION['username'])){
 								<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 								</div>
 							</div>
-							<span class="help-inline" id="imagehelp"></span>
+							<span class="help-inline" id="imagehelp"><p class="text-success">Optional</p></span>
 							</div>
 						</div>
 						 <div class="control-group">

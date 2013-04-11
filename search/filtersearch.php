@@ -150,12 +150,37 @@ echo '$("#All").click()';
 					<!--The id of the radio buttons beow must be the same as the category button group text-->
 					<input type="radio" id="All" name="checkcategory" onclick="document.cform.submit ();" value="All"> All Categories
 					</label>
+					
 					<label class="radio">
-					<input type="radio" id="A" name="checkcategory" onclick="document.cform.submit ();" value="A"> A
+					<input type="radio" id="Apparels" name="checkcategory" onclick="document.cform.submit ();" value="Apparels"> Apparels
 					</label>
 					<label class="radio">
-					<input type="radio" id="B" name="checkcategory" onclick="document.cform.submit ();" value="B"> B
+					<input type="radio" id="Electronics" name="checkcategory" onclick="document.cform.submit ();" value="Electronics"> Electronics
 					</label>
+					<label class="radio">
+					<input type="radio" id="Daily-Needs" name="checkcategory" onclick="document.cform.submit ();" value="Daily-Needs"> Daily-Needs
+					</label>
+					<label class="radio">
+					<input type="radio" id="Healthcare" name="checkcategory" onclick="document.cform.submit ();" value="Healthcare"> Healthcare
+					</label>
+					<label class="radio">
+					<input type="radio" id="Entertainment" name="checkcategory" onclick="document.cform.submit ();" value="Entertainment"> Entertainment
+					</label>
+					<label class="radio">
+					<input type="radio" id="Sports" name="checkcategory" onclick="document.cform.submit ();" value="Sports"> Sports
+					</label>
+					<label class="radio">
+					<input type="radio" id="Books" name="checkcategory" onclick="document.cform.submit ();" value="Books"> Books
+					</label>
+					<label class="radio">
+					<input type="radio" id="Services" name="checkcategory" onclick="document.cform.submit ();" value="Services"> Services
+					</label>
+					<label class="radio">
+					<input type="radio" id="Miscellaneous" name="checkcategory" onclick="document.cform.submit ();" value="Miscellaneous"> Miscellaneous
+					</label>
+					
+					
+
 				</div>
 			</div>
 			
@@ -233,8 +258,18 @@ echo '$("#All").click()';
 					<ul class="dropdown-menu">
 						<!--The text of the below categories and the id of the category radio buttons must be the same, except for 'All Categories' -->
 						<li><a href="#" onclick="setCategory(this.text);return false;">All Categories</a></li>
-						<li><a href="#" onclick="setCategory(this.text);return false;">A</a></li>
-						<li><a href="#" onclick="setCategory(this.text);return false;">B</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Apparels</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Electronics</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Daily-Needs</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Healthcare</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Entertainment</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Sports</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Books</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Services</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Miscellaneous</a></li>
+
+
+
 					</ul>
 					</div>
 						

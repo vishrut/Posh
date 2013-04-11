@@ -33,7 +33,14 @@
 		$_SESSION['username'] = $myusername;
 		$_SESSION['loginfailed'] = 0;
 		echo $_SESSION['username'];
+		$result = DB::query("SELECT * FROM notifications WHERE username=%s and viewed=0", $myusername);
+		$counter = DB::count();
+		if($counter==0)
 		header("location:../search/searchhome.php");
+		else
+					header("location:../viewnotifications.php");
+
+
 	}
 	else {
 		$_SESSION['loginfailed'] = 1;

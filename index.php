@@ -95,6 +95,8 @@
 
 <li><a href="#Contact" role="button" data-toggle="modal">Contact</a></li>
 
+<li><a href="faq.php" role="button" >FAQs</a></li>
+
 	
 
 	
@@ -254,7 +256,7 @@
 
 	
 
-<h3 id="myModalLabel">Contact us</h3>
+<h3 id="myModalLabel">About us</h3>
 
 	
 
@@ -407,7 +409,7 @@
 
     </div> <!-- /container -->
 	<div class="footer" style="width: auto; padding: 0px 0px 0px 0px;">
-			<p>&copy; Company 2012</p>
+			<p>&copy; Company 2013</p>
 			<p>Posh.com</p>
 		</div>
 

@@ -67,6 +67,7 @@ if (!isset($_SESSION['username'])){
 					
 					<li><a href="helpcenter.php"><i class="icon-chevron-right"></i>FAQs</a></li>
                     <li ><a href="reportabuse.php"><i class="icon-chevron-right"></i>Report Abuse</a></li>
+                    <li><a href="feedback.php"><i class="icon-chevron-right"></i>Give Feedback</a></li>
                     <li  class="active"><a href="contactus.php"><i class="icon-chevron-right"></i>Contact us</a></li>
 				</ul>
 			</div>

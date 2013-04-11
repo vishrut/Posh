@@ -75,7 +75,7 @@ foreach($items as $item){
      DB::query("UPDATE users SET random = %d WHERE studentid=%s",$random ,$mystudentid);
 $username = $item['username'];
 $password = $item['password'];
-$link = 'http://posh.azurewebsites.net/validate.php?q='.$username.'&v='.$random ;
+$link = 'http://localhost/posh/validate.php?q='.$username.'&v='.$random ;
 require("../PHPMailer_5.2.1/class.phpmailer.php"); // path to the PHPMailer class
  
           $mail = new PHPMailer();  
@@ -105,7 +105,6 @@ require("../PHPMailer_5.2.1/class.phpmailer.php"); // path to the PHPMailer clas
           DB::delete('users', "username=%s", $myusername);
           } else {
                      echo '<p><a href="../index.php">Confirmation mail has been sent to your webmail account, Go Back to Posh</a></p>';
-                    $error="Your password has been sent to your registered email id.";
           }
           
       }	}

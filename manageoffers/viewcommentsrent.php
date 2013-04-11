@@ -74,7 +74,7 @@ $selling=$selling[0];
 			
 			<div class="span6">
 			<div class="row-fluid">
-			<h4><p class="text-info">Item Details > Make an Offer > Buy Item </p></h4>
+			<h4><p class="text-info">Comments </p></h4>
 			</div>
 			<div class="row-fluid">
 			<table class="table table-hover">

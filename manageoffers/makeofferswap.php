@@ -71,7 +71,7 @@ $itemcount=0;
 			
 			<div class="span6">
 			<div class="row-fluid">
-			<h4><p class="text-info">Item Details > Make an Offer > Buy Item </p></h4>
+			<h4><p class="text-info">Item Details > Make an Offer > Swap Item </p></h4>
 			</div>
 			<hr>
 			

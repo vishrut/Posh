@@ -10,6 +10,9 @@ if (!isset($_SESSION['username'])){
 	header("location:../index.php");
 }
 
+if(isset($_SESSION['firsttime']))
+unset($_SESSION['firsttime']);
+
 $targetitemid=0;
 require_once("../dbconnect.php");
 
@@ -96,7 +99,7 @@ foreach ($transactions as $transaction) {
 				echo '<img src="../upload/'.$item['image'].'" alt="">';
 				echo '<div class="caption">';
 				echo '<h3>'.$item['itemname'].'</h3>';
-				echo '<p>'.$item['description'].'</p>';
+				echo '<p>'.substr($item['description'],0,20)."...".'</p>';
 				if(!in_array($item['itemid'], $involved)){
 				echo '<p><a href="edititem.php?q='.$item['itemid'].'"> <button class="btn btn-primary">Edit Item</button></a> '; 
 				echo '<button onclick="showConfirmation('.$item['itemid'].')" class="btn btn-danger">Delete Item</button></p>';

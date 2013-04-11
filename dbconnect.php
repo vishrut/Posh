@@ -6,9 +6,9 @@
 	
 	//cosmo, simplex, cerulean, spacelab
 	
-	DB::$host = 'ap-cdbr-azure-east-a.cloudapp.net';
-	DB::$user = 'b70d55a676a5fc';
-	DB::$password = '7bea5405';
+	DB::$host = 'localhost';
+	DB::$user = 'root';
+	DB::$password = 'root';
 	DB::$dbName = 'poshdb';
 
 	/* 

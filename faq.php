@@ -5,10 +5,7 @@
 
 session_set_cookie_params(0);
 session_start();
-if (!isset($_SESSION['username'])){
-	$_SESSION['loginfailed'] = 1;
-	header("location:index.php");
-}
+
 
 if(isset($_SESSION['firsttime']))
 unset($_SESSION['firsttime']);
@@ -48,30 +45,15 @@ unset($_SESSION['firsttime']);
 
 	<body>
 	
-		<div class="navbar navbar-fixed-top">
-			<div class="navbar-inner">
-				<div class="container" style="width: auto; padding: 0 20px;">
-					<a class="brand" href="#">Posh</a>
-					<ul class="nav pull-right">
-						<li><a href="search/searchhome.php">Search</a></li>
-						<li><a href="manageoffers/listoffersbyme.php">Offers & Transactions</a></li>
-						<li><a href="inventory/viewitems.php">Sell/Edit Item</a></li>
-						<li class="active"><a href="helpcenter.php">Help Center</a></li>
-						<li ><a href="userdetails.php">My Account</a></li>
-						<li><a href="login/logout.php">Log Out</a></li>
-					</ul>
-				</div>
-			</div>	
-		</div>
+		
         <div class="container" style="width: auto; padding: 20px 0px 0px 0px;">
 			<div class="span3 bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
 					
 					<li class="active"><a href="#"><i class="icon-chevron-right"></i>FAQs</a></li>
-                    <li ><a href="reportabuse.php"><i class="icon-chevron-right"></i>Report Abuse</a></li>
-                    <li ><a href="feedback.php"><i class="icon-chevron-right"></i>Give Feedback</a></li>
-                    <li ><a href="contactus.php"><i class="icon-chevron-right"></i>Contact us</a></li>
-				</ul>
+					<li ><a href="index.php"><i class="icon-chevron-right"></i>Login</a></li>
+
+                   </ul>
 			</div>
         	<div class="span9">
 			<h1>FAQs</h1          

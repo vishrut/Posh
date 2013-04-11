@@ -14,10 +14,17 @@ require_once '../dbconnect.php';
 $allowedExts = array("gif", "jpeg", "jpg", "png");
 
 $extension = end(explode(".", $_FILES["file"]["name"]));
+$filename = $_FILES["file"]["name"];
+if($filename==''){
+	$filename="noimage.gif";
+}
+
+else{
 
 $randomprefix1 = mt_rand(0,1000);
 $randomprefix2 = mt_rand(0,1000);
 $filename = $randomprefix1.$randomprefix2.$_FILES["file"]["name"];
+
 
 if ((($_FILES["file"]["type"] == "image/gif")
 	|| ($_FILES["file"]["type"] == "image/jpeg")
@@ -49,7 +56,7 @@ else{
 	$_SESSION['invalidfile'] = 1;
 	header("location:sellitem.php");
 }
-
+}
 $tbl_name="inventory";
 	
 DB::insert($tbl_name, array(
@@ -62,7 +69,9 @@ DB::insert($tbl_name, array(
 		'image' => $filename
 ));
 
-$itemdetails = DB::queryFirstRow("SELECT * FROM $tbl_name WHERE image=%s", $filename);
+$id=DB::insertID();
+$itemdetails = DB::query("SELECT * FROM inventory WHERE itemid=%i", $id);
+$itemdetails = $itemdetails[0];
 
 $tbl_name="ssritem";
 

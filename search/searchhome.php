@@ -9,6 +9,8 @@ if (!isset($_SESSION['username'])){
 	$_SESSION['loginfailed'] = 1;
 	header("location:../index.php");
 }
+if(isset($_SESSION['firsttime']))
+unset($_SESSION['firsttime']);
 
 ?>
 
@@ -70,8 +72,16 @@ if (!isset($_SESSION['username'])){
 			<div class="bs-docs-sidebar">
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li class="header"><i class="icon-chevron-down"></i>All Categories</li>
-					<li ><a href="filtersearch.php?query=&checkcategory=A"><i class="icon-chevron-right"></i>Category A</a></li>
-					<li ><a href="filtersearch.php?query=&checkcategory=B"><i class="icon-chevron-right"></i>Category B</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Apparels"><i class="icon-chevron-right"></i>Apparels</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Electronics"><i class="icon-chevron-right"></i>Electronics</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Daily-Needs"><i class="icon-chevron-right"></i>Daily-Needs</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Healthcare"><i class="icon-chevron-right"></i>Healthcare</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Entertainment"><i class="icon-chevron-right"></i>Entertainment</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Sports"><i class="icon-chevron-right"></i>Sports</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Books"><i class="icon-chevron-right"></i>Books</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Services"><i class="icon-chevron-right"></i>Services</a></li>
+					<li ><a href="filtersearch.php?query=&checkcategory=Miscellaneous"><i class="icon-chevron-right"></i>Miscellaneous</a></li>
+
 				</ul>
 			</div>
 			</div>
@@ -88,10 +98,16 @@ if (!isset($_SESSION['username'])){
 					<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
-											<li><a href="#" onclick="setCategory(this.text);return false;">All Categories</a></li>
-
-						<li><a href="#" onclick="setCategory(this.text);return false;">A</a></li>
-						<li><a href="#" onclick="setCategory(this.text);return false;">B</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">All Categories</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Apparels</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Electronics</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Daily-Needs</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Healthcare</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Entertainment</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Sports</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Books</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Services</a></li>
+						<li><a href="#" onclick="setCategory(this.text);return false;">Miscellaneous</a></li>
 					</ul>
 					</div>
 						

@@ -66,7 +66,7 @@ $item = DB::queryFirstRow("SELECT * FROM inventory WHERE itemid=%s", $_GET['item
 			
 			<div class="span6">
 			<div class="row-fluid">
-			<h4><p class="text-info">Item Details > Make an Offer > Buy Item </p></h4>
+			<h4><p class="text-info">Item Details > Make an Offer > Rent Item </p></h4>
 			</div>
 			<hr>
 			

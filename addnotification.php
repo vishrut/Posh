@@ -79,7 +79,7 @@ if($_GET['type']=='acceptoffer'){
   'username' => $offerdetails['seller']
 ));
 	//header("location:viewnotifications.php");
-	header("location:manageoffers/listoffersforme.php");
+	header("location:viewnotifications.php");
 }
 
 if($_GET['type']=='rejectoffer'){

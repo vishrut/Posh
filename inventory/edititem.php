@@ -134,9 +134,15 @@ else{
 							<label class="control-label" for="inputCategory">Category</label>
 							<div class="controls">
 							<select name="category" required id="inputCategory">
-								<option>A</option>
-								<option>B</option>
-								<option>C</option>
+								<option>Apparels</option>
+								<option>Electronics</option>
+								<option>Daily-Needs</option>
+								<option>Healthcare</option>
+								<option>Entertainment</option>
+								<option>Sports</option>
+								<option>Books</option>
+								<option>Services</option>
+								<option>Miscellaneous</option>
 							</select>
 							<span class="help-inline" id="categoryhelp"></span>
 							</div>

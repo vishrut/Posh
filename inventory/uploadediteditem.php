@@ -69,7 +69,8 @@ DB::update($tbl_name, array(
 		'image' => $filename
 ), "itemid=%s", $_POST['itemid']);
 
-$itemdetails = DB::queryFirstRow("SELECT * FROM $tbl_name WHERE image=%s", $filename);
+$itemdetails = DB::query("SELECT * FROM $tbl_name WHERE itemid=%i", $id);
+$itemdetails = $itemdetails[0];
 
 $tbl_name="ssritem";
 DB::delete('ssritem', "itemid=%i", $itemdetails['itemid']);
